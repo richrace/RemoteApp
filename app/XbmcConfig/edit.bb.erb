@@ -1,0 +1,49 @@
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <%= link_to "Back", :action => :show, :id => @xbmc_config.object %>
+    <h1>Edit <%= @xbmc_config.name%></h1>
+    <%= link_to "Delete", :action => :delete, :id => @xbmc_config.object %>
+  </div>
+
+  <div data-role="content">
+    <form method="POST" action="<%= url_for :action => :update %>">
+      <input type="hidden" name="id" value="<%= @xbmc_config.object %>"/>
+      <table>
+          
+          <tr>
+              <td class="itemLabel">Name: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[name]" value="<%= @xbmc_config.name %>"/></td>
+          </tr>
+          
+          <tr>
+              <td class="itemLabel">Url: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[url]" value="<%= @xbmc_config.url %>"/></td>
+          </tr>
+          
+          <tr>
+              <td class="itemLabel">Port: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[port]" value="<%= @xbmc_config.port %>"/></td>
+          </tr>
+          
+          <tr>
+              <td class="itemLabel">Usrname: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[usrname]" value="<%= @xbmc_config.usrname %>"/></td>
+          </tr>
+          
+          <tr>
+              <td class="itemLabel">Pass: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[pass]" value="<%= @xbmc_config.pass %>"/></td>
+          </tr>
+          
+          <tr>
+              <td class="itemLabel">Active: </td>
+              <td class="itemValue"><input type="text" name="xbmc_config[active]" value="<%= @xbmc_config.active %>"/></td>
+          </tr>
+          
+      </table>
+      <input type="submit" value="Update"/>
+    </form>
+  </div>
+
+</div>

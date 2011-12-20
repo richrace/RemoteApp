@@ -50,6 +50,7 @@
         </script>
         <script type="text/javascript" charset="utf-8" src="/public/jqmobile/jquery.mobile-1.0rc1.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="/public/js/jqmobile-patch.js"></script>
+				<script type="text/javascript" charset="utf-8" 	src="/public/js/application.js"></script>
 
     <% end %>
 
@@ -77,7 +78,7 @@
 <% elsif System::get_property('platform') == 'WP7' %>
 	onload="wp7_change_forms_action_to_get()"
 <% end %>
-	>
+>
     <%= @content %>
 </body>
 

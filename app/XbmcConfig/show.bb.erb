@@ -1,0 +1,45 @@
+<div data-role="page" data-add-back-btn="true">
+
+  <div data-role="header" data-position="inline">
+    <%= link_to "Back", :action => :index %>
+    <h1><%= @xbmc_config.name %></h1>
+    <%= link_to "Edit", :action => :edit, :id => @xbmc_config.object %>
+  </div>
+
+  <div data-role="content">
+    <table>
+      
+      <tr>
+    	<td class="itemLabel">Name</td>
+        <td class="itemValue"><%= @xbmc_config.name%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Url</td>
+        <td class="itemValue"><%= @xbmc_config.url%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Port</td>
+        <td class="itemValue"><%= @xbmc_config.port%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Usrname</td>
+        <td class="itemValue"><%= @xbmc_config.usrname%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Pass</td>
+        <td class="itemValue"><%= @xbmc_config.pass%></td>
+      </tr>
+      
+      <tr>
+    	<td class="itemLabel">Active</td>
+        <td class="itemValue"><%= @xbmc_config.active%></td>
+      </tr>
+      
+    </table>
+  </div>
+
+</div>

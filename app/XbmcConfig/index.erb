@@ -1,0 +1,26 @@
+<div data-role="page">
+
+	<div data-role="header" data-position="inline">
+    <h1>XbmcConfigs</h1>
+    <a href="<%= url_for :controller => :Controls %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      Back
+    </a>
+    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">
+      New
+    </a>
+	</div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <% @xbmc_configs.each do |xbmc_config| %>
+      
+          <li>
+            <a href="<%= url_for :action => :show, :id => xbmc_config.object %>">
+              <%= xbmc_config.name %>
+            </a>
+          </li>
+      
+      <% end %>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div data-role="page">
+
+	<div data-role="header" data-position="inline">
+    <h1>Pinging...</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      Home
+    </a>
+	</div>
+
+  <div data-role="content">
+    <br/><%=link_to "Cancel", :action => :cancel_httpcall%><br/>
+	</div>
+
+</div>
