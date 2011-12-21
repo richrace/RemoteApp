@@ -2,10 +2,10 @@
 
   <div data-role="header" data-position="inline">
     <h1>Edit <%= @xbmc_config.name %></h1>
-    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-direction="reverse">
+    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-direction="reverse" data-icon="back">
       Cancel
     </a>
-    <a href="<%= url_for :action => :delete, :id => @xbmc_config.object %>" class="ui-btn-right" data-icon="delete" data-direction="reverse">
+    <a href="<%= url_for :action => :delete, :id => @xbmc_config.object %>" class="ui-btn-right" data-iconpos="right" data-icon="delete" data-direction="reverse" data-theme="e">
       Delete
     </a>
   </div>
@@ -51,7 +51,10 @@
       
           <div data-role="fieldcontain">
             <label for="xbmc_config[active]" class="fieldLabel">Active</label>
-            <input type="text" id="xbmc_config[active]" name="xbmc_config[active]" value="<%= @xbmc_config.active %>" <%= placeholder( "Active" ) %> />
+						<select name="xbmc_config[active]" id="xbmc_config[active]" data-role="slider" data-theme="a">
+							<option <%= "selected" if @xbmc_config.is_active? %> value="false">No</option>
+							<option  <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
+						</select>
           </div>
       
       <input type="submit" value="Update"/>
