@@ -2,7 +2,7 @@
 
 	<div data-role="header" data-position="inline">
     <h1>Controls</h1>
-    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right">
+    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear">
       Settings
     </a>
 	</div>
@@ -10,4 +10,16 @@
   <div data-role="content">
     Test
   </div>
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar" data-iconpos="bottom">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" class="ui-btn-active ui-state-persist" style="font-size: 10px">Controls</a></li>
+				<li><a href="#" id="movies" style="font-size: 10px">Movies</a></li>
+				<li><a href="#" id="shows" style="font-size: 10px">TV Shows</a></li>
+				<li><a href="#" id="playlist" style="font-size: 10px">Playlist</a></li>
+				<li><a href="#" id="more" style="font-size: 10px">More</a></li>
+			</ul>
+		</div>
+	</div>	
 </div>
