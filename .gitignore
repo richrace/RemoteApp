@@ -5,3 +5,6 @@ sim-*
 
 # build output
 bin/
+
+# General Files to ignore
+*.DS_Store
