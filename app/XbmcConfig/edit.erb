@@ -2,7 +2,7 @@
 
   <div data-role="header" data-position="inline">
     <h1>Edit <%= @xbmc_config.name %></h1>
-    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-direction="reverse">
       Cancel
     </a>
     <a href="<%= url_for :action => :delete, :id => @xbmc_config.object %>" class="ui-btn-right" data-icon="delete" data-direction="reverse">
@@ -46,7 +46,7 @@
       
           <div data-role="fieldcontain">
             <label for="xbmc_config[pass]" class="fieldLabel">Pass</label>
-            <input type="text" id="xbmc_config[pass]" name="xbmc_config[password]" value="<%= @xbmc_config.password %>" <%= placeholder( "Password" ) %> />
+            <input type="password" id="xbmc_config[pass]" name="xbmc_config[password]" value="<%= @xbmc_config.password %>" <%= placeholder( "Password" ) %> />
           </div>
       
           <div data-role="fieldcontain">
