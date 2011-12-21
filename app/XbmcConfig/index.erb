@@ -1,11 +1,11 @@
 <div data-role="page">
 
-	<div data-role="header" data-position="inline">
+	<div data-role="header" data-position="inline" data-theme="a">
     <h1>XbmcConfigs</h1>
-    <a href="<%= url_for :controller => :Controls %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+    <a href="<%= url_for :controller => :Controls %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" data-theme="a" <%= "data-ajax='false'" if is_bb6 %>>
       Back
     </a>
-    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">
+    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus" data-theme="b">
       New
     </a>
 	</div>
