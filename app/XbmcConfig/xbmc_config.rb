@@ -27,4 +27,12 @@ class XbmcConfig
   property :usrname, :string
   property :password, :string
   property :active, :boolean    
+  
+  def is_active?
+    if self.active == "true"
+     return true
+    else
+      return false
+    end 
+  end
 end
