@@ -134,7 +134,8 @@ h1 {
 }
 
 .content {
-    background: url('/public/images/pinstripes.png');
+    /*background: url('/public/images/pinstripes.png'); */
+	background-color: 7F7F7F;
     min-height: 480px;
 }
 
@@ -181,7 +182,7 @@ h1 {
 
 .content ul {
     border-top: 1px solid #848284;
-    background-color: white;
+    background-color: 7F7F7F;
     margin-bottom: 50px;
 }
 
@@ -262,7 +263,7 @@ h1 {
 
 .content form ul {
     -webkit-border-radius: 8px;
-    background-color: white;
+    background-color: 7F7F7F;
     border: 1px solid #878787;
     display: block;
     font-size: 16px;
@@ -840,7 +841,8 @@ div.itemValue {
 
 .ui-content {
     min-height: 480px;
-    background-image: url(../images/pinstripes.png);
+    /* background-image: url(../images/pinstripes.png); */
+	background-color: 7F7F7F;
 }
 
 .ui-header .ui-title {
