@@ -8,15 +8,13 @@ class XbmcConfigController < Rho::RhoController
   # GET /XbmcConfig
   def index
     @xbmc_configs = XbmcConfig.find(:all)
-    puts "#{@current_xbmc}"
-    render :back => '/app'
   end
 
   # GET /XbmcConfig/{1}
   def show
     @xbmc_config = XbmcConfig.find(@params['id'])
     if @xbmc_config
-      render :action => :show, :back => url_for(:action => :index)
+      render :action => :show
     else
       redirect :action => :index
     end
@@ -25,7 +23,7 @@ class XbmcConfigController < Rho::RhoController
   # GET /XbmcConfig/new
   def new
     @xbmc_config = XbmcConfig.new
-    render :action => :new, :back => url_for(:action => :index)
+    render :action => :new
   end
 
   # GET /XbmcConfig/{1}/edit
@@ -35,7 +33,7 @@ class XbmcConfigController < Rho::RhoController
       @errors = @params['errors']
     end
     if @xbmc_config
-      render :action => :edit, :back => url_for(:action => :index)
+      render :action => :edit
     else
       redirect :action => :index
     end
@@ -60,7 +58,7 @@ class XbmcConfigController < Rho::RhoController
       render :action => :wait     
     else
       @errors = @xbmc_config.errors.to_json
-      render :action => :new, :back => url_for(:action => :index)
+      render :action => :new
     end
   end
 
@@ -110,6 +108,6 @@ class XbmcConfigController < Rho::RhoController
   
   def cancel_httpcall
     Rho::AsyncHttp.cancel( url_for( :action => :ping_handle) )
-    render :action => :index, :back => url_for(:action => :index)
+    render :action => :index
   end
 end
