@@ -4,7 +4,7 @@ class XbmcConfig
   include Rhom::FixedSchema
   include Validatable
   
-  validates_presence_of :name, :message => "You need to add a unique Name"
+  validates_presence_of :name, :message => "You need to add a Name"
   validates_presence_of :url, :message => "You must include a URL (can be IP or hostname)"
   validates_presence_of :port, :message => "You need to include a port number"
   validates_presence_of :usrname, :message => "You need to include your XBMC username"
