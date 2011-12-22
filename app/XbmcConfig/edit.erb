@@ -1,6 +1,6 @@
 <div data-role="page">
 
-  <div data-role="header" data-position="inline">
+  <div data-role="header" data-position="fixed">
     <h1>Edit <%= @xbmc_config.name %></h1>
     <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-direction="reverse" data-icon="back">
       Cancel
@@ -22,42 +22,46 @@
 		      	mark_errors("#edit_config", <%=  @errors %>);        
 		    	});
 		    </script>
-		  <% end %>
+		<% end %>
 		
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[name]" class="fieldLabel">Name</label>
-            <input type="text" id="xbmc_config[name]" name="xbmc_config[name]" value="<%= @xbmc_config.name %>" <%= placeholder( "Name" ) %> />
-          </div>
-      
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[url]" class="fieldLabel">Url</label>
-            <input type="text" id="xbmc_config[url]" name="xbmc_config[url]" value="<%= @xbmc_config.url %>" <%= placeholder( "Url" ) %> />
-          </div>
-      
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[port]" class="fieldLabel">Port</label>
-            <input type="text" id="xbmc_config[port]" name="xbmc_config[port]" value="<%= @xbmc_config.port %>" <%= placeholder( "Port" ) %> />
-          </div>
-      
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[usrname]" class="fieldLabel">Usrname</label>
+		<ul data-role="listview">
+         <li>
+            <label for="xbmc_config[name]"><strong>Name:</strong></label>
+            <input type="text" id="xbmc_config[name]" name="xbmc_config[name]" 	value="<%= @xbmc_config.name %>" <%= placeholder( "Name" ) %> />
+				</li>
+
+      	<li>	
+            <label for="xbmc_config[url]"><strong>URL:</strong></label>
+            <input type="text" id="xbmc_config[url]" name="xbmc_config[url]" value="<%= @xbmc_config.url %>" <%= placeholder( "localhost" ) %> />
+      	</li>
+				
+				<li>
+            <label for="xbmc_config[port]"><strong>Port:</strong></label>
+            <input type="text" id="xbmc_config[port]" name="xbmc_config[port]" value="<%= @xbmc_config.port %>" <%= placeholder( "8080" ) %> />
+      	</li>
+
+				<li>
+            <label for="xbmc_config[usrname]"><strong>Username:</strong></label>
             <input type="text" id="xbmc_config[usrname]" name="xbmc_config[usrname]" value="<%= @xbmc_config.usrname %>" <%= placeholder( "Username" ) %> />
-          </div>
-      
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[pass]" class="fieldLabel">Pass</label>
+      	</li>
+
+				<li>
+            <label for="xbmc_config[pass]"><strong>Password:</strong></label>
             <input type="password" id="xbmc_config[pass]" name="xbmc_config[password]" value="<%= @xbmc_config.password %>" <%= placeholder( "Password" ) %> />
-          </div>
-      
-          <div data-role="fieldcontain">
-            <label for="xbmc_config[active]" class="fieldLabel">Active</label>
+      	</li>
+
+				<li>
+            <label for="xbmc_config[active]"><strong>Active:</strong></label>
 						<select name="xbmc_config[active]" id="xbmc_config[active]" data-role="slider" data-theme="a">
 							<option <%= "selected" if @xbmc_config.is_active? %> value="false">No</option>
 							<option  <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
 						</select>
-          </div>
-      
-      <input type="submit" value="Update"/>
+      	</li>
+				
+				<li>
+					<input type="submit" class="standardButton" value="Update"/>
+				</li>
+			</ul>
     </form>
   </div>
 
