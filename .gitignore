@@ -8,3 +8,4 @@ bin/
 
 # General Files to ignore
 *.DS_Store
+public/.DS_Store
