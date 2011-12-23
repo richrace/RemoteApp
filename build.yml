@@ -1,8 +1,8 @@
 #sdk: "/Users/richardrace/.rvm/gems/ruby-1.9.2-p290/gems/rhodes-3.2.1"
 sdkversion: 3.2.1
-name: RemoteApp
+name: XBMC Remote
 version: 1.0
-vendor: rhomobile
+vendor: Richard Race
 build: debug
 bbver: 4.6
 wmsdk: "Windows Mobile 6 Professional SDK (ARMV4I)"
@@ -13,7 +13,7 @@ iphone:
   provisionprofile:
   codesignidentity:
   entitlements:
-  BundleIdentifier: com.rhomobile.remoteapp
+  BundleIdentifier: uk.ac.aber.rcr8.remoteapp
   BundleURLScheme: remoteapp
 wp:
   productid: '89f4cc70-0b9c-012f-1833-002332dbcaa8'
