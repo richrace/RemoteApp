@@ -1,9 +1,10 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
-require 'helpers/connection_helper'
+require 'helpers/xbmc_config_helper'
 
 class XbmcConfigController < Rho::RhoController
   include BrowserHelper
+  include XbmcConfigHelper
 
   # GET /XbmcConfig
   def index
@@ -42,20 +43,8 @@ class XbmcConfigController < Rho::RhoController
   # POST /XbmcConfig/create
   def create
     @xbmc_config = XbmcConfig.new(@params['xbmc_config'])
-    
     if @xbmc_config.valid?
-      configs = XbmcConfig.find(:all)
-      configs.each do |c|
-        c.active = false
-        c.save
-      end
-      
-      @xbmc_config.active = true
-      @xbmc_config.save
-      
-      con = ConnectionHelper.new(@xbmc_config.url, @xbmc_config.port, @xbmc_config.usrname, @xbmc_config.password)
-      con.connect(url_for(:action => :ping_handle), 'JSONRPC.Ping') 
-      render :action => :wait     
+      update_xbmc
     else
       @errors = @xbmc_config.errors.to_json
       render :action => :new
@@ -68,16 +57,7 @@ class XbmcConfigController < Rho::RhoController
     tmp = XbmcConfig.new(@params['xbmc_config'])
     if tmp.valid?
       @xbmc_config.update_attributes(@params['xbmc_config'])
-      configs = XbmcConfig.find(:all)
-      configs.each do |c|
-        c.active = false
-        c.save
-      end
-      @xbmc_config.active = true
-      @xbmc_config.save
-      con = ConnectionHelper.new(@xbmc_config.url, @xbmc_config.port, @xbmc_config.usrname, @xbmc_config.password)
-      con.connect(url_for(:action => :ping_handle), 'JSONRPC.Ping')
-      render :action => :wait
+      update_xbmc
     else
       @errors = tmp.errors.to_json
       render :action => :edit
@@ -91,23 +71,46 @@ class XbmcConfigController < Rho::RhoController
     redirect :action => :index  
   end
   
-  def ping_handle
-    if @params['status'] != 'ok'
-      @xbmc_config = XbmcConfig.find(:first, :conditions => {:active => true})
-      if @params['http_error'] == '401'
+  def api_callback
+    XbmcController.load_commands(@params)
+    @xbmc_config = current_config
+    if XbmcController.api_loaded?
+      WebView.navigate ( url_for :action => :show, :id => @xbmc_config.object )
+    else
+      Alert.show_popup ({
+        :message => XbmcController.error[:msg],
+        :title => XbmcController.error[:error],
+        :buttons => ["Close"]
+      })
+      if XbmcController.error[:error] == XbmcController::ERROR401 
         @errors = {:usrname => "Incorrect", :password => "Incorrect"}.to_json
-      else
+      elsif XbmcController.error[:error] == XbmcController::ERRORURL
         @errors = {:url => "Couldn't connect", :port => "Couldn't connect"}.to_json
       end
       WebView.navigate( url_for :action => :edit, :id => @xbmc_config.object, :query => {:errors => @errors})
-    elsif @params['body'].with_indifferent_access[:result] == "pong"
-        Alert.show_popup "Success!"
-        WebView.navigate ( url_for :action => :index )
     end
   end
   
   def cancel_httpcall
-    Rho::AsyncHttp.cancel( url_for( :action => :ping_handle) )
+    Rho::AsyncHttp.cancel( url_for( :action => :api_callback) )
     render :action => :index
   end
+  
+  private 
+  
+  def update_xbmc
+    configs = XbmcConfig.find(:all)
+    configs.each do |c|
+      c.active = false
+      c.save
+    end
+    @xbmc_config.active = true
+    @xbmc_config.save
+      
+    current_config
+      
+    XbmcController.load_api(url_for(:action => :api_callback))
+    render :action => :wait
+  end
+  
 end
