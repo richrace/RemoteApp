@@ -85,7 +85,7 @@ class ControlsController < Rho::RhoController
   # Used to find out what the current player is. Will be needed before using controls
   # This is needed for XBMC Version 10.1
   def get_player
-    XbmcController::Player.get_active_players(url_for :action => :ping_callback, :query => {:method => "player"})
+    send_command {XbmcController::Player.get_active_players(url_for :action => :ping_callback, :query => {:method => "player"})}
   end
   
 end
