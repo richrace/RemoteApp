@@ -69,14 +69,13 @@ class ControlsController < Rho::RhoController
         })
       end
       render_transition :action => :index
-      #WebView.navigate(url_for :action => :update_screen)  
     else
       if @params['method'] == 'player'
         @@test = @params['body'].with_indifferent_access[:result]
       else
         @@test = @params['method']
       end
-      WebView.navigate(url_for :action => :update_screen)
+      render_transition :action => :index
     end
   end
   

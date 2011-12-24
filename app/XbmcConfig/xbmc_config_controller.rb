@@ -1,8 +1,10 @@
 require 'rho/rhocontroller'
+require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/xbmc_config_helper'
 
 class XbmcConfigController < Rho::RhoController
+  include ApplicationHelper
   include BrowserHelper
   include XbmcConfigHelper
 
@@ -75,7 +77,7 @@ class XbmcConfigController < Rho::RhoController
     XbmcController.load_commands(@params)
     @xbmc_config = current_config
     if XbmcController.api_loaded?
-      WebView.navigate ( url_for :action => :show, :id => @xbmc_config.object )
+      render_transition :action => :show
     else
       Alert.show_popup ({
         :message => XbmcController.error[:msg],
@@ -87,12 +89,12 @@ class XbmcConfigController < Rho::RhoController
       elsif XbmcController.error[:error] == XbmcController::ERRORURL
         @errors = {:url => "Couldn't connect", :port => "Couldn't connect"}.to_json
       end
-      WebView.navigate( url_for :action => :edit, :id => @xbmc_config.object, :query => {:errors => @errors})
+      render_transition :action => :edit 
     end
   end
   
   def cancel_httpcall
-    Rho::AsyncHttp.cancel( url_for( :action => :api_callback) )
+    Rho::AsyncHttp.cancel url_for(:action => :api_callback)
     render :action => :index
   end
   
@@ -109,7 +111,7 @@ class XbmcConfigController < Rho::RhoController
       
     current_config
       
-    XbmcController.load_api(url_for(:action => :api_callback))
+    XbmcController.load_api url_for(:action => :api_callback)
     render :action => :wait
   end
   
