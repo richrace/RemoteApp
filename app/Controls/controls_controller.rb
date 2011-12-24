@@ -18,6 +18,7 @@ class ControlsController < Rho::RhoController
     else
       XbmcController.load_api
     end
+    render
   end
   
   def update_screen
