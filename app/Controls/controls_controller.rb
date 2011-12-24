@@ -1,9 +1,11 @@
 require 'rho/rhocontroller'
+require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/xbmc_config_helper'
 require 'xbmc/xbmc_controller'
 
 class ControlsController < Rho::RhoController
+  include ApplicationHelper
   include BrowserHelper
   include XbmcConfigHelper
   
@@ -66,7 +68,8 @@ class ControlsController < Rho::RhoController
           :buttons => ["Close"]
         })
       end
-      WebView.navigate(url_for :action => :update_screen)  
+      render_transition :action => :index
+      #WebView.navigate(url_for :action => :update_screen)  
     else
       if @params['method'] == 'player'
         @@test = @params['body'].with_indifferent_access[:result]
