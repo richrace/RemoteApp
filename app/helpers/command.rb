@@ -1,5 +1,5 @@
 # Representation of a XBMC JSON RPC method
-class XbmcController::Command
+class XbmcConnect::Command
   attr_reader :command, :namespace, :method_name, :original_method, :description
 
   # Initializes a new command from the meta data hash given in JSONRPC.Introspect
@@ -12,17 +12,17 @@ class XbmcController::Command
 
   # Invokes this command and processes the result
   def invoke(callback, params={})
-    if XbmcController::NOCALLB == callback
-      res = XbmcController.sync_connect(command, params)
+    if XbmcConnect::NOCALLB == callback
+      res = XbmcConnect.sync_connect(command, params)
       return res
     else
-      XbmcController.async_connect(callback, command, params)
+      XbmcConnect.async_connect(callback, command, params)
     end
   end
   
   # The ruby class name this command should end up in
   def klass_name
-    "XbmcController::#{namespace}"
+    "XbmcConnect::#{namespace}"
   end
   
   private
