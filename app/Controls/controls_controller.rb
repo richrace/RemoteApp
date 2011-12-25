@@ -3,7 +3,7 @@ require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/controls_helper'
 require 'helpers/xbmc_config_helper'
-require 'xbmc/xbmc_controller'
+require 'helpers/xbmc_connect'
 
 class ControlsController < Rho::RhoController
   include ApplicationHelper
@@ -13,14 +13,8 @@ class ControlsController < Rho::RhoController
   
   def index
     @@test = "First time"
-    if current_config.nil?
-        Alert.show_popup ({
-          :message => "Please create or activate an XBMC Config",
-          :title => "No Active XBMC Config",
-          :buttons => ["Close"]
-        })
-    else
-      XbmcController.load_api
+    unless current_config.nil?
+      XbmcConnect.load_api
     end
     render
   end
@@ -47,21 +41,23 @@ class ControlsController < Rho::RhoController
   # Call example - send_command {XbmcController::JSONRPC.ping (url_for callback)}
   # Can put any callback method in there.
   def send_command
-    if XbmcController.api_loaded?
+    if XbmcConnect.api_loaded?
       yield
-      render :action => :wait
+      #render :action => :wait
     elsif !current_config.nil?
-      XbmcController.load_api(url_for(:action => :control_callback, :query => {:method => "load_api"}))
-      render :action => :wait
+      XbmcConnect.load_api(url_for(:action => :control_callback, :query => {:method => "load_api"}))
+      #render :action => :wait
+    else
+      #render :action => :index
     end
   end
   
   def error_handle(params="")
     @@test = "#{params['http_code']} Error."
-    if XbmcController.api_loaded? == false
+    if XbmcConnect.api_loaded? == false
       Alert.show_popup ({
-        :message => XbmcController.error[:msg],
-        :title => XbmcController.error[:error],
+        :message => XbmcConnect.error[:msg],
+        :title => XbmcConnect.error[:error],
         :buttons => ["Close"]
       })
     end
@@ -76,12 +72,12 @@ class ControlsController < Rho::RhoController
   # has gone wrong. Handles what to do with results depending on the Params of the
   # response. 
   def control_callback 
-    puts "#{@params['body']}"
     if @params['status'] != 'ok'
       error_handle(@params)
     else
+      puts "Body of message:\n#{@params['body']}"
       if @params['method'] == "load_api"
-        XbmcController.load_commands(@params)
+        XbmcConnect.load_commands(@params)
       end  
       if @params['method'] == 'ping'
         @@test = 'Pong!'
@@ -94,6 +90,12 @@ class ControlsController < Rho::RhoController
         else
           @@test = 'Playing'
         end
+      elsif @params['method'] == 'stop'
+        if @params['body'].with_indifferent_access[:result] == "OK"
+          @@test = "Stopped"
+        else
+          @@test = '???'
+        end
       end
       render_transition :action => :index
     end
@@ -102,15 +104,31 @@ class ControlsController < Rho::RhoController
   # Example method that uses the send_command method. Need to supply :query param to
   # know what command was sent in the the callback function.
   def ping_test 
-    send_command {XbmcController::JSONRPC.ping(url_for :action => :control_callback, :query => {:method => "ping"})}
+    send_command {XbmcConnect::JSONRPC.ping(url_for :action => :control_callback, :query => {:method => "ping"})}
   end
   
-  def pause_play
-    if XbmcController.api_loaded?
-      play_pause_player
+  def control_player
+    if XbmcConnect.api_loaded?
+      yield
     else
       error_handle
     end
+  end
+  
+  def pause_play
+    control_player {play_pause_player}
+  end
+  
+  def stop
+    control_player {stop_player}
+  end
+  
+  def big_skip_forward
+    control_player {big_skip_forward_player}
+  end
+  
+  def sm_skip_forward
+    control_player {sm_skip_forward_player}
   end
   
 end
