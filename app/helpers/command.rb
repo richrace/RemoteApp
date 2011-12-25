@@ -12,7 +12,12 @@ class XbmcController::Command
 
   # Invokes this command and processes the result
   def invoke(callback, params={})
-    XbmcController.connect(callback, command, params)
+    if XbmcController::NOCALLB == callback
+      res = XbmcController.sync_connect(command, params)
+      return res
+    else
+      XbmcController.async_connect(callback, command, params)
+    end
   end
   
   # The ruby class name this command should end up in
