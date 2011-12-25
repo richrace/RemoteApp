@@ -1,16 +1,19 @@
 require 'rho/rhocontroller'
+require 'helpers/application_helper'
 require 'helpers/ruby_ext'
 require 'helpers/browser_helper'
 require 'json'
 
 # A simple XBMC JSON RPC API Client. See README for details.
 class XbmcController < Rho::RhoController
+  include ApplicationHelper
   include BrowserHelper
   
   ERROR401 = "Unauthorised"
   ERRORURL = "Error"
   ERRORAPI = "API Missing" 
   ERRORNO = "None"
+  NOCALLB = "NOCALLB"
    
   # Returns an array of available api commands instantiated as Xbmc::Command objects
   def commands
@@ -26,7 +29,7 @@ class XbmcController < Rho::RhoController
       @pass = pass
     end  
   
-    def connect(callback, method, params={})
+    def async_connect(callback, method, params={})
       puts "**** CONNECTING"
       Rho::AsyncHttp.post(
         :url => @url,
@@ -45,8 +48,26 @@ class XbmcController < Rho::RhoController
       )
     end
     
+    def sync_connect(method, params={})
+      response = Rho::AsyncHttp.post(
+        :url => @url,
+        :authentication => {
+          :type => :basic,
+          :username => @uname,
+          :password => @pass
+        },
+        :body => {
+          :jsonrpc => "2.0", 
+          :params => params, 
+          :id => "1",
+          :method => method
+        }.to_json
+      )
+      return response
+    end
+    
     def load_api(callback="app/Xbmc/commands")
-      connect(callback,"JSONRPC.Introspect", :getdescriptions => true)  
+      async_connect(callback,"JSONRPC.Introspect", :getdescriptions => true)  
     end 
     
     def load_commands(params)
