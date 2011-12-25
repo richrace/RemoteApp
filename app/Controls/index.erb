@@ -6,10 +6,33 @@
       Settings
     </a>
 	</div>
+	
+	<script type="text/javascript">
+		function ping_test() {
+			$.get("<%= url_for :action => :ping_test %>");
+		}
+		function play_pause() {
+			$.get("<%= url_for :action => :pause_play %>");
+		}
+		function stop() {
+			$.get("<%= url_for :action => :stop %>");
+		}
+		function sm_skip_forward() {
+			$.get("<%= url_for :action => :sm_skip_forward %>");
+		}
+		function big_skip_forward() {
+			$.get("<%= url_for :action => :big_skip_forward %>")
+		}
+	</script>
 
   <div data-role="content">
-
-		<%= link_to "Ping", :action => :ping_test %> <%= link_to "Play/Pause", :action => :pause_play %>
+		
+		<a href="#" onclick="ping_test()">Ping</a> <a href="#" onclick="play_pause()">Play/Pause</a> <a href="#" onclick="stop()">Stop</a>
+		<br />
+		<a href="#" onclick="sm_skip_back()">Small Skip Back</a> <a href="#" onclick="sm_skip_forward()">Small Skip Forward</a> 
+		<br />
+		<a href="#" onclick="big_skip_back()">Big Skip Back</a>
+		<a href="#" onclick="big_skip_forward()">Big Skip Forward</a>
 		
 		<p>Result = <%= get_text %></p>
 	
