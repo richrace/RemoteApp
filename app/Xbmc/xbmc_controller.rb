@@ -15,5 +15,4 @@ class XbmcController < Rho::RhoController
     puts "**** LOADING COMMANDS"
     XbmcConnect.load_commands(@params)
   end
-  
 end
