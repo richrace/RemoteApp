@@ -1,12 +1,19 @@
+require 'helpers/application_helper'
 # Representation of a XBMC JSON RPC method
 class XbmcConnect::Command
+  include ApplicationHelper
   attr_reader :command, :namespace, :method_name, :original_method, :description
 
   # Initializes a new command from the meta data hash given in JSONRPC.Introspect
-  def initialize(command_meta)
-    @command_meta = command_meta.with_indifferent_access
-    @description = command_meta[:description]
-    @command = command_meta[:command]
+  def initialize(command_meta,v4=false)
+    if v4
+      @command = command_meta[0]
+      @description = command_meta[1][:description]
+    else
+      @command = command_meta[:command]
+      @description = command_meta[:description]
+    end
+    #@command_meta = command_meta.with_indifferent_access
     parse_command!
   end
 
