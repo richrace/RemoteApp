@@ -46,9 +46,9 @@
             <div class="ui-grid-a">
 							<div class="ui-block-a" style="width:30%;"><br/><strong>Active:</strong></div>
 							<div class="ui-block-b" style="width:70%; font-weight:normal;">
-									<select name="slider" id="flip-c" disabled="true" data-role="slider" data-theme="a">
+									<select name="slider" id="flip-c" disabled="true" data-role="slider" data-theme="a">	
 										<option <%= "selected" if @xbmc_config.is_active? %> value="false">No</option>
-										<option  <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
+										<option <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
 									</select> 
 								</div>
 						</div>
