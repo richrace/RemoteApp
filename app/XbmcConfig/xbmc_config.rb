@@ -30,8 +30,8 @@ class XbmcConfig
   property :active, :boolean    
   
   def is_active?
-    if self.active || self.active == "true"
-     return true
+    if self.active == "true"
+      return true
     else
       return false
     end 
