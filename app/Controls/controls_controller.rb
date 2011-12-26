@@ -8,7 +8,7 @@ require 'helpers/xbmc_connect'
 class ControlsController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
-  include ControlsHelper
+  include Controls
   include XbmcConfigHelper
   
   def index
@@ -37,37 +37,6 @@ class ControlsController < Rho::RhoController
     render :action => :index
   end
   
-  # Sends a command to the server if the API is loaded if not loads the API.
-  # Call example - send_command {XbmcController::JSONRPC.ping (url_for callback)}
-  # Can put any callback method in there.
-  def send_command
-    if XbmcConnect.api_loaded?
-      yield
-      #render :action => :wait
-    elsif !current_config.nil?
-      XbmcConnect.load_api(url_for(:action => :control_callback, :query => {:method => "load_api"}))
-      #render :action => :wait
-    else
-      #render :action => :index
-    end
-  end
-  
-  def error_handle(params="")
-    @@test = "#{params['http_code']} Error."
-    if XbmcConnect.api_loaded? == false
-      Alert.show_popup ({
-        :message => XbmcConnect.error[:msg],
-        :title => XbmcConnect.error[:error],
-        :buttons => ["Close"]
-      })
-    end
-    if params.empty? || params.blank?
-      render :action => :index
-    else
-      render_transition :action => :index
-    end
-  end
-  
   # Handles the callback from sending a command. Will show error message if something
   # has gone wrong. Handles what to do with results depending on the Params of the
   # response. 
@@ -81,11 +50,15 @@ class ControlsController < Rho::RhoController
       end  
       if @params['method'] == 'ping'
         @@test = 'Pong!'
-      elsif @params['method'] == 'get_player'
-        @@test = 'Get Player'
-        play_pause_player
       elsif @params['method'] == 'play_pause'
-        if @params['body'].with_indifferent_access[:result][:paused]
+        res = @params['body'].with_indifferent_access[:result]
+        paused = false
+        if XbmcConnect.version == ApiV2::VERSION
+          paused = true if res[:paused]
+        elsif (XbmcConnect.version == ApiV4::VERSION) || XbmcConnect.version == 3
+          paused = true if res[:speed] == 0
+        end
+        if paused
           @@test = "Paused"
         else
           @@test = 'Playing'
@@ -104,15 +77,7 @@ class ControlsController < Rho::RhoController
   # Example method that uses the send_command method. Need to supply :query param to
   # know what command was sent in the the callback function.
   def ping_test 
-    send_command {XbmcConnect::JSONRPC.ping(url_for :action => :control_callback, :query => {:method => "ping"})}
-  end
-  
-  def control_player
-    if XbmcConnect.api_loaded?
-      yield
-    else
-      error_handle
-    end
+    control_player {ping_test}
   end
   
   def pause_play
@@ -123,12 +88,36 @@ class ControlsController < Rho::RhoController
     control_player {stop_player}
   end
   
+  def rewind
+    control_player {rewind_player}
+  end
+  
+  def fast_forward
+    control_player {fast_forward_player}
+  end
+  
   def big_skip_forward
     control_player {big_skip_forward_player}
   end
   
   def sm_skip_forward
     control_player {sm_skip_forward_player}
+  end
+  
+  def big_skip_back
+    control_player {big_skip_back_player}
+  end
+  
+  def sm_skip_back
+    control_player {sm_skip_back_player}
+  end
+  
+  def skip_next
+    control_player {skip_next_player}
+  end
+  
+  def skip_prev
+    control_player {skip_prev_player}
   end
   
 end
