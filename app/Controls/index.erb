@@ -21,7 +21,25 @@
 			$.get("<%= url_for :action => :sm_skip_forward %>");
 		}
 		function big_skip_forward() {
-			$.get("<%= url_for :action => :big_skip_forward %>")
+			$.get("<%= url_for :action => :big_skip_forward %>");
+		}
+		function sm_skip_back() {
+			$.get("<%= url_for :action => :sm_skip_back %>");
+		}
+		function big_skip_back() {
+			$.get("<%= url_for :action => :big_skip_back %>");
+		}
+		function skip_next() {
+			$.get("<%= url_for :action => :skip_next %>");
+		}
+		function skip_prev() {
+			$.get("<%= url_for :action => :skip_prev %>");
+		}
+		function rewind() {
+			$.get("<%= url_for :action => :rewind %>");
+		}
+		function fast_forward() {
+			$.get("<%= url_for :action => :fast_forward %>");
 		}
 	</script>
 
@@ -33,6 +51,12 @@
 		<br />
 		<a href="#" onclick="big_skip_back()">Big Skip Back</a>
 		<a href="#" onclick="big_skip_forward()">Big Skip Forward</a>
+		<br />
+		<a href="#" onclick="skip_prev()">Skip Prev</a>
+		<a href="#" onclick="skip_next()">Skip Next</a>
+		<br />
+		<a href="#" onclick="rewind()">Rewind</a>
+		<a href="#" onclick="fast_forward()">Fast Forward</a>
 		
 		<p>Result = <%= get_text %></p>
 	
