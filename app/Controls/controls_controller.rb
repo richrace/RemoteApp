@@ -22,24 +22,6 @@ class ControlsController < Rho::RhoController
     render
   end
   
-  def update_screen
-    render :action => :index
-  end
-  
-  def show_error
-    render :action => :error
-  end
-  
-  def get_text
-    @@test
-  end
-
-  def cancel_control
-    Rho::AsyncHttp.cancel
-    @@test = 'Request was cancelled.'
-    render :action => :index
-  end
-  
   # Handles the callback from sending a command. Will show error message if something
   # has gone wrong. Handles what to do with results depending on the Params of the
   # response. 
