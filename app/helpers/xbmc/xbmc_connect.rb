@@ -72,7 +72,12 @@ class XbmcConnect
     
     def parse_commands_v4(body)
       puts "***** LOADS V4 Commands ******"
-      @commands ||= body.with_indifferent_access[:result][:methods].map {|c| XbmcConnect::Command.new(c, true)}
+      @commands ||= body.with_indifferent_access[:result][:methods].map { |c|
+        attrList = c.at(1)
+        # Add command name to the specification
+        attrList["command"] = c.at(0)
+        # Process the command as usual
+        XbmcConnect::Command.new(attrList)}
     end
     
     def parse_commands_v2(body)
