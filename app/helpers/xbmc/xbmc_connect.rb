@@ -3,12 +3,13 @@ require 'helpers/application_helper'
 require 'helpers/ruby_ext'
 require 'helpers/browser_helper'
 require 'json'
-require 'helpers/api2'
-require 'helpers/api4'
+require 'helpers/error_helper'
+require 'helpers/xbmc/apis/xbmc_apis'
 
 class XbmcConnect
   include ApplicationHelper
   include BrowserHelper
+  include ErrorHelper
   
   ERROR401 = "Unauthorised"
   ERRORURL = "Error"
@@ -64,17 +65,9 @@ class XbmcConnect
       return response
     end
     
-    def load_api(callback="app/Xbmc/commands")
-      puts "********** LOADING API **********"
-      res = sync_connect("JSONRPC.Version")
-      puts res['body']
-      if res['status'] == 'ok'
-        XbmcConnect.version = res['body'].with_indifferent_access[:result][:version]
-        async_connect(callback,"JSONRPC.Introspect", :getdescriptions => true)  
-      else
-        async_connect(callback,"JSONRPC.Version")
-        error_handle(res)
-      end
+    def load_api(callback="app/Xbmc/version")
+      puts "***** GETTING VERSION ******"
+      async_connect(callback, "JSONRPC.Version")
     end 
     
     def parse_commands_v4(body)
@@ -87,13 +80,24 @@ class XbmcConnect
       @commands ||= body.with_indifferent_access[:result][:commands].map {|c| XbmcConnect::Command.new(c)}
     end
     
+    def load_version(params)
+      puts "********** LOADING VERSION **********"
+      if params['status'] == 'ok'
+        XbmcConnect.version = params['body'].with_indifferent_access[:result][:version]
+        puts "****** LOADING API ********"
+        async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
+      else
+        ErrorHelper.error_handle(params)
+      end
+    end
+    
     def load_commands(params)
       puts "*********** LOADING COMMANDS ************"
       if params['status'] == 'ok'
         @commands = nil
-        if XbmcConnect.version == ApiV2::VERSION
+        if XbmcConnect.version == Api::V2::VERSION
           parse_commands_v2(params['body'])
-        elsif (XbmcConnect.version == ApiV4::VERSION) || (XbmcConnect.version == 3)
+        elsif (XbmcConnect.version == Api::V4::VERSION) || (XbmcConnect.version == 3)
           parse_commands_v4(params['body'])
         end
         @commands.each do |command|
@@ -102,17 +106,7 @@ class XbmcConnect
         XbmcConnect.api_loaded = true
         XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
       else
-        error_handle(params)
-      end
-    end
-    
-    def error_handle(params)
-      if params['http_code'] == '401'
-        XbmcConnect.error = {:error => XbmcConnect::ERROR401, :msg => "Couldn't connect. Username and Password incorrect"}
-        XbmcConnect.api_loaded = false
-      else
-        XbmcConnect.error = {:error => XbmcConnect::ERRORURL, :msg => "Couldn't connect. URL and/or Port incorrect"}
-        XbmcConnect.api_loaded = false
+        ErrorHelper.error_handle(params)
       end
     end
     
@@ -149,4 +143,4 @@ class XbmcConnect
   end
 end
 
-require 'helpers/command'
+require 'helpers/xbmc/command'
