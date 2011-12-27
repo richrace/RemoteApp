@@ -3,19 +3,22 @@ require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/controls_helper'
 require 'helpers/xbmc_config_helper'
-require 'helpers/xbmc_connect'
+require 'helpers/xbmc/xbmc_connect'
+require 'helpers/error_helper'
+require 'helpers/telnet_test'
 
 class ControlsController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
   include Controls
   include XbmcConfigHelper
+  include ErrorHelper
+  include TelTest
   
   def index
     @@test = "First time"
-    unless current_config.nil?
-      XbmcConnect.load_api
-    end
+    XbmcConfigHelper.current_config
+    XbmcConnect.load_api
     render
   end
   
@@ -42,20 +45,18 @@ class ControlsController < Rho::RhoController
   # response. 
   def control_callback 
     if @params['status'] != 'ok'
-      error_handle(@params)
+      ErrorHelper.error_handle(@params)
     else
       puts "Body of message:\n#{@params['body']}"
       if @params['method'] == "load_api"
-        XbmcConnect.load_commands(@params)
+        XbmcConnect.load_version(@params)
       end  
-      if @params['method'] == 'ping'
-        @@test = 'Pong!'
-      elsif @params['method'] == 'play_pause'
+      if @params['method'] == 'play_pause'
         res = @params['body'].with_indifferent_access[:result]
         paused = false
-        if XbmcConnect.version == ApiV2::VERSION
+        if XbmcConnect.version == Api::V2::VERSION
           paused = true if res[:paused]
-        elsif (XbmcConnect.version == ApiV4::VERSION) || XbmcConnect.version == 3
+        elsif (XbmcConnect.version == Api::V4::VERSION) || XbmcConnect.version == 3
           paused = true if res[:speed] == 0
         end
         if paused
@@ -73,13 +74,7 @@ class ControlsController < Rho::RhoController
       render_transition :action => :index
     end
   end
-  
-  # Example method that uses the send_command method. Need to supply :query param to
-  # know what command was sent in the the callback function.
-  def ping_test 
-    control_player {ping_test}
-  end
-  
+    
   def pause_play
     control_player {play_pause_player}
   end
@@ -118,6 +113,10 @@ class ControlsController < Rho::RhoController
   
   def skip_prev
     control_player {skip_prev_player}
+  end
+  
+  def telnet_test
+    teltest
   end
   
 end
