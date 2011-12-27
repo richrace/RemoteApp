@@ -2,7 +2,7 @@ require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/xbmc_config_helper'
-require 'helpers/xbmc_connect'
+require 'helpers/xbmc/xbmc_connect'
 
 class XbmcConfigController < Rho::RhoController
   include ApplicationHelper
@@ -75,16 +75,11 @@ class XbmcConfigController < Rho::RhoController
   end
   
   def api_callback
-    XbmcConnect.load_commands(@params)
-    @xbmc_config = current_config
-    if XbmcConnect.api_loaded?
+    XbmcConnect.load_version(@params)
+    @xbmc_config = XbmcConfigHelper.current_config
+    if XbmcConnect.version != 0
       render_transition :action => :show
     else
-      Alert.show_popup ({
-        :message => XbmcConnect.error[:msg],
-        :title => XbmcConnect.error[:error],
-        :buttons => ["Close"]
-      })
       if XbmcConnect.error[:error] == XbmcConnect::ERROR401 
         @errors = {:usrname => "Incorrect", :password => "Incorrect"}.to_json
       elsif XbmcConnect.error[:error] == XbmcConnect::ERRORURL
@@ -95,8 +90,9 @@ class XbmcConfigController < Rho::RhoController
   end
   
   def cancel_httpcall
-    Rho::AsyncHttp.cancel url_for(:action => :api_callback)
-    render :action => :index
+    Rho::AsyncHttp.cancel
+    @xbmc_config = XbmcConfigHelper.current_config
+    render :action => :edit
   end
   
   private 
@@ -110,7 +106,7 @@ class XbmcConfigController < Rho::RhoController
     @xbmc_config.active = true
     @xbmc_config.save
       
-    current_config
+    XbmcConfigHelper.current_config
       
     XbmcConnect.load_api url_for(:action => :api_callback)
     render :action => :wait
