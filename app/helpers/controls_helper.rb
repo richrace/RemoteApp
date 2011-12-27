@@ -1,11 +1,12 @@
 require 'json'
 require 'helpers/xbmc_config_helper'
-require 'helpers/xbmc_connect'
-require 'helpers/api2'
-require 'helpers/api4'
+require 'helpers/xbmc/xbmc_connect'
+require 'helpers/error_helper'
+require 'helpers/xbmc/apis/xbmc_apis'
 
 module Controls
   include XbmcConfigHelper
+  include ErrorHelper
     
   # Sends a command to the server if the API is loaded if not loads the API.
   # Call example - send_command {XbmcController::JSONRPC.ping (url_for callback)}
@@ -14,7 +15,7 @@ module Controls
     if XbmcConnect.api_loaded?
       yield
       #render :action => :wait
-    elsif !current_config.nil?
+    elsif !XbmcConfigHelper.current_config.nil?
       XbmcConnect.load_api(url_for(:action => :control_callback, :query => {:method => "load_api"}))
       #render :action => :wait
     else
@@ -22,131 +23,121 @@ module Controls
     end
   end
   
-  def self.error_handle(params="")
-    @@test = "#{params['http_code']} Error."
-    if XbmcConnect.api_loaded? == false
-      Alert.show_popup ({
-        :message => XbmcConnect.error[:msg],
-        :title => XbmcConnect.error[:error],
-        :buttons => ["Close"]
-      })
-    end
-    if params.empty? || params.blank?
-      render :action => :index
-    else
-      render_transition :action => :index
-    end
-  end
-  
   def control_player
     if XbmcConnect.api_loaded?
       yield
     else
-      error_handle
+      ErrorHelper.error_handle
     end
-  end
-  
-  def ping_test
-    self.send_command {XbmcConnect::JSONRPC.ping(url_for :action => :control_callback, :query => {:method => "ping"})}
   end
   
   # Used to find out what the current player is. Will be needed before using controls
   # This is needed for XBMC Version 10.1
   def play_pause_player
-    if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.play_pause (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "play_pause"})
-    elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.play_pause (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "play_pause"})
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "play_pause"}
+    if XbmcConnect.version == Api::V2::VERSION
+      Api::V2::Playback.play_pause(callback)
+    elsif (XbmcConnect.version == Api::V4::VERSION)  || (XbmcConnect.version == 3)
+      Api::V4::Playback.play_pause(callback)
     else
       @@test = "No API Loaded"
     end    
   end
   
   def stop_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "stop"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.stop (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "stop"})
+      Api::V2::Playback.stop(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.stop
+      Api::V4::Playback.stop(callback)
     else
       @@test = "No API Loaded"
     end
   end
   
   def rewind_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "rewind"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.rewind (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "rewind"})
+      Api::V2::Playback.rewind(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.rewind
+      Api::V4::Playback.rewind(callback)
     else
       @@test = "No API Loaded"
     end
   end
    
   def fast_forward_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "fast_forward"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.fast_forward (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "fast_forward"})
+      Api::V2::Playback.fast_forward(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.fast_forward
+      Api::V4::Playback.fast_forward(callback)
     else
       @@test = "No API Loaded"
     end
   end
   
   def big_skip_forward_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "big_skip_forward"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.big_skip_forward (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "big_skip_forward"})
+      Api::V2::Playback.big_skip_forward(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.big_skip_forward
+      Api::V4::Playback.big_skip_forward(callback)
     else
       @@test = "No API Loaded"
     end
   end
   
   def sm_skip_forward_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "sm_skip_forward"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.sm_skip_forward (url_for :controller => :Controls, :action => :control_callback, :query => {:method => "sm_skip_forward"})
+      Api::V2::Playback.sm_skip_forward(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.sm_skip_forward
+      Api::V4::Playback.sm_skip_forward(callback)
     else
       @@test = "No API Loaded"
     end
   end
       
   def big_skip_back_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "big_skip_back"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.big_skip_back(url_for :controller => :Controls, :action => :control_callback, :query => {:method => "big_skip_back"})
+      Api::V2::Playback.big_skip_back(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.big_skip_back
+      Api::V4::Playback.big_skip_back(callback)
     else
       @@test = "No API Loaded"
     end
   end
   
   def sm_skip_back_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "sm_skip_back"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.sm_skip_back(url_for :controller => :Controls, :action => :control_callback, :query => {:method => "sm_skip_back"})
+      Api::V2::Playback.sm_skip_back(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.sm_skip_back
+      Api::V4::Playback.sm_skip_back(callback)
     else
       @@test = "No API Loaded"
     end
   end
   
   def skip_next_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "skip_next"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.skip_next(url_for :controller => :Controls, :action => :control_callback, :query => {:method => "skip_next"})
+      Api::V2::Playback.skip_next(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.skip_next
+      Api::V4::Playback.skip_next(callback)
     else
       @@test = "No API Loaded"
     end
   end
     
   def skip_prev_player
+    callback = url_for :controller => :Controls, :action => :control_callback, :query => {:method => "skip_prev"}
     if XbmcConnect.version == ApiV2::VERSION
-      ApiV2.skip_previous(url_for :controller => :Controls, :action => :control_callback, :query => {:method => "skip_prev"})
+      Api::V2::Playback.skip_previous(callback)
     elsif (XbmcConnect.version == ApiV4::VERSION)  || (XbmcConnect.version == 3)
-      ApiV4.skip_previous
+      Api::V4::Playback.skip_previous(callback)
     else
       @@test = "No API Loaded"
     end
