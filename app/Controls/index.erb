@@ -38,9 +38,6 @@
 		function fast_forward() {
 			$.get("<%= url_for :action => :fast_forward %>");
 		}
-		function telnet() {
-			$.get("<%= url_for :action => :telnet_test %>");
-		}
 	</script>
 
   <div data-role="content">
@@ -57,12 +54,7 @@
 		<br />
 		<a href="#" onclick="rewind()">Rewind</a>
 		<a href="#" onclick="fast_forward()">Fast Forward</a>
-		<br \>
-		<br \>
-		<a href="#" onclick="telnet()">Telnet</a>
-		
-		<p>Result = <%= get_text %></p>
-	
+			
   </div>
 
 	<div data-role="footer" data-position="fixed" class="nav-cust">

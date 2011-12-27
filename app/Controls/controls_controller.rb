@@ -51,27 +51,6 @@ class ControlsController < Rho::RhoController
       if @params['method'] == "load_api"
         XbmcConnect.load_version(@params)
       end  
-      if @params['method'] == 'play_pause'
-        res = @params['body'].with_indifferent_access[:result]
-        paused = false
-        if XbmcConnect.version == Api::V2::VERSION
-          paused = true if res[:paused]
-        elsif (XbmcConnect.version == Api::V4::VERSION) || XbmcConnect.version == 3
-          paused = true if res[:speed] == 0
-        end
-        if paused
-          @@test = "Paused"
-        else
-          @@test = 'Playing'
-        end
-      elsif @params['method'] == 'stop'
-        if @params['body'].with_indifferent_access[:result] == "OK"
-          @@test = "Stopped"
-        else
-          @@test = '???'
-        end
-      end
-      render_transition :action => :index
     end
   end
     
@@ -113,10 +92,6 @@ class ControlsController < Rho::RhoController
   
   def skip_prev
     control_player {skip_prev_player}
-  end
-  
-  def telnet_test
-    teltest
   end
   
 end
