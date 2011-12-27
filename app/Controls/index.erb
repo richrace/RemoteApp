@@ -8,9 +8,6 @@
 	</div>
 	
 	<script type="text/javascript">
-		function ping_test() {
-			$.get("<%= url_for :action => :ping_test %>");
-		}
 		function play_pause() {
 			$.get("<%= url_for :action => :pause_play %>");
 		}
@@ -41,11 +38,14 @@
 		function fast_forward() {
 			$.get("<%= url_for :action => :fast_forward %>");
 		}
+		function telnet() {
+			$.get("<%= url_for :action => :telnet_test %>");
+		}
 	</script>
 
   <div data-role="content">
-		
-		<a href="#" onclick="ping_test()">Ping</a> <a href="#" onclick="play_pause()">Play/Pause</a> <a href="#" onclick="stop()">Stop</a>
+
+ 		<a href="#" onclick="play_pause()">Play/Pause</a> <a href="#" onclick="stop()">Stop</a>
 		<br />
 		<a href="#" onclick="sm_skip_back()">Small Skip Back</a> <a href="#" onclick="sm_skip_forward()">Small Skip Forward</a> 
 		<br />
@@ -57,6 +57,9 @@
 		<br />
 		<a href="#" onclick="rewind()">Rewind</a>
 		<a href="#" onclick="fast_forward()">Fast Forward</a>
+		<br \>
+		<br \>
+		<a href="#" onclick="telnet()">Telnet</a>
 		
 		<p>Result = <%= get_text %></p>
 	
