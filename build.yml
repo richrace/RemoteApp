@@ -1,5 +1,5 @@
 #sdk: "/Users/richardrace/.rvm/gems/ruby-1.9.2-p290/gems/rhodes-3.2.1"
-sdkversion: 3.2.1
+sdkversion: 3.3.0
 name: XBMC Remote
 version: 1.0
 vendor: Richard Race
@@ -8,7 +8,7 @@ bbver: 4.6
 wmsdk: "Windows Mobile 6 Professional SDK (ARMV4I)"
 applog: rholog.txt
 iphone:
-  configuration: Release
+  configuration: Debug
   sdk: iphonesimulator5.0
   provisionprofile:
   codesignidentity:
