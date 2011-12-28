@@ -1,48 +1,16 @@
 <div data-role="page">
 
-	<div data-role="header" data-position="fixed">
-		<div data-role="controlgroup" data-type="horizontal">
-			<a href="<%= url_for :controller => :Controls %>" data-role="button" >Remote</a>
-			<a href="<%= url_for :controller => :Commands %>" data-role="button" data-theme="c">Commands</a>
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+		<div data-role="controlgroup" data-type="horizontal" style="left:10px; top:.4em; bottom:4px;">
+			&nbsp;&nbsp;
+			<a href="<%= url_for :controller => :Controls %>" data-role="button" style="font-size:11px;" data-direction="reverse">Remote</a>
+			<a href="<%= url_for :controller => :Commands %>" data-role="button" data-theme="c" style="font-size:11px;">Commands</a>
 		</div>
     
-    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear">
+    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
       Settings
     </a>
 	</div>
-	
-	<script type="text/javascript">
-		function play_pause() {
-			$.get("<%= url_for :action => :pause_play %>");
-		}
-		function stop() {
-			$.get("<%= url_for :action => :stop %>");
-		}
-		function sm_skip_forward() {
-			$.get("<%= url_for :action => :sm_skip_forward %>");
-		}
-		function big_skip_forward() {
-			$.get("<%= url_for :action => :big_skip_forward %>");
-		}
-		function sm_skip_back() {
-			$.get("<%= url_for :action => :sm_skip_back %>");
-		}
-		function big_skip_back() {
-			$.get("<%= url_for :action => :big_skip_back %>");
-		}
-		function skip_next() {
-			$.get("<%= url_for :action => :skip_next %>");
-		}
-		function skip_prev() {
-			$.get("<%= url_for :action => :skip_prev %>");
-		}
-		function rewind() {
-			$.get("<%= url_for :action => :rewind %>");
-		}
-		function fast_forward() {
-			$.get("<%= url_for :action => :fast_forward %>");
-		}
-	</script>
 
   <div data-role="content">
 
@@ -50,10 +18,10 @@
 			
   </div>
 
-	<div data-role="footer" data-position="fixed" class="nav-cust">
+	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
 			<ul>
-				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" class="ui-btn-active ui-state-persist">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Commands %>" id="controls" data-icon="custom" class="ui-btn-active ui-state-persist">Controls</a></li>
 				<li><a href="#" id="movies" data-icon="custom">Movies</a></li>
 				<li><a href="#" id="shows" data-icon="custom">TV Shows</a></li>
 				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>

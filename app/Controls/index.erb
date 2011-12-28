@@ -1,13 +1,13 @@
 <div data-role="page">
 
-	<div data-role="header" data-position="fixed">
-		<div data-role="controlgroup" data-type="horizontal">
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+		<div data-role="controlgroup" data-type="horizontal" style="left:10px; top:.3em; bottom:4px;">
 			&nbsp;&nbsp;
 			<a href="<%= url_for :controller => :Controls %>" data-role="button" data-theme="c">Remote</a>
-			<a href="<%= url_for :controller => :Commands %>" data-role="button">Commands</a>
+			<a href="<%= url_for :controller => :Commands %>" data-role="button"  >Commands</a>
 		</div>
     
-    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear">
+    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
       Settings
     </a>
 	</div>
@@ -47,22 +47,33 @@
 
   <div data-role="content">
 
- 		<a href="#" onclick="play_pause()">Play/Pause</a> <a href="#" onclick="stop()">Stop</a>
+ 		<a href="#" onclick="play_pause()">Play/Pause</a>     
+   	&nbsp;&nbsp;
+		<a href="#" onclick="stop()">Stop</a>
 		<br />
-		<a href="#" onclick="sm_skip_back()">Small Skip Back</a> <a href="#" onclick="sm_skip_forward()">Small Skip Forward</a> 
+		<br />
+		<a href="#" onclick="sm_skip_back()">Small Skip Back</a>
+		&nbsp;&nbsp;
+		<a href="#" onclick="sm_skip_forward()">Small Skip Forward</a> 
+		<br />
 		<br />
 		<a href="#" onclick="big_skip_back()">Big Skip Back</a>
+		&nbsp;&nbsp;
 		<a href="#" onclick="big_skip_forward()">Big Skip Forward</a>
 		<br />
+		<br />
 		<a href="#" onclick="skip_prev()">Skip Prev</a>
+		&nbsp;&nbsp;
 		<a href="#" onclick="skip_next()">Skip Next</a>
 		<br />
+		<br />
 		<a href="#" onclick="rewind()">Rewind</a>
+		&nbsp;&nbsp;
 		<a href="#" onclick="fast_forward()">Fast Forward</a>
 			
   </div>
 
-	<div data-role="footer" data-position="fixed" class="nav-cust">
+	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
 			<ul>
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" class="ui-btn-active ui-state-persist">Controls</a></li>
