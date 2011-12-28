@@ -17,8 +17,11 @@ class ControlsController < Rho::RhoController
   
   def index
     @@test = "First time"
-    XbmcConfigHelper.current_config
-    XbmcConnect.load_api
+    unless XbmcConfigHelper.current_config.nil?
+      unless XbmcConnect.api_loaded?
+        XbmcConnect.load_api
+      end
+    end
     render
   end
   
