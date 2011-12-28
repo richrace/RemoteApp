@@ -13,8 +13,15 @@
 	</div>
 
   <div data-role="content">
+	
+		<script>
+			function test_scan() {
+				$.get("<%= url_for :action => :scan_video %>");
+			}
+		</script>
 
  		<div>Will have commands</div>
+		<div><a href="#" onclick="test_scan()">Test</a></div>
 			
   </div>
 
