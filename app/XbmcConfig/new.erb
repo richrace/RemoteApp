@@ -1,6 +1,6 @@
 <div data-role="page">
 
-  <div data-role="header" data-position="fixed">
+  <div data-id="head" data-role="header" data-position="fixed">
     <h1>New <%= @xbmc_config.title %></h1>
     <a href="<%= url_for '/app/XbmcConfig/index' %>" class="cancel" data-direction="reverse" data-icon="delete">
       Cancel
@@ -53,5 +53,4 @@
 				</ul>
     </form>
   </div>
-
 </div>

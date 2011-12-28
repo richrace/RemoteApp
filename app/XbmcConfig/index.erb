@@ -1,8 +1,8 @@
 <div data-role="page">
 
-	<div data-role="header" data-position="fixed" data-theme="a">
+	<div data-id="head" data-role="header" data-position="fixed" data-theme="a">
     <h1>XBMC Servers</h1>
-    <a href="<%= url_for :controller => :Controls %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+    <a href="<%= url_for :controller => :Controls %>" class="ui-btn-left" data-icon="arrow-l" data-transition="slideup" data-direction="reverse">
       Back
     </a>
     <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus" data-iconpos="right" data-theme="e">
@@ -24,10 +24,10 @@
     </ul>
   </div>
 
-	<div data-role="footer" data-position="fixed" class="nav-cust">
+	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
 			<ul>
-				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-transition="slideup" data-direction="reverse">Controls</a></li>
 				<li><a href="#" id="movies" data-icon="custom">Movies</a></li>
 				<li><a href="#" id="shows" data-icon="custom">TV Shows</a></li>
 				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
