@@ -1,4 +1,3 @@
-require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/ruby_ext'
 require 'helpers/browser_helper'
@@ -9,7 +8,6 @@ require 'helpers/xbmc/apis/xbmc_apis'
 class XbmcConnect
   include ApplicationHelper
   include BrowserHelper
-  include ErrorHelper
   
   ERROR401 = "Unauthorised"
   ERRORURL = "Error"
@@ -18,6 +16,7 @@ class XbmcConnect
   NOCALLB = "NOCALLB"
    
   class << self
+    include ErrorHelper
     
     def setup(add, port, usr="", pass="")
       add.gsub!(/[Hh][Tt][Tt][Pp]:\/\//,"")
@@ -92,7 +91,9 @@ class XbmcConnect
         puts "****** LOADING API ********"
         async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
       else
-        ErrorHelper.error_handle(params)
+        if XbmcConnect.api_loaded?
+          error_handle(params)
+        end
       end
     end
     
@@ -111,7 +112,7 @@ class XbmcConnect
         XbmcConnect.api_loaded = true
         XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
       else
-        ErrorHelper.error_handle(params)
+        error_handle(params)
       end
     end
     
@@ -135,12 +136,33 @@ class XbmcConnect
       @error = value
     end
     
+    # Only returns the current API version.
     def version
       return @version
     end
     
     def version=(value)
       @version = value
+    end
+    
+    # Checks if there is a current XBMC Config active, the API is loaded and
+    # then returns the version number. If there is no current XBMC Config returns
+    # nil. Will also return nil if there is no API Loaded, it will also attempt to 
+    # load the current XBMC Config API. Before each nil is 
+    # returned ErrorHelper Error Handle method is called.
+    def get_version
+      unless XbmcConfigHelper.current_config.nil?
+        if XbmcConnect.api_loaded?
+          return @version
+        else
+          XbmcConnect.load_api # Callback needed.
+          ErrorHelper.error_handle
+          return nil
+        end
+      else
+        ErrorHelper.error_handle
+        return nil
+      end
     end
     
     XbmcConnect.error = {:error => XbmcConnect::ERRORAPI, :msg => "API hasn't been loaded; cannot connect to XBMC Server"}
