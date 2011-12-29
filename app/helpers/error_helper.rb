@@ -4,9 +4,7 @@ require 'helpers/xbmc_config_helper'
 module ErrorHelper
   include ApplicationHelper
   include XbmcConfigHelper
-  
-  class << self
-  
+    
   def error_handle(params="")
     if XbmcConfigHelper.current_config.nil?
       Alert.show_popup ({
@@ -39,5 +37,5 @@ module ErrorHelper
       end
     end
   end
-end
+
 end
