@@ -1,13 +1,9 @@
 require 'helpers/xbmc/apis/xbmc_apis'
 
-module VideoLibrary4
+module VideoLibrary2
   
-  def clean(callback)
-    XbmcConnect::VideoLibrary.clean(callback)
-  end
-    
   def scan(callback)
-    XbmcConnect::VideoLibrary.scan(callback)
+    XbmcConnect::VideoLibrary.scan_for_content(callback)
   end
   
   def get_movies(callback)

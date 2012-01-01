@@ -16,4 +16,12 @@ module ApiV2
     end
   end
   
+  class VideoLibrary
+    require 'helpers/xbmc/apis/api_2/api2_video'
+    
+    class << self
+      include VideoLibrary2
+    end
+  end
+  
 end
