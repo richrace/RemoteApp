@@ -1,7 +1,7 @@
 #sdk: "/Users/richardrace/.rvm/gems/ruby-1.9.2-p290/gems/rhodes-3.2.1"
-sdkversion: 3.3.0
+sdkversion: 3.3.1
 name: XBMC Remote
-version: 1.0
+version: 0.1
 vendor: Richard Race
 build: debug
 bbver: 4.6
