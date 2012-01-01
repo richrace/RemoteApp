@@ -14,4 +14,27 @@ module VideoLibrary4
     XbmcConnect::VideoLibrary.get_movies(callback)
   end
   
+  def get_movie_detail(callback, movieid)
+    params = {
+      :movieid => Integer(movieid),
+      :properties => [
+        "year",
+        "genre",
+        "studio",
+        "sorttitle",
+        "rating",
+        "trailer",
+        "imdbnumber",
+        "plotoutline",
+        "tagline",
+        "director",
+        "file",
+        "playcount",
+        "fanart",
+        "thumbnail"
+        ]
+    }
+    XbmcConnect::VideoLibrary.get_movie_details(callback, params)
+  end
+  
 end

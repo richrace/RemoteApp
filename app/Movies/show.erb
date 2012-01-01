@@ -1,7 +1,7 @@
 <div data-role="page">
 
 	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
-    <h1>Movies</h1>
+    <h1><%= @movie[:label] %></h1>
     <a href="#" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
       Sort
     </a>
@@ -9,19 +9,7 @@
 
   <div data-role="content">
 		
-		<script>
-			function getMovie(movie_id) {
-				$.post("<%= url_for :action => :movie_detail %>", {"movieid":movie_id})
-			}
-		</script>
-	
-		<ul data-role="listview">
-			<% unless @movies.blank? %>
-				<% get_result.each do | movie |%>
-					<li><a href="#" onclick="getMovie(<%= movie[:movieid] %>)"><%= movie[:label] %></a></li>
-				<% end %>
-			<% end %>
-    </ul>
+		
 			
   </div>
 
