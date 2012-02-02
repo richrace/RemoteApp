@@ -11,18 +11,27 @@
 		
 		<script>
 			function getMovie(movie_id) {
-				$.post("<%= url_for :action => :movie_detail %>", {"movieid":movie_id})
+				$.post("<%= url_for :action => :movie_detail %>", {"movieid":movie_id});
+			}
+			
+			function updateList(movies) {
+					var list = document.getElementById('content_list');
+					
+					var movie;
+					for (movie in movies) {
+						var newLi = document.createElement('li');
+						newLi.innerHTML = "<a href=\"#\" onclick=\"getMovie("+movies[movie].movieid+")\")>"+movies[movie].label+"</a>";
+						list.appendChild(newLi);
+					}
+					$(list).listview('refresh');
 			}
 		</script>
-	
-		<ul data-role="listview">
-			<% unless @movies.blank? %>
-				<% get_result.each do | movie |%>
-					<li><a href="#" onclick="getMovie(<%= movie[:movieid] %>)"><%= movie[:label] %></a></li>
-				<% end %>
-			<% end %>
-    </ul>
 			
+		<ul id="content_list" data-role="listview" data-filter="true">
+
+		</ul>
+		
+		
   </div>
 
 	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
