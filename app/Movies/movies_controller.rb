@@ -18,8 +18,10 @@ class MoviesController < Rho::RhoController
   
   def index
     set_callbacks
-    Api::V4::VideoLibrary.get_movies(@movies_cb)
-    render
+    if XbmcConnect.api_loaded?
+      Api::V4::VideoLibrary.get_movies(@movies_cb)
+    end
+    #render
   end
   
   def movies_callback
@@ -29,7 +31,8 @@ class MoviesController < Rho::RhoController
       @params['body'].with_indifferent_access[:result][:movies].each do | movie|
         @movies << movie
       end
-      render_transition :action => :index 
+      #render_transition :action => :index 
+      WebView.execute_js("updateList(#{JSON.generate(@movies)});")
     end
   end
   
@@ -45,8 +48,11 @@ class MoviesController < Rho::RhoController
   
   def movie_detail
     set_callbacks
-    puts "AJAX POST TO CONTROLLER\nPARAMS MOVIE ID ===== #{@params['movieid']}\n\n\n"
     Api::V4::VideoLibrary.get_movie_detail(@detail_cb, @params['movieid'])
+  end
+  
+  def get_movies
+    @movies
   end
   
 end
