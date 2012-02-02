@@ -1,7 +1,7 @@
 
 module CommandsHelper
   
-  def scan_video
+  def scan_video_lib(callback)
     version = XbmcConnect.get_version
     unless version.nil?
       if version == Api::V2::VERSION
