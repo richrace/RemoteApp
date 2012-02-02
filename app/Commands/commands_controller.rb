@@ -24,8 +24,7 @@ class CommandsController < Rho::RhoController
   end
   
   def scan_video
-    
-    Api::V4::VideoLibrary.scan(url_for :action => :test_callback)
+    scan_video_lib(@callback)
   end
   
 end
