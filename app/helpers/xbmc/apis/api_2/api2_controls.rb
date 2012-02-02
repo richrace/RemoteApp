@@ -17,13 +17,11 @@ module Control2
     cur_player = get_player
     unless cur_player.nil?
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.play_pause(callback)}
+        XbmcConnect::AudioPlayer.play_pause(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.play_pause(callback)}
+        XbmcConnect::VideoPlayer.play_pause(callback)
       elsif cur_player[:picture] == true
-        Controls.send_command {XbmcConnect::PicturePlayer.play_pause(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::PicturePlayer.play_pause(callback)
       end
     end
   end
@@ -32,13 +30,11 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.stop(callback)}
+        XbmcConnect::AudioPlayer.stop(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.stop(callback)}
+        XbmcConnect::VideoPlayer.stop(callback)
       elsif cur_player[:picture] == true
-        Controls.send_command {XbmcConnect::PicturePlayer.stop(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::PicturePlayer.stop(callback)
       end
     end
   end
@@ -47,11 +43,9 @@ module Control2
      cur_player = get_player
      unless cur_player.nil? 
        if cur_player[:audio] == true
-         Controls.send_command {XbmcConnect::AudioPlayer.rewind(callback)}
+         XbmcConnect::AudioPlayer.rewind(callback)
        elsif cur_player[:video] == true
-         Controls.send_command {XbmcConnect::VideoPlayer.rewind(callback)}
-       else
-         @@test = "No active players"
+         XbmcConnect::VideoPlayer.rewind(callback)
        end
      end
    end
@@ -60,11 +54,9 @@ module Control2
       cur_player = get_player
       unless cur_player.nil? 
         if cur_player[:audio] == true
-          Controls.send_command {XbmcConnect::AudioPlayer.forward(callback)}
+          XbmcConnect::AudioPlayer.forward(callback)
         elsif cur_player[:video] == true
-          Controls.send_command {XbmcConnect::VideoPlayer.forward(callback)}
-        else
-          @@test = "No active players"
+          XbmcConnect::VideoPlayer.forward(callback)
         end
       end
     end
@@ -73,11 +65,9 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.big_skip_forward(callback)}
+        XbmcConnect::AudioPlayer.big_skip_forward(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.big_skip_forward(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::VideoPlayer.big_skip_forward(callback)
       end
     end
   end
@@ -86,9 +76,9 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.small_skip_forward(callback)}
+        XbmcConnect::AudioPlayer.small_skip_forward(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.small_skip_forward(callback)}
+        XbmcConnect::VideoPlayer.small_skip_forward(callback)
       else
         @@test = "No active players"
       end
@@ -99,11 +89,9 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.big_skip_backward(callback)}
+        XbmcConnect::AudioPlayer.big_skip_backward(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.big_skip_backward(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::VideoPlayer.big_skip_backward(callback)
       end
     end
   end
@@ -112,11 +100,9 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.small_skip_backward(callback)}
+        XbmcConnect::AudioPlayer.small_skip_backward(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.small_skip_backward(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::VideoPlayer.small_skip_backward(callback)
       end
     end
   end
@@ -125,13 +111,11 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.skip_next(callback)}
+        XbmcConnect::AudioPlayer.skip_next(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.skip_next(callback)}
+        XbmcConnect::VideoPlayer.skip_next(callback)
       elsif cur_player[:picture] == true
-        Controls.send_command {XbmcConnect::PicturePlayer.skip_next(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::PicturePlayer.skip_next(callback)
       end
     end
   end
@@ -140,13 +124,11 @@ module Control2
     cur_player = get_player
     unless cur_player.nil? 
       if cur_player[:audio] == true
-        Controls.send_command {XbmcConnect::AudioPlayer.skip_previous(callback)}
+        XbmcConnect::AudioPlayer.skip_previous(callback)
       elsif cur_player[:video] == true
-        Controls.send_command {XbmcConnect::VideoPlayer.skip_previous(callback)}
+        XbmcConnect::VideoPlayer.skip_previous(callback)
       elsif cur_player[:picture] == true
-        Controls.send_command {XbmcConnect::PicturePlayer.skip_previous(callback)}
-      else
-        @@test = "No active players"
+        XbmcConnect::PicturePlayer.skip_previous(callback)
       end
     end
   end
