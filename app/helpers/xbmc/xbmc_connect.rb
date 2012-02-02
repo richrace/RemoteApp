@@ -23,6 +23,7 @@ class XbmcConnect
       @url = "http://" + add + ':' + "#{port}" + '/jsonrpc'
       @uname = usr
       @pass = pass
+      #@api_loaded = false;
     end  
   
     def async_connect(callback, method, params={})
@@ -91,9 +92,7 @@ class XbmcConnect
         puts "****** LOADING API ********"
         async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
       else
-        if XbmcConnect.api_loaded?
-          error_handle(params)
-        end
+        error_handle(params)
       end
     end
     
@@ -125,7 +124,10 @@ class XbmcConnect
     end
     
     def api_loaded=(value)
+      puts "API_LOADED SETTER VALUE == #{value}"
       @api_loaded = value
+      puts "API_LOADED SETTER AFTER ASSIGN == #{@api_loaded}"
+      puts "API_LOADED FROM CONSTANT == #{XbmcConnect.api_loaded?}"
     end
     
     def error
@@ -152,20 +154,19 @@ class XbmcConnect
     # returned ErrorHelper Error Handle method is called.
     def get_version
       unless XbmcConfigHelper.current_config.nil?
+        puts "GETS VERSION ---- #{XbmcConnect.api_loaded?}"
         if XbmcConnect.api_loaded?
           return @version
         else
           XbmcConnect.load_api # Callback needed.
-          ErrorHelper.error_handle
+          #error_handle
           return nil
         end
       else
-        ErrorHelper.error_handle
+        error_handle
         return nil
       end
     end
-    
-    XbmcConnect.error = {:error => XbmcConnect::ERRORAPI, :msg => "API hasn't been loaded; cannot connect to XBMC Server"}
     
   end
 end
