@@ -21,6 +21,10 @@ class MoviesController < Rho::RhoController
     update_list
   end
   
+  def thumbcb
+    WebView.execute_js("addFile(\'#{@@file}\');")
+  end
+  
   def movies_callback
     if @params['status'] != 'ok'
       error_handle(@params)
@@ -34,12 +38,20 @@ class MoviesController < Rho::RhoController
   end
   
   def detail_callback
-    puts "GETS TO CALLBACK"
     if @params['status'] != 'ok'
       error_handle(@params)
     else
       @movie = @params['body'].with_indifferent_access[:result][:moviedetails]
-      render_transition :action => :show 
+      
+      url = XbmcConnect::Files.prepare_download(XbmcConnect::NOCALLB, {:path => @movie['thumbnail']})
+      
+      if url['status'] == 'ok'
+        puts url['body']
+        @@file = File.join(Rho::RhoApplication::get_base_app_path(), "#{@movie['movieid']}.jpg")
+        XbmcConnect.download_file(url['body'].with_indifferent_access[:result][:details][:path], @@file, url_for(:action => :thumbcb))
+      
+      end
+      render_transition :action => :show
     end
   end
   
