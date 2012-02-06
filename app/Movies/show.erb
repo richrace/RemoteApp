@@ -10,8 +10,16 @@
     </a>
 	</div>
 
-  <div data-role="content">
+	<script>
 		
+		function addFile(filename) {
+			var div = document.getElementById('test');
+			div.innerHTML = '<p>Image should be loaded</p><img src=\"' + filename + '\"/>';
+		}
+	</script>
+	
+  <div id="test" data-role="content">
+		<p>Waiting for image...</p>
 		
 			
   </div>

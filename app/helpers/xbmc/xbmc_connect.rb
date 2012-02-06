@@ -21,6 +21,7 @@ class XbmcConnect
     def setup(add, port, usr="", pass="")
       add.gsub!(/[Hh][Tt][Tt][Pp]:\/\//,"")
       @url = "http://" + add + ':' + "#{port}" + '/jsonrpc'
+      @base = "http://" + add + ':' + "#{port}/"
       @uname = usr
       @pass = pass
       #@api_loaded = false;
@@ -65,6 +66,20 @@ class XbmcConnect
       return response
     end
     
+    def download_file(address, filename, callback) 
+      Rho::AsyncHttp.download_file(
+        :url => @base + address,
+        :authentication => {
+          :type => :basic,
+          :username => @uname,
+          :password => @pass
+        },
+        :filename => filename,
+        :headers => {},
+        :callback => callback
+      )
+    end
+    
     def load_api(callback="app/Xbmc/version")
       puts "***** GETTING VERSION ******"
       async_connect(callback, "JSONRPC.Version")
@@ -77,7 +92,8 @@ class XbmcConnect
         # Add command name to the specification
         attrList["command"] = c.at(0)
         # Process the command as usual
-        XbmcConnect::Command.new(attrList)}
+        XbmcConnect::Command.new(attrList)
+      }
     end
     
     def parse_commands_v2(body)
