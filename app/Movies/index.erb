@@ -1,7 +1,9 @@
 <div data-role="page">
 
 	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
-    <h1>Movies</h1>
+    <a href="#" onClick="reload();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh">&nbsp;
+		</a>
+		<h1>Movies</h1>
     <a href="#" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
       Sort
     </a>
@@ -14,22 +16,51 @@
 				$.post("<%= url_for :action => :movie_detail %>", {"movieid":movie_id});
 			}
 			
+			function reload() {
+				$.get("<%= url_for :action => :update_list %>");
+			}
+			
 			function updateList(movies) {
 					var list = document.getElementById('content_list');
-					
+					if (list.hasChildNodes()) {
+						while (list.childNodes.length >= 1) {
+							list.removeChild(list.firstChild);       
+						} 
+					}
 					var movie;
 					for (movie in movies) {
 						var newLi = document.createElement('li');
-						newLi.innerHTML = "<a href=\"#\" onclick=\"getMovie("+movies[movie].movieid+")\")>"+movies[movie].label+"</a>";
+						newLi.innerHTML = "<a href=\"#\" onClick=\"getMovie("+movies[movie].movieid+");\")>"+movies[movie].label+"</a>";
 						list.appendChild(newLi);
 					}
 					$(list).listview('refresh');
 			}
-		</script>
 			
+			function loadList() {
+				var movies = new Array();
+				var m1 = {"movieid":1,"label":"movie1"};
+				var m2 = {"movieid":2,"label":"movie2"};
+				movies[0] = m1;
+				movies[1] = m2;
+				updateList(movies);
+			}
+			
+			function addToList() {
+				var movies = new Array();
+				var m3 = {"movieid":3,"label":"movie3"};
+				movies[0] = m3;
+				updateList(movies);
+			}
+ 		</script>
 		<ul id="content_list" data-role="listview" data-filter="true">
 
 		</ul>
+		<br />
+		<br />
+		<br />
+		<br />
+		<div><a href="#" onClick="loadList();">Load List</a></div>
+		<div><a href="#" onClick="addToList();">Add to list</a></div>
 		
 		
   </div>
