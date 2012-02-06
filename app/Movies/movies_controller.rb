@@ -4,6 +4,7 @@ require 'helpers/browser_helper'
 require 'helpers/xbmc/apis/xbmc_apis'
 require 'helpers/error_helper'
 require 'helpers/movies_helper'
+require 'date'
 
 
 class MoviesController < Rho::RhoController
@@ -17,11 +18,7 @@ class MoviesController < Rho::RhoController
   end
   
   def index
-    set_callbacks
-    if XbmcConnect.api_loaded?
-      Api::V4::VideoLibrary.get_movies(@movies_cb)
-    end
-    #render
+    update_list
   end
   
   def movies_callback
@@ -51,8 +48,30 @@ class MoviesController < Rho::RhoController
     Api::V4::VideoLibrary.get_movie_detail(@detail_cb, @params['movieid'])
   end
   
-  def get_movies
-    @movies
+  # Updates the AJAX list. If the API hasn't been loaded will attempt to load
+  # the API. Will update list if the API is loaded within the Timeout limit
+  # (10 secs). Spawns a new thread to make sure the UI doesn't freeze.
+  def update_list
+    set_callbacks
+    if XbmcConnect.api_loaded?
+      Api::V4::VideoLibrary.get_movies(@movies_cb)
+    else
+      XbmcConnect.load_api
+      Thread.new {
+        start = Time.now
+        timeout = 10
+        cur_wait = 0
+        while (cur_wait <= timeout)
+          now = Time.now
+          cur_wait = now - start
+          sleep(1)
+          break if XbmcConnect.api_loaded?
+        end
+        if XbmcConnect.api_loaded?
+          Api::V4::VideoLibrary.get_movies(@movies_cb)
+        end
+      }
+    end
   end
   
 end
