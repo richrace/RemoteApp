@@ -31,7 +31,9 @@ module VideoLibrary4
         "file",
         "playcount",
         "fanart",
-        "thumbnail"
+        "thumbnail",
+        "plot",
+        "title"
         ]
     }
     XbmcConnect::VideoLibrary.get_movie_details(callback, params)
