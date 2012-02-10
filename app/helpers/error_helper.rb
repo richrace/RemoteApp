@@ -31,13 +31,9 @@ module ErrorHelper
     type = "http unknown"
     if params['http_error'] == '401'
       XbmcConnect.error = {:error => XbmcConnect::ERROR401, :msg => "Couldn't connect. Username and Password incorrect"}
-      XbmcConnect.api_loaded = false
-      XbmcConnect.version = 0
       type = "http 401"
     else
       XbmcConnect.error = {:error => XbmcConnect::ERRORURL, :msg => "Couldn't connect.  URL and/or Port incorrect"}
-      XbmcConnect.api_loaded = false
-      XbmcConnect.version = 0
       type = "http 404"
     end
     Alert.show_popup ({

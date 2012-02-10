@@ -11,7 +11,7 @@ module Controls
   # Used to find out what the current player is. Will be needed before using controls
   # This is needed for XBMC Version 10.1
   def play_pause_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == Api::V2::VERSION
         Api::V2::Playback.play_pause(callback)
@@ -22,7 +22,7 @@ module Controls
   end
   
   def stop_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.stop(callback)
@@ -33,7 +33,7 @@ module Controls
   end
   
   def rewind_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.rewind(callback)
@@ -44,7 +44,7 @@ module Controls
   end
    
   def fast_forward_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.fast_forward(callback)
@@ -55,7 +55,7 @@ module Controls
   end
   
   def big_skip_forward_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.big_skip_forward(callback)
@@ -66,7 +66,7 @@ module Controls
   end
   
   def sm_skip_forward_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.sm_skip_forward(callback)
@@ -77,7 +77,7 @@ module Controls
   end
       
   def big_skip_back_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.big_skip_back(callback)
@@ -88,7 +88,7 @@ module Controls
   end
   
   def sm_skip_back_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.sm_skip_back(callback)
@@ -99,7 +99,7 @@ module Controls
   end
   
   def skip_next_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.skip_next(callback)
@@ -110,7 +110,7 @@ module Controls
   end
     
   def skip_prev_player(callback)
-    version = XbmcConnect.get_version
+    version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
         Api::V2::Playback.skip_previous(callback)

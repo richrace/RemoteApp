@@ -3,11 +3,13 @@ require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/xbmc_config_helper'
 require 'helpers/xbmc/xbmc_connect'
+require 'helpers/error_helper'
 
 class XbmcConfigController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
   include XbmcConfigHelper
+  include ErrorHelper
 
   # GET /XbmcConfig
   def index
@@ -75,17 +77,18 @@ class XbmcConfigController < Rho::RhoController
   end
   
   def api_callback
-    XbmcConnect.load_version(@params)
     @xbmc_config = XbmcConfigHelper.current_config
-    if XbmcConnect.version != 0
-      render_transition :action => :show
-    else
+    if @params['status'] != 'ok'
+      error_handle(@params)
       if XbmcConnect.error[:error] == XbmcConnect::ERROR401 
         @errors = {:usrname => "Incorrect", :password => "Incorrect"}.to_json
       elsif XbmcConnect.error[:error] == XbmcConnect::ERRORURL
         @errors = {:url => "Couldn't connect", :port => "Couldn't connect"}.to_json
       end
-      render_transition :action => :edit 
+      render_transition :action => :edit
+    else
+      XbmcConnect.load_version(@params)      
+      render_transition :action => :show
     end
   end
   
@@ -105,7 +108,9 @@ class XbmcConfigController < Rho::RhoController
     end
     @xbmc_config.active = true
     @xbmc_config.save
-      
+    
+    # Loads the current current XBMC config. This makes XBMC Connect class
+    # to setup the connection information.
     XbmcConfigHelper.current_config
       
     XbmcConnect.load_api url_for(:action => :api_callback)
