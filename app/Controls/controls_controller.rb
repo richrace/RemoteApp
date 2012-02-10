@@ -5,6 +5,7 @@ require 'helpers/controls_helper'
 require 'helpers/xbmc_config_helper'
 require 'helpers/xbmc/xbmc_connect'
 require 'helpers/error_helper'
+require 'helpers/method_helper'
 
 class ControlsController < Rho::RhoController
   include ApplicationHelper
@@ -12,15 +13,10 @@ class ControlsController < Rho::RhoController
   include Controls
   include XbmcConfigHelper
   include ErrorHelper
+  include MethodHelper
   
   def index
     @callback = url_for :controller => :Controls, :action => :control_callback
-    
-    unless XbmcConfigHelper.current_config.nil?
-      unless XbmcConnect.api_loaded?
-        XbmcConnect.load_api
-      end
-    end
     render
   end
   
@@ -34,43 +30,43 @@ class ControlsController < Rho::RhoController
   end
     
   def pause_play
-    play_pause_player(@callback)
+    send_command {play_pause_player(@callback)}
   end
   
   def stop
-    stop_player(@callback)
+    send_command {stop_player(@callback)}
   end
   
   def rewind
-    rewind_player(@callback)
+    send_command {rewind_player(@callback)}
   end
   
   def fast_forward
-    fast_forward_player(@callback)
+    send_command {fast_forward_player(@callback)}
   end
   
   def big_skip_forward
-    big_skip_forward_player(@callback)
+    send_command {big_skip_forward_player(@callback)}
   end
   
   def sm_skip_forward
-    sm_skip_forward_player(@callback)
+    send_command {sm_skip_forward_player(@callback)}
   end
   
   def big_skip_back
-    big_skip_back_player(@callback)
+    send_command {big_skip_back_player(@callback)}
   end
   
   def sm_skip_back
-    sm_skip_back_player(@callback)
+    send_command {sm_skip_back_player(@callback)}
   end
   
   def skip_next
-    skip_next_player(@callback)
+    send_command {skip_next_player(@callback)}
   end
   
   def skip_prev
-    skip_prev_player(@callback)
+    send_command {skip_prev_player(@callback)}
   end
   
 end

@@ -24,7 +24,7 @@ class CommandsController < Rho::RhoController
   end
   
   def scan_video
-    scan_video_lib(@callback)
+    send_commnad {scan_video_lib(@callback)}
   end
   
 end
