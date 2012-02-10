@@ -5,10 +5,9 @@ function mark_errors(form_id, errors_object) {
  		if (input_temp.size() == 0 ) 
 			return true;
 
- 		if (input_temp.parent().children(".errorMessage").size() == 0)
-			input_temp.parent().append('<div class="errorMessage"></div>');
-
- input_temp.parent().css("color","red").children(".errorMessage").css('text-align','center').text(($.isArray(value) ? value[0] : value));
+ 		//if (input_temp.parent().children(".errorMessage").size() == 0) 
+		input_temp.parent().append('<div class="errorMessage"></div>');
+		input_temp.parent().css("color","red").children(".errorMessage").css('text-align','center').text(($.isArray(value) ? value[0] : value));
 
  	}); 
 }
