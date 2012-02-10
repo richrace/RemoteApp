@@ -4,12 +4,14 @@ require 'helpers/movie_helper'
 require 'helpers/xbmc/apis/xbmc_apis'
 require 'helpers/error_helper'
 require 'date'
+require 'helpers/method_helper'
 
 class MovieController < Rho::RhoController
   include BrowserHelper
   include MovieHelper
   include XbmcConfigHelper
   include ErrorHelper
+  include MethodHelper
   
   # GET /Movie
   def index
@@ -70,56 +72,15 @@ class MovieController < Rho::RhoController
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
     end
     set_callbacks
-    if XbmcConnect.api_loaded?
-      Api::V4::VideoLibrary.get_movies(@movies_cb)
-    elsif XbmcConfigHelper.current_config.blank?
-      error_handle
-    else
-      XbmcConnect.load_api
-      Thread.new {
-        start = Time.now
-        timeout = 10
-        cur_wait = 0
-        while (cur_wait <= timeout)
-          now = Time.now
-          cur_wait = now - start
-          sleep(1)
-          break if XbmcConnect.api_loaded?
-        end
-        if XbmcConnect.api_loaded?
-          Api::V4::VideoLibrary.get_movies(@movies_cb)
-        end
-      }
-    end
+    send_command {Api::V4::VideoLibrary.get_movies(@movies_cb)}
   end
   
   def movies_callback
     if @params['status'] != 'ok'
       error_handle(@params)
     else
-      @movies = filter_movie_xbmc
-      if @movies.blank? 
-        old_len = 0
-        @movies = Array.new
-      else
-        old_len = @movies.size
-      end
-      @params['body'].with_indifferent_access[:result][:movies].each do | new_movie |
-        puts "Dealing with Movie === #{new_movie}"
-        found = Movie.find(:all, :conditions => { :xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => new_movie[:movieid]})
-        puts "Have I found this? ==== #{!found.blank?} +++ #{found}"
-        if found.blank?
-          puts "I'm now dealing with this new movie."
-          t_movie = Movie.new :xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => new_movie[:movieid],  :label => new_movie[:label]
-          puts "I've created a new movie; but not saved it yet ==== #{t_movie}"
-          t_movie.url = url_for(:action => :show, :id => t_movie.object)
-          t_movie.save
-          @movies << t_movie
-          puts "I've added it to the list! === #{@movies}"
-        end
-      end
-      if old_len != @movies.size
-        WebView.execute_js("updateList(#{JSON.generate(@movies)});")
+      if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
+        WebView.execute_js("updateList(#{JSON.generate(filter_movie_xbmc)});")
       end
     end
   end
