@@ -1,9 +1,9 @@
 require 'helpers/application_helper'
 require 'helpers/xbmc_config_helper'
+require 'helpers/xbmc/xbmc_connect'
 
 module ErrorHelper
   include ApplicationHelper
-  include XbmcConfigHelper
     
   def error_handle(params="")
     type = "unknown"

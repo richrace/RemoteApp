@@ -2,8 +2,6 @@ require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/browser_helper'
 require 'helpers/controls_helper'
-require 'helpers/xbmc_config_helper'
-require 'helpers/xbmc/xbmc_connect'
 require 'helpers/error_helper'
 require 'helpers/method_helper'
 
@@ -11,7 +9,6 @@ class ControlsController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
   include Controls
-  include XbmcConfigHelper
   include ErrorHelper
   include MethodHelper
   

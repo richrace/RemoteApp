@@ -1,5 +1,8 @@
+require 'helpers/xbmc/apis/xbmc_apis'
+require 'helpers/xbmc_config_helper'
 
 module CommandsHelper
+  include XbmcConfigHelper
   
   def scan_video_lib(callback)
     version = XbmcConfigHelper.current_config.version.to_i

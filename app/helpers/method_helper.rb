@@ -1,3 +1,5 @@
+require 'helpers/xbmc/xbmc_connect'
+
 module MethodHelper
   
   # Makes sure there is a Current Config and the correct API is loaded 

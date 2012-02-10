@@ -1,16 +1,16 @@
 require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/browser_helper'
-require 'helpers/xbmc/apis/xbmc_apis'
 require 'helpers/commands_helper'
 require 'helpers/error_helper'
-
+require 'helpers/method_helper'
 
 class CommandsController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
   include CommandsHelper
   include ErrorHelper
+  include MethodHelper
   
   def index
     @callback = url_for :action => :cmd_callback
@@ -24,7 +24,7 @@ class CommandsController < Rho::RhoController
   end
   
   def scan_video
-    send_commnad {scan_video_lib(@callback)}
+    send_command {scan_video_lib(@callback)}
   end
   
 end

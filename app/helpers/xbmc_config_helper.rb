@@ -1,3 +1,5 @@
+require 'helpers/xbmc/xbmc_connect'
+
 module XbmcConfigHelper
   
   class << self

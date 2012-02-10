@@ -1,12 +1,8 @@
-require 'json'
 require 'helpers/xbmc_config_helper'
-require 'helpers/xbmc/xbmc_connect'
-require 'helpers/error_helper'
 require 'helpers/xbmc/apis/xbmc_apis'
 
 module Controls
   include XbmcConfigHelper
-  include ErrorHelper
   
   # Used to find out what the current player is. Will be needed before using controls
   # This is needed for XBMC Version 10.1
