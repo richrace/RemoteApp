@@ -2,27 +2,28 @@
 
   <div data-id="head" data-role="header" data-position="fixed">
     <h1>Edit <%= @xbmc_config.name %></h1>
-    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-direction="reverse" data-icon="back">
+    <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-transition="flip" data-direction="reverse" data-icon="back">
       Cancel
     </a>
-    <a href="<%= url_for :action => :delete, :id => @xbmc_config.object %>" class="ui-btn-right" data-iconpos="right" data-icon="delete" data-direction="reverse" data-theme="e">
+    <a href="<%= url_for :action => :delete, :id => @xbmc_config.object %>" class="ui-btn-right" data-iconpos="right" data-icon="delete"  data-direction="reverse" data-theme="e">
       Delete
     </a>
   </div>
 
   <div data-role="content">
+		
     <form id="edit_config" method="POST" action="<%= url_for :action => :update %>">
       <input type="hidden" name="id" value="<%= @xbmc_config.object %>"/>
-      <% if @msg %>
-			        <p style="color: red"><%= @msg %></p>
-	    <% end %>
-		  <% if @errors %>
+		  <% if @msg %>
+				<p style="color: red"><%= @msg %></p>
+			<% end %>
+			<% if @errors %>
 		  	<script type="text/javascript" charset="utf-8">
 		    	$(document).ready(function (){      
-		      	mark_errors("#edit_config", <%=  @errors %>);        
+		      	mark_errors("#edit_config", <%= @errors %>);        
 		    	});
 		    </script>
-		<% end %>
+			<% end %>
 		
 		<ul data-role="listview">
          <li>
@@ -47,7 +48,7 @@
 
 				<li>
             <label for="xbmc_config[pass]"><strong>Password:</strong></label>
-            <input type="password" id="xbmc_config[pass]" name="xbmc_config[password]" value="<%= @xbmc_config.password %>" <%= placeholder( "Password" ) %> />
+            <input type="password" id="xbmc_config[password]" name="xbmc_config[password]" value="<%= @xbmc_config.password %>" <%= placeholder( "Password" ) %> />
       	</li>
 
 				<li>
@@ -59,7 +60,7 @@
       	</li>
 				
 				<li>
-					<input type="submit" class="standardButton" value="Update" data-theme="a"/>
+					<input type="submit" class="standardButton" value="Update" data-theme="a" data-transition="slide"/>
 				</li>
 			</ul>
     </form>
