@@ -18,13 +18,15 @@ class XbmcConnect
   class << self
     include ErrorHelper
     
+    attr_accessor :loaded_apis, :error
+    XbmcConnect.loaded_apis = Array.new
+    
     def setup(add, port, usr="", pass="")
       add.gsub!(/[Hh][Tt][Tt][Pp]:\/\//,"")
       @url = "http://" + add + ':' + "#{port}" + '/jsonrpc'
       @base = "http://" + add + ':' + "#{port}/"
       @uname = usr
       @pass = pass
-      #@api_loaded = false;
     end  
   
     def async_connect(callback, method, params={})
@@ -82,8 +84,46 @@ class XbmcConnect
     
     def load_api(callback="app/Xbmc/version")
       puts "***** GETTING VERSION ******"
-      async_connect(callback, "JSONRPC.Version")
+      if XbmcConfigHelper.current_config.nil?
+        error_handle
+      else
+        async_connect(callback, "JSONRPC.Version")
+      end
     end 
+    
+    def load_version(params)
+      puts "********** LOADING VERSION **********"
+      if params['status'] == 'ok'
+        xbmc = XbmcConfigHelper.current_config
+        xbmc.version = params['body'].with_indifferent_access[:result][:version]
+        xbmc.save
+        puts "****** LOADING API ********"
+        async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
+      else
+        error_handle(params)
+      end
+    end
+    
+    def load_commands(params)
+      puts "*********** LOADING COMMANDS ************"
+      if params['status'] == 'ok'
+        @commands = nil
+        cur_version = XbmcConfigHelper.current_config.version.to_i
+        if cur_version == Api::V2::VERSION
+          parse_commands_v2(params['body'])
+        elsif (cur_version == Api::V4::VERSION) || (cur_version == 3)
+          parse_commands_v4(params['body'])
+        end
+        @commands.each do |command|
+          command.send :define_method!
+        end
+        xbmc = XbmcConfigHelper.current_config
+        XbmcConnect.loaded_apis << xbmc.version unless XbmcConnect.loaded_apis.include?(xbmc.version)
+        XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
+      else
+        error_handle(params)
+      end
+    end
     
     def parse_commands_v4(body)
       puts "***** LOADS V4 Commands ******"
@@ -101,90 +141,21 @@ class XbmcConnect
       @commands ||= body.with_indifferent_access[:result][:commands].map {|c| XbmcConnect::Command.new(c)}
     end
     
-    def load_version(params)
-      puts "********** LOADING VERSION **********"
-      if params['status'] == 'ok'
-        XbmcConnect.version = params['body'].with_indifferent_access[:result][:version]
-        puts "****** LOADING API ********"
-        async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
-      else
-        error_handle(params)
-      end
-    end
-    
-    def load_commands(params)
-      puts "*********** LOADING COMMANDS ************"
-      if params['status'] == 'ok'
-        @commands = nil
-        if XbmcConnect.version == Api::V2::VERSION
-          parse_commands_v2(params['body'])
-        elsif (XbmcConnect.version == Api::V4::VERSION) || (XbmcConnect.version == 3)
-          parse_commands_v4(params['body'])
-        end
-        @commands.each do |command|
-          command.send :define_method!
-        end
-        XbmcConnect.api_loaded = true
-        XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
-      else
-        error_handle(params)
-      end
-    end
-    
-    def api_loaded?
-      if @api_loaded == true
+    # Checks the array of loaded APIs to see if the current XBMC API has been loaded.
+    def api_loaded? 
+      xbmc = XbmcConfigHelper.current_config
+      if xbmc.nil?
+        error_handle
+        return false
+      elsif XbmcConnect.loaded_apis.include?(xbmc.version.to_i)
         return true
-      else
+      else 
         return false
       end
     end
-    
-    def api_loaded=(value)
-      puts "API_LOADED SETTER VALUE == #{value}"
-      @api_loaded = value
-      puts "API_LOADED SETTER AFTER ASSIGN == #{@api_loaded}"
-      puts "API_LOADED FROM CONSTANT == #{XbmcConnect.api_loaded?}"
-    end
-    
-    def error
-      return @error
-    end
-    
-    def error=(value)
-      @error = value
-    end
-    
-    # Only returns the current API version.
-    def version
-      return @version
-    end
-    
-    def version=(value)
-      @version = value
-    end
-    
-    # Checks if there is a current XBMC Config active, the API is loaded and
-    # then returns the version number. If there is no current XBMC Config returns
-    # nil. Will also return nil if there is no API Loaded, it will also attempt to 
-    # load the current XBMC Config API. Before each nil is 
-    # returned ErrorHelper Error Handle method is called.
-    def get_version
-      unless XbmcConfigHelper.current_config.nil?
-        puts "GETS VERSION ---- #{XbmcConnect.api_loaded?}"
-        if XbmcConnect.api_loaded?
-          return @version
-        else
-          XbmcConnect.load_api # Callback needed.
-          #error_handle
-          return nil
-        end
-      else
-        error_handle
-        return nil
-      end
-    end
-    
   end
 end
 
+# Need the above class defined before can require the following class.
 require 'helpers/xbmc/command'
+
