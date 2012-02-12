@@ -14,7 +14,7 @@ module VideoLibrary4
     XbmcConnect::VideoLibrary.get_movies(callback)
   end
   
-  def get_movie_detail(callback, movieid)
+  def get_movie_details(callback, movieid)
     params = {
       :movieid => movieid.to_i,
       :properties => [
