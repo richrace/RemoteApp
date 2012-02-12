@@ -68,7 +68,7 @@ class XbmcConnect
       return response
     end
     
-    def download_file(address, filename, callback) 
+    def download_file(address, filename, callback, param_hash) 
       Rho::AsyncHttp.download_file(
         :url => @base + address,
         :authentication => {
@@ -78,7 +78,8 @@ class XbmcConnect
         },
         :filename => filename,
         :headers => {},
-        :callback => callback
+        :callback => callback,
+        :callback_param => "movieid=#{param_hash}"
       )
     end
     
