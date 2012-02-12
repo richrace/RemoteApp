@@ -28,6 +28,7 @@
 				}
 				for (movie in movies) {
 					var newLi = document.createElement('li');
+					newLi.id = 'list_'+ movies[movie].xlib_id;
 					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\"><img id="+movies[movie].xlib_id+" />" + movies[movie].label + "</a>";
 					list.appendChild(newLi);
 					getThumb(movies[movie].xlib_id);
