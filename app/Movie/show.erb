@@ -10,19 +10,23 @@
     </a>
   </div>
 
+	<script>
+		function loadImdb(imdbnumber) {
+			$.post("<%= url_for(:action => :open_imdb) %>", {"imdb":imdbnumber});
+		}
+		
+		function loadTrailer(youtubeid) {
+			$.post("<%= url_for(:action => :load_trailer) %>", {"youtubeid":youtubeid});
+		}
+	</script>
+
   <div data-role="content">
     <ul data-role="listview">
-      
-          <li>
-            <div class="itemLabel">Xbmc</div>
-            <div class="itemValue"><%= @movie.xbmc_id %></div>
+      		<li>
+            <div class="itemLabel">Title</div>
+            <div class="itemValue"><%= @movie.title %></div>
           </li>
-      
-          <li>
-            <div class="itemLabel">XlibId</div>
-            <div class="itemValue"><%= @movie.xlib_id %></div>
-          </li>
-      
+
           <li>
             <div class="itemLabel">Year</div>
             <div class="itemValue"><%= @movie.year %></div>
@@ -36,12 +40,7 @@
           <li>
             <div class="itemLabel">Studio</div>
             <div class="itemValue"><%= @movie.studio %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Sorttitle</div>
-            <div class="itemValue"><%= @movie.sorttitle %></div>
-          </li>
+          </li>   
       
           <li>
             <div class="itemLabel">Rating</div>
@@ -50,23 +49,13 @@
       
           <li>
             <div class="itemLabel">Trailer</div>
-            <div class="itemValue"><%= @movie.trailer %></div>
+            <div class="itemValue"><a href="#" onClick="loadTrailer('<%= @movie.trailer %>');">YouTube Trailer</a></div>
           </li>
       
           <li>
             <div class="itemLabel">Imdbnumber</div>
-            <div class="itemValue"><%= @movie.imdbnumber %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Plotoutline</div>
-            <div class="itemValue"><%= @movie.plotoutline %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Tagline</div>
-            <div class="itemValue"><%= @movie.tagline %></div>
-          </li>
+            <div class="itemValue"><a href="#" onClick="loadImdb('<%= @movie.imdbnumber %>');">Go to IMDB</a></div>
+          </li>   
       
           <li>
             <div class="itemLabel">Director</div>
@@ -74,48 +63,8 @@
           </li>
       
           <li>
-            <div class="itemLabel">File</div>
-            <div class="itemValue"><%= @movie.file %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Playcount</div>
-            <div class="itemValue"><%= @movie.playcount %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Fanart</div>
-            <div class="itemValue"><%= @movie.fanart %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Thumbnail</div>
-            <div class="itemValue"><%= @movie.thumbnail %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">LFanart</div>
-            <div class="itemValue"><%= @movie.l_fanart %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">LThumbnail</div>
-            <div class="itemValue"><%= @movie.l_thumbnail %></div>
-          </li>
-      
-          <li>
             <div class="itemLabel">Plot</div>
             <div class="itemValue"><%= @movie.plot %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Title</div>
-            <div class="itemValue"><%= @movie.title %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Label</div>
-            <div class="itemValue"><%= @movie.label %></div>
           </li>
       
     </ul>
