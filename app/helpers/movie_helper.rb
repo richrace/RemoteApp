@@ -1,12 +1,15 @@
 require 'helpers/movie_helper'
+require 'helpers/method_helper'
 
 module MovieHelper
   include XbmcConfigHelper
+  include MethodHelper
   
   def set_callbacks
     @movies_cb = url_for(:action => :movies_callback)
     @thumbnail_cb = url_for(:action => :thumb_cb)
     @load_thumb_cb = url_for(:action => :load_thumb_cb) 
+    @movie_details_cb = url_for(:action => :movie_details_callback)
   end
   
   def filter_movie_xbmc
@@ -39,6 +42,8 @@ module MovieHelper
         t_movie.url = url_for(:action => :show, :id => t_movie.object)
         t_movie.sorttitle = create_sort_title(t_movie.label)
         t_movie.save
+        set_callbacks
+        send_command {Api::V4::VideoLibrary.get_movie_details(@movie_details_cb, t_movie.xlib_id)}
         list_changed = true
       end
     end
@@ -64,5 +69,4 @@ module MovieHelper
     end
     return list_changed
   end
-
 end
