@@ -72,7 +72,16 @@ class XbmcConfigController < Rho::RhoController
   # POST /XbmcConfig/{1}/delete
   def delete
     @xbmc_config = XbmcConfig.find(@params['id'])
-    @xbmc_config.destroy if @xbmc_config
+    if @xbmc_config
+      movies = Movie.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
+      unless movies.blank?
+        movies.each do | movie |
+          movie.destroy_image
+          movie.destroy
+        end
+      end
+      @xbmc_config.destroy 
+    end
     redirect :action => :index  
   end
   
