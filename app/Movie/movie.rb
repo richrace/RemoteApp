@@ -11,7 +11,9 @@ class Movie
   #add model specifc code here
   
   def destroy_image
-    File.delete(self.l_thumb) if File.exists?(self.l_thumb) 
+    unless self.l_thumb.blank?
+      File.delete(self.l_thumb) if File.exists?(self.l_thumb) 
+    end
   end
   
 end
