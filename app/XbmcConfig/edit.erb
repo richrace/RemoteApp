@@ -1,6 +1,6 @@
 <div data-role="page">
 
-  <div data-id="head" data-role="header" data-position="fixed">
+  <div data-id="head" data-role="header" data-position="inline">
     <h1>Edit <%= @xbmc_config.name %></h1>
     <a href="<%= url_for :action => :show, :id => @xbmc_config.object %>" class="cancel" data-transition="flip" data-direction="reverse" data-icon="back">
       Cancel
