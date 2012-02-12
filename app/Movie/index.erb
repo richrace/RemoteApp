@@ -1,6 +1,6 @@
 <div data-role="page">
 
-	<div data-role="header" data-position="inline">
+	<div data-id="head" data-role="header" data-position="fixed">
     <a href="#" onClick="reload();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh">
 		</a>
 		<h1>Movies</h1>
@@ -14,6 +14,9 @@
 			$.get("<%= url_for :action => :update_list %>");
 		}
 		
+		function getThumb(movieid) {
+			$.post("<%= url_for :action => :get_thumb %>", {"movieid":movieid});
+		}
 		
 		function updateList(movies) {
 			if (movies != null) {
@@ -25,12 +28,17 @@
 				}
 				for (movie in movies) {
 					var newLi = document.createElement('li');
-					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\">" + movies[movie].label + "</a>";
+					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\"><img id="+movies[movie].xlib_id+" />" + movies[movie].label + "</a>";
 					list.appendChild(newLi);
+					getThumb(movies[movie].xlib_id);
 				}
 				$(list).listview('refresh');
 				$.fixedToolbars.show(true);
 			}
+		}
+		
+		function addThumb(movieid, filename) {
+			document.getElementById(movieid).src = filename;
 		}
 		
 		$(document).ready(function () { 
