@@ -146,7 +146,7 @@ class MovieController < Rho::RhoController
   end
   
   def open_imdb
-    if System.app_installed?("imdb")
+    if System.app_installed?("imdb") || System.app_installed?("com.imdb.mobile")
       System.open_url('imdb:///title/' + @params['imdb'])
     else
       System.open_url('http://www.imdb.com/title/' + @params['imdb'])
