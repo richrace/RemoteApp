@@ -83,4 +83,13 @@ module Control4
     end
   end
   
+  def play_movie(callback, movieid)
+    # Playlist ID is 1 as it used for Video.
+    cplay_param = {:playlistid => 1}
+    cplay_res = XbmcConnect::Playlist.clear(XbmcConnect::NOCALLB, cplay_param)
+    aplay_param = {:playlistid => 1, :item => {:movieid => movieid.to_i}}
+    aplay_res = XbmcConnect::Playlist.add(XbmcConnect::NOCALLB, aplay_param)
+    open_param = {:item => {:playlistid => 1}}
+    open_res = XbmcConnect::Player.open(XbmcConnect::NOCALLB, open_param)
+  end
 end
