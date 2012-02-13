@@ -5,12 +5,13 @@
     <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       Back
     </a>
-    <a href="<%= url_for :action => :edit, :id => @movie.object %>" class="ui-btn-right" data-icon="star">
-      Edit
-    </a>
   </div>
 
 	<script>
+		function playMovie(movieid) {
+			$.post("<%= url_for(:action => :play_movie) %>", {"movieid":movieid});
+		}
+	
 		function loadImdb(imdbnumber) {
 			$.post("<%= url_for(:action => :open_imdb) %>", {"imdb":imdbnumber});
 		}
@@ -27,6 +28,9 @@
             <div class="itemValue"><%= @movie.title %></div>
           </li>
 
+					<li>
+						<div class="itemLabel">Play</div>
+						<div class="itemValue"><a href="#" onClick="playMovie(<%= @movie.xlib_id %>);">Play</a></div>
           <li>
             <div class="itemLabel">Year</div>
             <div class="itemValue"><%= @movie.year %></div>
