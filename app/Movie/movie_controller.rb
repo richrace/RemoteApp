@@ -33,16 +33,6 @@ class MovieController < Rho::RhoController
     render :action => :new, :back => url_for(:action => :index)
   end
 
-  # GET /Movie/{1}/edit
-  def edit
-    @movie = Movie.find(@params['id'])
-    if @movie
-      render :action => :edit, :back => url_for(:action => :index)
-    else
-      redirect :action => :index
-    end
-  end
-
   # POST /Movie/create
   def create
     @movie = Movie.create(@params['movie'])
@@ -145,6 +135,14 @@ class MovieController < Rho::RhoController
         end
       end
     end
+  end
+  
+  def play_movie    
+    send_command { Api::V4::Playback.play_movie(url_for(:action => :play_callback),@params['movieid']) }
+  end
+  
+  def play_callback
+    puts "BODY FROM PLAY CALLBACK ==== #{@params['body']}"
   end
   
   def open_imdb
