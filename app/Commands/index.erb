@@ -15,13 +15,76 @@
   <div data-role="content">
 	
 		<script>
-			function test_scan() {
+			function scan() {
 				$.get("<%= url_for :action => :scan_video %>");
 			}
+			
+			function clean() {
+				$.get("<%= url_for :action => :clean_video %>");
+			}
+			
+			function up() {
+				$.get("<%= url_for :action => :input_up %>");
+			}
+			
+			function left() {
+				$.get("<%= url_for :action => :input_left %>");
+			}
+			
+			function right() {
+				$.get("<%= url_for :action => :input_right %>");
+			}
+			
+			function down() {
+				$.get("<%= url_for :action => :input_down %>");
+			}
+			
+			function select() {
+				$.get("<%= url_for :action => :input_select %>");
+			}
+			
+			function back() {
+				$.get("<%= url_for :action => :input_back %>");
+			}
+			
+			function home() {
+				$.get("<%= url_for :action => :input_home %>");
+			}
+			
+			$(document).ready(function () { 
+				$.mobile.fixedToolbars.show(true);
+			});
 		</script>
 
- 		<div>Will have commands</div>
-		<div><a href="#" onclick="test_scan()">Test</a></div>
+		<div><a href="#" onclick="scan()">Scan</a></div>
+		<% unless XbmcConfigHelper.current_config.blank?%>
+		<% if (XbmcConfigHelper.current_config.version.to_i == 3) || (XbmcConfigHelper.current_config.version.to_i == 4) %>
+		<br />
+		<br />
+		<div><a href="#" onclick="clean()">Clean</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="up()">Up</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="left()">Left</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="right()">Right</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="down()">Down</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="select()">Select</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="back()">Back</a></div>
+		<br />
+		<br />
+		<div><a href="#" onClick="home()">Home</a></div>
+		<% end %>
+		<% end %>
 			
   </div>
 
