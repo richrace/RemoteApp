@@ -4,6 +4,7 @@ require 'helpers/browser_helper'
 require 'helpers/controls_helper'
 require 'helpers/error_helper'
 require 'helpers/method_helper'
+require 'helpers/xbmc_config_helper'
 
 class ControlsController < Rho::RhoController
   include ApplicationHelper
@@ -11,6 +12,7 @@ class ControlsController < Rho::RhoController
   include Controls
   include ErrorHelper
   include MethodHelper
+  include XbmcConfigHelper
   
   def index
     @callback = url_for :controller => :Controls, :action => :control_callback
@@ -64,6 +66,13 @@ class ControlsController < Rho::RhoController
   
   def skip_prev
     send_command {skip_prev_player(@callback)}
+  end
+  
+  def load_volume
+    xbmc = XbmcConfigHelper.current_config
+    unless xbmc.blank? && xbmc.version.blank?
+      WebView.execute_js("update_slider(#{xbmc.volume.to_i});")
+    end
   end
   
 end
