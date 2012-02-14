@@ -40,7 +40,7 @@ net_timeout = 10
 logserver = '' 
 
 # log file prefix - contain human-readable text
-logname='RemoteApp'
+logname='XBMCRemoteApp'
 
 # Keep track of the last visited page
 KeepTrackOfLastVisitedPage = 0 
@@ -59,7 +59,7 @@ syncserver = ''
 #full_screen = 1
 
 # disable the Android page loading progress bar
-disable_loading_indication = 0
+disable_loading_indication = 1
 
 # Port of the local (embedded) HTTP server. This parameter is mainly for debug purposes.
 # If not specified, application will use dynamically selected one.
