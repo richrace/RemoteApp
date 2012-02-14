@@ -17,7 +17,7 @@ class XbmcConfig
   
   # Set the current version of the fixed schema.
   # Your application may use it for data migrations.
-  set :schema_version, '1.3'
+  set :schema_version, '1.2'
 
   # Define fixed schema attributes.
   # :string and :blob types are supported.
@@ -28,7 +28,6 @@ class XbmcConfig
   property :password, :string
   property :active, :boolean  
   property :version, :integer  
-  property :volume, :integer
   
   def is_active?
     if self.active == "true"
