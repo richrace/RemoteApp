@@ -34,7 +34,7 @@
 					getThumb(movies[movie].xlib_id);
 				}
 				$(list).listview('refresh');
-				//$.fixedToolbars.show(true);
+				$.mobile.fixedToolbars.show(true);
 			}
 		}
 		
@@ -44,18 +44,20 @@
 		
 		$(document).ready(function () { 
 			reload();
+			$.mobile.fixedToolbars.show(true);
 		});
 		
 	</script>
 
   <div data-role="content">
+		<div>
     <ul id="content_list" data-role="listview" data-filter="true">
     
     </ul>
-
+		</div>
   </div>
 	
-	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
 			<ul>
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
