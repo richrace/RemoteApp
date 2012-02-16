@@ -4,6 +4,13 @@ require 'helpers/xbmc_config_helper'
 module CommandsHelper
   include XbmcConfigHelper
   
+  def set_callbacks
+    @cmd_callback = url_for :action => :cmd_callback
+    @change_vol_cb = url_for :action => :change_vol_callback
+    @get_vol_cb = url_for :action => :get_vol_callback
+    @mute_callback = url_for :action => :mute_callback
+  end
+  
   def scan_video_lib(callback)
     version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
