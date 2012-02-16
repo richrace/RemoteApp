@@ -1,0 +1,53 @@
+<div data-role="page">
+
+	<div data-id="head" data-role="header" data-position="fixed" data-theme="a" style="height:41px;">
+		<a href="<%= url_for :controller => :Tvshow %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">Back</a>
+    <h1 id="heading"></h1>
+	</div>
+
+	<script>
+		function refresh() {
+			$.get("<%= url_for(:action => :updateSeasonList) %>");
+		}
+		function getSeasonThumb(seasonid, tvshowid) {
+			$.post("<%= url_for(:action => :get_season_thumb) %>", {'seasonid':seasonid, 'tvshowid':tvshowid});
+		}
+		
+		function updateSeasonList(seasons) {
+			if (seasons !== null) {
+				document.getElementById('heading').innerHTML = seasons[0].showtitle;
+				var slist = document.getElementById('seasons_list');
+				if (slist.hasChildNodes()) {
+					while (slist.childNodes.length >= 1) {
+						slist.removeChild(slist.firstChild);       
+					} 
+				}
+				for (season in seasons) {
+					var newLi = document.createElement('li');
+					newLi.id = 'seasonlist_'+ seasons[season].xlib_id;
+					newLi.innerHTML = "<a href=\"" + seasons[season].url + "\"><img id=\"seasonimg_"+seasons[season].xlib_id+"\" src=\"/public/images/missing_thumb.png\" />" + seasons[season].label + "</a>";
+					slist.appendChild(newLi);
+					getSeasonThumb(seasons[season].xlib_id, seasons[season].tvshow_id);
+				}
+				$(slist).listview('refresh');
+				$.fixedToolbars.show(true);
+			}
+		}
+		
+		function addSeasonThumb(seasonid, filename) {
+			document.getElementById('seasonimg_'+seasonid).src = filename;
+			$.fixedToolbars.show(true);
+		}
+		
+		$(document).ready(function() {
+			refresh();
+		});
+	</script>
+	
+  <div data-role="content">
+    <ul data-role="listview" id="seasons_list">
+
+    </ul>
+  </div>
+
+</div>

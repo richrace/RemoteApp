@@ -1,0 +1,24 @@
+<div data-role="page" data-add-back-btn="false">
+
+  <div data-role="header" data-position="inline">
+    <h1><%= @tvseason.season %></h1>
+    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
+      Back
+    </a>
+    <a href="<%= url_for :action => :edit, :id => @tvseason.object %>" class="ui-btn-right" data-icon="star">
+      Edit
+    </a>
+  </div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      
+          <li>
+            <div class="itemLabel">Season</div>
+            <div class="itemValue"><%= @tvseason.season %></div>
+          </li>
+      
+    </ul>
+  </div>
+
+</div>
