@@ -81,10 +81,8 @@ class MovieController < Rho::RhoController
   def get_thumb
     set_callbacks
     found_movie = find_movie(@params['movieid'])
-    unless found_movie.blank?
-      unless found_movie.l_thumb.blank?
-        WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
-      end
+    unless found_movie.blank? && found_movie.l_thumb.blank?
+      WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
     end
   end
   
@@ -93,46 +91,9 @@ class MovieController < Rho::RhoController
       error_handle(@params)
     else
       found_movie = find_movie(@params['movieid'])
-      unless found_movie.blank?
-        WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
-      end
-    end
-  end
-  
-  def movie_details_callback
-    if @params['status'] != 'ok'
-      error_handle(@params)
-    else
-      @movie_details = @params['body'].with_indifferent_access[:result][:moviedetails]
-      found_movie = find_movie(@movie_details[:movieid])
-      unless found_movie.blank?
-        found_movie.thumb = @movie_details[:thumbnail]
-        found_movie.fanart = @movie_details[:fanart]
-        found_movie.imdbnumber = @movie_details[:imdbnumber]
-        found_movie.trailer = @movie_details[:trailer].scan(/videoid\=+(.+)$/).flatten[0]
-        found_movie.plot = @movie_details[:plot]
-        found_movie.rating = @movie_details[:rating]
-        found_movie.genre = @movie_details[:genre]
-        found_movie.year = @movie_details[:year]
-        found_movie.playcount = @movie_details[:playcount]
-        found_movie.studio = @movie_details[:studio]
-        found_movie.title = @movie_details[:title]
-        found_movie.save
-        
-        url = XbmcConnect::Files.prepare_download(XbmcConnect::NOCALLB, {:path => found_movie.thumb})
-        if url['status'] == 'ok'
-          unless url['body'].with_indifferent_access[:error]
-            xbmc = XbmcConfigHelper.current_config
-            unless xbmc.bank?
-              file = File.join(Rho::RhoApplication::get_base_app_path(), "#{xbmc.object}.movies.#{found_movie.xlib_id}.jpg")
-              found_movie.l_thumb = file
-              found_movie.save
-              params = found_movie.xlib_id
-              set_callbacks
-              XbmcConnect.download_file(url['body'].with_indifferent_access[:result][:details][:path], file, @load_thumb_cb, params)
-            end
-          end
-        end
+      unless found_movie.blank?          
+         sleep(0.2)
+         WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
       end
     end
   end
