@@ -58,31 +58,46 @@
 			load_volume();
 		});
 	</script>
+	<style>
+		.table-commands {
+			padding:1em;
+			text-align:center;
+		}
+		.table-center {
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
 
   <div data-role="content">
-		<div>
+		<div style="text-align:center;">
 			<a href="#" onclick="scan()">Scan</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#" onclick="clean()">Clean</a>
-		</div>
-		<br />
-		<div>
-			<a href="#" onClick="up()">Up</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="left()">Left</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="right()">Right</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="down()">Down</a>
 			<br />
-			<br />
-			<a href="#" onClick="select()">Select</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="back()">Back</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="home()">Home</a>
-			<br />
-			<br />
-			Volume: 
+			Volume: <span id="volume">??</span>
 			<br />
 			<a href="#" onClick="mute()">Mute</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#" onClick="decreaseVolume()">- Volume</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#" onClick="increaseVolume()">+ Volume</a>
-			<p id="volume">??</p>
+		</div>
+		<div>
+			<table class="table-center">
+				<tr>
+					<td class="table-commands"><a href="#" onClick="back()"><img src="/public/images/commands/back.png" /></a></td>
+					<td class="table-commands"><a href="#" onClick="up()"><img src="/public/images/commands/arrow_up.png" /></a></td>
+					<td class="table-commands"><a href="#" onClick="home()"><img src="/public/images/commands/home.png" /></a></td>
+				</tr>
+				<tr>
+					<td class="table-commands"><a href="#" onClick="left()"><img src="/public/images/commands/arrow_left.png" /></a></td>
+					<td class="table-commands"><a href="#" onClick="select()">Select</a></td>
+					<td class="table-commands"><a href="#" onClick="right()"><img src="/public/images/commands/arrow_right.png" /></a></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="table-commands"><a href="#" onClick="down()"><img src="/public/images/commands/arrow_down.png" /></a></td>
+					<td></td>
+				</tr>
+			</table>
 		</div>
   </div>
 
@@ -91,7 +106,7 @@
 			<ul>
 				<li><a href="<%= url_for :controller => :Commands %>" id="controls" data-icon="custom" class="ui-btn-active ui-state-persist">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom">Movies</a></li>
-				<li><a href="#" id="shows" data-icon="custom">TV Shows</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
 				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
 				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
 			</ul>
