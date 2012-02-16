@@ -1,0 +1,71 @@
+<div data-role="page">
+
+	<div data-id="head" data-role="header" data-position="fixed" data-theme="a" style="height:41px;">
+    <h1>TV Shows</h1>
+	</div>
+	<style>
+		.li-banner {
+			height:50%;
+			width:100%;
+			text-align:center;
+		}
+	</style>
+	<script>
+		function refresh_shows() {
+			$.get("<%= url_for :action => :get_tv_shows %>");
+		}
+		function getTVThumb(tvshowid) {
+			$.post("<%= url_for :action => :get_tv_thumb %>", {"tvshowid":tvshowid});
+		}
+		
+		function updateTVList(tvshows) {
+			if (tvshows !== null) {
+				var tvlist = document.getElementById('tvshows_list');
+				if (tvlist.hasChildNodes()) {
+					while (tvlist.childNodes.length >= 1) {
+						tvlist.removeChild(tvlist.firstChild);       
+					} 
+				}
+				for (tvshow in tvshows) {
+					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">" + tvshows[tvshow].title + "</a><div></li>";
+					$('#tvshows_list').append(newItem);
+					getTVThumb(tvshows[tvshow].xlib_id);
+				}
+				$(tvlist).listview('refresh');
+				$.fixedToolbars.show(true);
+			}
+		}
+		
+		function addTVThumb(tvshowid, filename) {
+			var atag = document.getElementById('tvshowimg_'+tvshowid);
+			atag.innerHTML = "<img src='"+filename+"' style='width:100%;' />";
+			$(tvlist).listview('refresh');
+			$.fixedToolbars.show(true);
+		}
+	
+		$(document).ready(function(){
+			refresh_shows();
+		});
+	</script>
+
+  <div data-role="content">
+    <div>
+    	<ul id="tvshows_list" data-role="listview" data-filter="true">
+    
+    	</ul>
+		</div>
+  </div>
+
+	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" class="ui-btn-active ui-state-persist">TV Shows</a></li>
+				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>
+	
+</div>
