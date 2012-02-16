@@ -1,6 +1,6 @@
 <div data-role="page">
 
-	<div data-id="head" data-role="header" data-position="fixed">
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
     <a href="#" onClick="reload();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh">
 		</a>
 		<h1>Movies</h1>
@@ -19,8 +19,8 @@
 		}
 		
 		function updateList(movies) {
-			if (movies != null) {
-				var list = document.getElementById('content_list');
+			if (movies !== null) {
+				var list = document.getElementById('movies_list');
 				if (list.hasChildNodes()) {
 					while (list.childNodes.length >= 1) {
 						list.removeChild(list.firstChild);       
@@ -28,8 +28,8 @@
 				}
 				for (movie in movies) {
 					var newLi = document.createElement('li');
-					newLi.id = 'list_'+ movies[movie].xlib_id;
-					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\"><img id="+movies[movie].xlib_id+" />" + movies[movie].label + "</a>";
+					newLi.id = 'movielist_'+ movies[movie].xlib_id;
+					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\"><img id=\"movieimg_"+movies[movie].xlib_id+"\" src=\"/public/images/missing_thumb.png\" />" + movies[movie].title + "</a>";
 					list.appendChild(newLi);
 					getThumb(movies[movie].xlib_id);
 				}
@@ -39,21 +39,20 @@
 		}
 		
 		function addThumb(movieid, filename) {
-			document.getElementById(movieid).src = filename;
+			document.getElementById('movieimg_'+movieid).src = filename;
 			$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function () { 
 			reload();
-			$.fixedToolbars.show(true);
 		});
 	</script>
 
   <div data-role="content">
 		<div>
-    <ul id="content_list" data-role="listview" data-filter="true">
+    	<ul id="movies_list" data-role="listview" data-filter="true">
     
-    </ul>
+    	</ul>
 		</div>
   </div>
 	
@@ -62,7 +61,7 @@
 			<ul>
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" class="ui-btn-active ui-state-persist">Movies</a></li>
-				<li><a href="#" id="shows" data-icon="custom">TV Shows</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
 				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
 				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
 			</ul>
