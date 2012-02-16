@@ -7,15 +7,9 @@
 			<a href="<%= url_for :controller => :Commands %>" data-role="button"  style="font-size:11px;">Commands</a>
 		</div>
     
-    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
-      Settings
-    </a>
+    <a href="<%= url_for :controller => :XbmcConfig %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">Settings</a>
 	</div>
-	<style> 
-		.ui-slider-input {
-			display : none !important;
-		} 
-	</style>
+
 	<script type="text/javascript">
 		function play_pause() {
 			$.get("<%= url_for :action => :pause_play %>");
@@ -47,34 +41,10 @@
 		function fast_forward() {
 			$.get("<%= url_for :action => :fast_forward %>");
 		}
-		
-		function load_volume() {
-			$.get("<%= url_for :action => :load_volume %>");
-		}
-		
-		function handle_new_vol(vol) {
-		    document.getElementById("test").innerHTML = vol;
-		}
-		
-		function update_slider(new_vol) {
-			var slider = document.getElementById("slider");
-			if (slider !== null) {				
-				slider.value = new_vol;
-				$(slider).slider('refresh');
-			}
-		}
-		
-		$(document).ready(function () { 
-			$('.ui-slider').touchend(function(event, ui) {
-				var want_vol = $('a[role*="slider"]').attr("aria-valuenow");
-	   		handle_new_vol(want_vol);            
-			});
-			load_volume();
-		});
 	</script>
 
-  <div data-role="content">
-
+  <div data-role="content">		
+		<br />
  		<a href="#" onclick="play_pause()">Play/Pause</a>     
    	&nbsp;&nbsp;
 		<a href="#" onclick="stop()">Stop</a>
@@ -98,15 +68,6 @@
 		<a href="#" onclick="rewind()">Rewind</a>
 		&nbsp;&nbsp;
 		<a href="#" onclick="fast_forward()">Fast Forward</a>
-		<br />
-		<br />
-		<% unless XbmcConfigHelper.current_config.blank? %>
-		<div>
-			<span>Volume: Min <input type="range" name="slider" id="slider" value="<%= XbmcConfigHelper.current_config.volume.to_i %>" min="0" max="100"  /> Max</span>
-			<p id="test">000</p>
-			<p><a href="#" onclick="update_slider(35)">test</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="load_volume()">update</a></p>
-		</div>
-		<% end %>
   </div>
 
 	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">

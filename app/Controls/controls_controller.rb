@@ -67,12 +67,5 @@ class ControlsController < Rho::RhoController
   def skip_prev
     send_command {skip_prev_player(@callback)}
   end
-  
-  def load_volume
-    xbmc = XbmcConfigHelper.current_config
-    unless xbmc.blank? && xbmc.version.blank?
-      WebView.execute_js("update_slider(#{xbmc.volume.to_i});")
-    end
-  end
-  
+
 end
