@@ -81,6 +81,20 @@ class XbmcConfigController < Rho::RhoController
           movie.destroy
         end
       end
+      tvshows = Tvshow.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
+      unless tvshows.blank?
+        tvshows.each do | tvshow |
+          tvshow.destroy_image
+          tvshow.destroy
+        end
+      end
+      tvseasons = Tvseason.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
+      unless tvseasons.blank?
+        tvseasons.each do | tvseason |
+          tvseason.destroy_image
+          tvseason.destroy
+        end
+      end
       @xbmc_config.destroy 
     end
     redirect :action => :index  
