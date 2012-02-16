@@ -49,7 +49,6 @@ class XbmcConfigController < Rho::RhoController
   def create
     @xbmc_config = XbmcConfig.new(@params['xbmc_config'])
     if @xbmc_config.valid?
-      @xbmc_config.volume = 100
       @xbmc_config.save
       update_xbmc
     else
