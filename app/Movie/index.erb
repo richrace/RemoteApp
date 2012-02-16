@@ -34,19 +34,19 @@
 					getThumb(movies[movie].xlib_id);
 				}
 				$(list).listview('refresh');
-				$.mobile.fixedToolbars.show(true);
+				$.fixedToolbars.show(true);
 			}
 		}
 		
 		function addThumb(movieid, filename) {
 			document.getElementById(movieid).src = filename;
+			$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function () { 
 			reload();
-			$.mobile.fixedToolbars.show(true);
+			$.fixedToolbars.show(true);
 		});
-		
 	</script>
 
   <div data-role="content">
