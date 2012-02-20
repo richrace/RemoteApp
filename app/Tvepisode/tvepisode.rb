@@ -2,8 +2,9 @@
 # You can add more methods here
 class Tvepisode
   include Rhom::PropertyBag
-  belongs_to :Tvseason, 'Tvseason'
-  belongs_to :Tvshow, 'Tvshow'
+  belongs_to :tvseason_id, 'Tvseason'
+  belongs_to :tvshow_id, 'Tvshow'
+  belongs_to :xbmc_id, 'XbmcConfig'
 
   # Uncomment the following line to enable sync with Tvepisode.
   # enable :sync

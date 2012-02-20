@@ -1,7 +1,7 @@
 <div data-role="page">
 
 	<div data-role="header" data-position="inline">
-    <h1>Tvepisodes</h1>
+    <h1>Season <%= @params['tvseasonid'] %></h1>
     <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
       Home
     </a>
@@ -9,19 +9,43 @@
       New
     </a>
 	</div>
+	
+	<script>
+		function refresh_eps() {
+			$.get("<%= url_for :action => :update_tvepisode_list %>");
+		}
+		
+		function updateEpisodeList(episodes) {
+			if (episodes !== null) {
+				var epilist = document.getElementById('episodes_list');
+				if (epilist.hasChildNodes()) {
+					while (epilist.childNodes.length >= 1) {
+						epilist.removeChild(epilist.firstChild);       
+					} 
+				}
+				for (episode in episodes) {
+					var newLi = document.createElement('li');
+					newLi.id = 'episodelist_'+ episodes[episode].xlib_id;
+					newLi.innerHTML = "<a href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\" src=\"/public/images/missing_thumb.png\" /><h3>Episode "+episodes[episode].episode+"</h3><p>" + episodes[episode].title + "</p></a>";
+					epilist.appendChild(newLi);
+					//getThumb(episodes[episode].xlib_id);
+				}
+				$(epilist).listview('refresh');
+				$.fixedToolbars.show(true);
+			}
+		}
+		
+		$(document).ready(function () {
+			refresh_eps();
+		});
+	</script>
 
   <div data-role="content">
-    <ul data-role="listview">
-      <% @tvepisodes.each do |tvepisode| %>
-      
-          <li>
-            <a href="<%= url_for :action => :show, :id => tvepisode.object %>">
-              <%= tvepisode.episode %>
-            </a>
-          </li>
-      
-      <% end %>
-    </ul>
+    <div>
+    	<ul id="episodes_list" data-role="listview">
+    
+    	</ul>
+		</div>
   </div>
 
 </div>

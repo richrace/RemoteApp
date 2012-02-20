@@ -1,13 +1,19 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
+require 'helpers/tv_episode_helper'
+require 'helpers/method_helper'
 
 class TvepisodeController < Rho::RhoController
   include BrowserHelper
+  include TvEpisodeHelper
+  include MethodHelper
 
   # GET /Tvepisode
   def index
-    @tvepisodes = Tvepisode.find(:all)
-    render :back => '/app'
+    @@tvshowid = @params['tvshowid']
+    @@tvseasonid = @params['tvseasonid']
+   # @tvepisodes = 
+    render
   end
 
   # GET /Tvepisode/{1}
@@ -54,5 +60,22 @@ class TvepisodeController < Rho::RhoController
     @tvepisode = Tvepisode.find(@params['id'])
     @tvepisode.destroy if @tvepisode
     redirect :action => :index  
+  end
+  
+  def update_tvepisode_list
+    @tvepisodes = find_episodes(@@tvseasonid, @@tvshowid)
+    unless @tvepisodes.blank?
+      WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
+    end
+    send_command {load_tvepisodes(url_for(:action => :episodes_callback), @@tvshowid, @@tvseasonid)}
+  end
+  
+  def episodes_callback
+    if handle_new_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes])
+      @tvepisodes = find_episodes(@@tvseasonid, @@tvshowid)
+      unless @tvepisodes.blank?
+        WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
+      end
+    end
   end
 end
