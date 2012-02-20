@@ -28,10 +28,17 @@
 				}
 				for (movie in movies) {
 					var newLi = document.createElement('li');
-					newLi.id = 'movielist_'+ movies[movie].xlib_id;
-					newLi.innerHTML = "<a href=\"" + movies[movie].url + "\"><img id=\"movieimg_"+movies[movie].xlib_id+"\" src=\"/public/images/missing_thumb.png\" />" + movies[movie].title + "</a>";
+					newLi.id = "movielist_" + movies[movie].xlib_id;
+					var code = "<a href=\"" + movies[movie].url + "\"><img id=\"movieimg_" + movies[movie].xlib_id + "\"";
+					if (movies[movie].l_thumb !== null) {
+						code += "src=\"" + movies[movie].l_thumb + "\"";
+					} else {
+						code += "src=\"/public/images/missing_thumb.png\"";
+						getThumb(movies[movie].xlib_id);
+					}
+					code += "/>" + movies[movie].title + "</a>";
+					newLi.innerHTML = code;
 					list.appendChild(newLi);
-					getThumb(movies[movie].xlib_id);
 				}
 				$(list).listview('refresh');
 				$.fixedToolbars.show(true);
