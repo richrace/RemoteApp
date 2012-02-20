@@ -27,9 +27,15 @@
 					} 
 				}
 				for (tvshow in tvshows) {
-					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">" + tvshows[tvshow].title + "</a><div></li>";
+					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">";
+					if (tvshows[tvshow].l_thumb !== null) {
+						newItem += "<img src='"+tvshows[tvshow].l_thumb+"' style='width:100%;' />";
+					} else {
+						newItem += tvshows[tvshow].title;
+						getTVThumb(tvshows[tvshow].xlib_id);
+					}
+					newItem += "</a><div></li>";
 					$('#tvshows_list').append(newItem);
-					getTVThumb(tvshows[tvshow].xlib_id);
 				}
 				$(tvlist).listview('refresh');
 				$.fixedToolbars.show(true);
