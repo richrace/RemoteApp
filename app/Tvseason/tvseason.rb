@@ -3,6 +3,7 @@
 class Tvseason
   include Rhom::PropertyBag
   belongs_to :tvshow_id, 'Tvshow'
+  belongs_to :xbmc_id, 'XbmcConfig'
   
   # Uncomment the following line to enable sync with Tvseason.
   # enable :sync
