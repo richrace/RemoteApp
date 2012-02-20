@@ -92,7 +92,6 @@ class MovieController < Rho::RhoController
     else
       found_movie = find_movie(@params['movieid'])
       unless found_movie.blank?          
-         sleep(0.2)
          WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
       end
     end

@@ -49,8 +49,7 @@ class TvshowController < Rho::RhoController
   def get_tv_thumb
     found_tvshow = find_tvshow(@params['tvshowid'])
     unless found_tvshow.blank? && found_tvshow.l_thumb.blank?
-      sleep(0.2)
-        WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
+              WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
     end
   end
   
