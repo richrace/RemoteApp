@@ -110,4 +110,25 @@ module VideoLibrary4
     }
     XbmcConnect::VideoLibrary.get_seasons(callback, params)
   end
+  
+  def get_episodes(callback, tvshowid, seasonid)
+    params = {
+      :tvshowid => tvshowid.to_i,
+      :season => seasonid.to_i,
+      :properties => [
+        "title", 
+        "plot", 
+        "rating", 
+        "firstaired", 
+        "playcount", 
+        "runtime", 
+        "season", 
+        "episode", 
+        "fanart", 
+        "thumbnail", 
+        "tvshowid"
+      ]
+    }
+    XbmcConnect::VideoLibrary.get_episodes(callback, params)
+  end
 end
