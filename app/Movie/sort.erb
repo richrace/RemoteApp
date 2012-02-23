@@ -1,0 +1,31 @@
+<div data-role="page" data-add-back-btn="false">
+	<div data-role="header" data-position="inline">
+		<h3>Sort</h3>
+	</div>
+	
+	<script>
+		function toggleWatchLater() {
+			var checked = document.getElementById("watch_later_list").checked;
+			$.get("<%= url_for :action => :sort %>", {'watch_later':checked})
+		}
+		function toggleOrderDir() {
+			var order_dir = $("input[name=order]:checked").val();
+			$.get("<%= url_for :action => :sort %>", {'order_dir':order_dir});
+		}
+	</script>
+  
+	<div data-role="content">
+		<div data-role="fieldcontain">
+		<fieldset data-role="controlgroup">
+		<input type="checkbox" name="watch_later_list" id="watch_later_list" onClick="toggleWatchLater()" <%= "checked=true" if get_watch_list_bool == "true" %>/><label for="watch_later_list">View Watch Later List</label>
+		</fieldset>
+		<fieldset data-role="controlgroup">
+			<input type="radio" name="order" id="asc" value="ASC" onClick="toggleOrderDir()" <%= "checked" if get_order_dir == "ASC" %>/>     	
+			<label for="asc">Sort ASC</label>
+			<input type="radio" name="order" id="desc" value="DESC" onClick="toggleOrderDir()" <%= "checked" if get_order_dir == "DESC" %>/>
+			<label for="desc">Sort DESC</label>
+		</fieldset>
+		</div>
+  </div>
+
+</div>
