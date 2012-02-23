@@ -78,4 +78,16 @@ class TvepisodeController < Rho::RhoController
       end
     end
   end
+  
+  def play_episode
+    puts "EPISODE ID #{@params['episodeid']}"
+    unless @params['episodeid'].blank?
+      send_command {Api::V4::Playback.play_episode(url_for(:action => :play_episode_callback),@params['episodeid'])}
+    end
+  end
+  
+  def play_episode_callback
+    puts "PLAY/PAUSED"
+  end
+  
 end
