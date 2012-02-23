@@ -4,17 +4,17 @@ name: XBMC Remote
 version: 0.1
 vendor: Richard Race
 build: Debug
-bbver: 4.6
+bbver: 5.0
 wmsdk: "Windows Mobile 6 Professional SDK (ARMV4I)"
 applog: rholog.txt
 iphone:
   configuration: Debug
   sdk: iphonesimulator5.0
   provisionprofile: 
-  codesignidentity: 
-  entitlements:
+  codesignidentity: ""
+  entitlements: ""
   BundleIdentifier: uk.ac.aber.rcr8.remoteapp
-  BundleURLScheme: remoteapp
+  BundleURLScheme: xbmcremote
   emulator: 5.0
   emulatortarget: iphone
 wp:
@@ -24,4 +24,8 @@ symbian:
 android:
   version: 2.1
 
-extensions: ["json", "rh-validatable", "fileutils", "mspec", "telnet", "timeout"]
+extensions: ["json", "rh-validatable", "fileutils", "mspec", "telnet", "timeout", "barcode"]
+
+capabilities: 
+- camera
+- gps
