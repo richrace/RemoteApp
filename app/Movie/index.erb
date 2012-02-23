@@ -4,7 +4,7 @@
     <a href="#" onClick="reload();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh">
 		</a>
 		<h1>Movies</h1>
-    <a href="#" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup">
+    <a href="<%= url_for :action => :sort %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-transition="slideup" data-rel="dialog">
       Sort
     </a>
 	</div>
@@ -41,13 +41,13 @@
 					list.appendChild(newLi);
 				}
 				$(list).listview('refresh');
-				$.fixedToolbars.show(true);
+				//$.fixedToolbars.show(true);
 			}
 		}
 		
 		function addThumb(movieid, filename) {
 			document.getElementById('movieimg_'+movieid).src = filename;
-			$.fixedToolbars.show(true);
+			//$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function () { 
@@ -66,7 +66,7 @@
 	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
 			<ul>
-				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" class="ui-btn-active ui-state-persist">Movies</a></li>
 				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
 				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
