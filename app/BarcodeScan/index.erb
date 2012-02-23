@@ -1,0 +1,53 @@
+<div data-role="page">
+
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+		<h1>Scan Barcode</h1>
+	</div>
+	
+	<script>
+		function choosePicture() {
+			$.get("<%= url_for :action => :choose %>");
+		}
+		function takePicture() {
+			$.get("<%= url_for :action => :new %>");
+		}
+		function takeBarcode() {
+			$.get("<%= url_for :action => :take %>");
+		}
+		function scan() {
+			$.get("<%= url_for :action => :scan %>");
+		}
+		$(document).ready(function(){
+			$.get("<%= url_for :action => :load_geo %>");
+		});
+	</script>
+
+  <div data-role="content">
+		<div>
+    	<a href="#" onClick="choosePicture();">Choose Picture</a>
+			<br />
+			<% if System::get_property('has_camera') %>
+					<a href="#" onClick="takePicture();">Take New Picture</a>
+					<br />
+					<% if System::get_property('platform') == 'ANDROID' or System::get_property('platform') == 'APPLE' or (System::get_property('platform') == 'WINDOWS' and System.get_property('is_moto_device')) %>
+						<a href="#" onClick="takeBarcode();">Take Barcode</a>
+						<br />
+					<% end %>      
+		  <% end %>
+			<a href="#" onClick="scan()">Scan</a>
+		</div>
+  </div>
+	
+	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" data-direction="reverse">TV Shows</a></li>
+				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>

@@ -9,6 +9,7 @@
 		<ul data-role="listview">
 			<li><a href="#"><img id="centeredimage" src="/public/images/icons/folder.png" alt="Files" class="ui-li-icon"/>Files</a></li>
 			<li><a href="#"><img id="centeredimage" src="/public/images/icons/tape.png" alt="Music" class="ui-li-icon"/>Music</a></li>
+			<li><a href="<%= url_for(:controller => :BarcodeScan) %>"><img id="centeredimage" src="/public/images/icons/barcode.png" alt="Scan Barcode" class="ui-li-icon"/>Scan Barcode</a></li>
 			<li><a href="<%= url_for(:controller => :Settings) %>" class="title" class="ui-li-icon">Settings</a></li>
 			<li><a href="<%= url_for(:controller => :SpecRunner) %>" class="title" class="ui-li-icon">Run Tests</a></li>
 		</ul>
