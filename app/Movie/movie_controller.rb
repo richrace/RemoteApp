@@ -13,8 +13,18 @@ class MovieController < Rho::RhoController
   include ErrorHelper
   include MethodHelper
   
+  @@conditions = {}
+  @@order = :sorttitle
+  @@order_dir = 'ASC'
+  @@watch_list = false
+  
+  def initialize
+    
+  end
+  
   # GET /Movie
   def index
+    
   end
 
   # GET /Movie/{1}
@@ -57,7 +67,7 @@ class MovieController < Rho::RhoController
   end
   
   def update_list
-    @movies = filter_movie_xbmc
+    @movies = filter_movies_xbmc(@@conditions, @@order, @@order_dir)
     unless @movies.blank?
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
     end
@@ -70,7 +80,7 @@ class MovieController < Rho::RhoController
       error_handle(@params)
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
-        @movies = filter_movie_xbmc
+        @movies = filter_movies_xbmc(@@conditions, @@order, @@order_dir)
         unless @movies.blank?
           WebView.execute_js("updateList(#{JSON.generate(@movies)});")
         end
@@ -116,4 +126,40 @@ class MovieController < Rho::RhoController
   def load_trailer
     System.open_url('http://www.youtube.com/watch?v=' + @params['youtubeid'])
   end
+  
+  def options
+    @movie = Movie.find(@params['id'])
+  end
+  
+  def watch_later
+    @movie = find_movie(@params['movieid'])
+    unless @movie.blank?
+      puts "Movie === #{@movie}"
+      @movie.watch_later = @params['checked']
+      puts "Movie WATCH now == #{@movie}"
+      @movie.save
+    end
+  end
+  
+  def get_watch_list_bool
+    @@watch_list
+  end
+  
+  def get_order_dir
+    @@order_dir
+  end
+  
+  def sort
+    if !@params['watch_later'].blank?
+      @@watch_list = @params['watch_later']
+      if @@watch_list == "true"
+        @@conditions = {:watch_later => @@watch_list}
+      else 
+        @@conditions = {}
+      end
+    elsif !@params['order_dir'].blank?
+      @@order_dir = "#{@params['order_dir']}"
+    end
+  end
+  
 end
