@@ -1,23 +1,32 @@
 <div data-role="page" data-add-back-btn="false">
 
   <div data-role="header" data-position="inline">
-    <h1><%= @tvepisode.episode %></h1>
-    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
+    <h1>E<%= @tvepisode.episode %> - <%= @tvepisode.title %></h1>
+    <a href="<%= url_for :action => :index, :query => {:tvshowid => @tvepisode.tvshow_id, :tvseasonid => @tvepisode.tvseason_id} %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       Back
-    </a>
-    <a href="<%= url_for :action => :edit, :id => @tvepisode.object %>" class="ui-btn-right" data-icon="star">
-      Edit
     </a>
   </div>
 
+	<script>
+		function playEpisode(episodeid) {
+			$.post("<%= url_for :action => :play_episode %>", {'episodeid':episodeid});
+		}
+	</script>
+
   <div data-role="content">
     <ul data-role="listview">
-      
-          <li>
-            <div class="itemLabel">Episode</div>
-            <div class="itemValue"><%= @tvepisode.episode %></div>
-          </li>
-      
+    	<li>
+    		<div>Episode: <%= @tvepisode.episode %></div>
+    	</li>
+      <li>
+				<div>Title: <%= @tvepisode.title %></div>
+			</li>
+			<li>
+				<div>Plot: <%= @tvepisode.plot %></div>
+			</li>
+			<li>
+				<div><a href="#" onClick="playEpisode(<%= @tvepisode.xlib_id %>);">Play</a></div>
+			</li>
     </ul>
   </div>
 
