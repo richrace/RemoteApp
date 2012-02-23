@@ -27,6 +27,11 @@ class TvshowController < Rho::RhoController
     end
   end
   
+  def info
+    @tvshow = find_tvshow(@params['tvshowid'])
+    render
+  end
+  
   def get_tv_shows
     @tvshows = filter_tvshow_xbmc
     unless @tvshows.blank?
