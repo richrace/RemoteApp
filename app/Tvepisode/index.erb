@@ -2,11 +2,8 @@
 
 	<div data-role="header" data-position="inline">
     <h1>Season <%= @params['tvseasonid'] %></h1>
-    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
-      Home
-    </a>
-    <a href="<%= url_for :action => :new %>" class="ui-btn-right" data-icon="plus">
-      New
+    <a href="<%= url_for :controller => :Tvseason, :query => {:tvshowid => @params['tvshowid']} %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      Back
     </a>
 	</div>
 	
