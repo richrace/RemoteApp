@@ -14,7 +14,19 @@ module MovieHelper
     @movie_details_cb = url_for(:action => :movie_details_callback)
   end
   
-  def filter_movie_xbmc
+  def filter_movies_xbmc(conditions, order, order_dir)
+    xbmc = XbmcConfigHelper.current_config
+    unless xbmc.blank?
+      con = {:xbmc_id => xbmc.object}
+      con.merge!(conditions)
+      puts "FILTER MOVIES CONDITIONS === #{con}"
+      Movie.find(:all, :conditions => con, :order => order, :orderdir => order_dir)
+    else
+      return nil
+    end
+  end
+  
+  def get_movies_xbmc
     xbmc = XbmcConfigHelper.current_config
     unless xbmc.blank?
       Movie.find(:all, :conditions => { :xbmc_id => xbmc.object }, :order => :sorttitle, :orderdir => 'ASC')
@@ -22,7 +34,6 @@ module MovieHelper
       return nil
     end
   end
-  
   def find_movie(xbmc_lib_id)
     Movie.find(:first, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => xbmc_lib_id}) 
   end
@@ -77,7 +88,7 @@ module MovieHelper
   def handle_removed_movies(xbmc_movies)
     list_changed = false 
     
-    filter_movie_xbmc.each do | db_movie |
+    get_movies_xbmc.each do | db_movie |
       got = false
       xbmc_movies.each do | xb_movie |
         if db_movie.xlib_id.to_i == xb_movie[:movieid].to_i
