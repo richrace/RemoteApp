@@ -16,4 +16,12 @@ class Movie
     end
   end
   
+  def watch_later?
+    if self.watch_later == "true"
+      return true
+    else 
+      return false
+    end
+  end
+  
 end
