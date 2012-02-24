@@ -15,8 +15,19 @@ module TvShowHelper
       end
     end
   end
+
+  def filter_tvshows_xbmc(conditions, order, order_dir)
+    xbmc = XbmcConfigHelper.current_config
+    unless xbmc.blank?
+      con = {:xbmc_id => xbmc.object}
+      con.merge!(conditions)
+      Tvshow.find(:all, :conditions => con, :order => order, :orderdir => order_dir)
+    else
+      return nil
+    end
+  end
   
-  def filter_tvshow_xbmc
+  def get_tvshows_xbmc
     xbmc = XbmcConfigHelper.current_config
     unless xbmc.blank?
       Tvshow.find(:all, :conditions => { :xbmc_id => xbmc.object }, :order => :sorttitle, :orderdir => 'ASC')
@@ -26,11 +37,16 @@ module TvShowHelper
   end
   
   def find_tvshow(xbmc_lib_id)
-    Tvshow.find(:first, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => xbmc_lib_id})
+    xbmc = XbmcConfigHelper.current_config
+    unless xbmc.blank?
+      Tvshow.find(:first, :conditions => {:xbmc_id => xbmc.object, :xlib_id => xbmc_lib_id})
+    else
+      return nil
+    end
   end
   
   def sync_tv_shows(tv_shows)
-    res = handle_new_tvshows(tv_shows)
+    res = handle_new_tvshows(tv_shows) || handle_removed_tvshows(tv_shows)
     update_seasons
     return res
   end
@@ -79,11 +95,41 @@ module TvShowHelper
     return list_changed
   end
   
+  def handle_removed_tvshows(xbmc_shows)
+    list_changed = false 
+    
+    get_tvshows_xbmc.each do | db_tvshow |
+      got = false
+      xbmc_shows.each do | xb_tvshow |
+        if db_tvshow.xlib_id.to_i == xb_tvshow[:tvshowid].to_i
+          got = true 
+          break
+        end
+      end
+      unless got
+        tvseasons = Tvseason.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => db_tvshow.xlib_id})
+        tvseasons.each do | season |
+          season.destroy_image
+          season.destroy 
+        end
+        tvepisodes = Tvepisode.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => db_tvshow.xlib_id})
+        tvepisodes.each do | episode |
+          #episode.destroy_image
+          episode.destroy
+        end
+        db_tvshow.destroy_image
+        db_tvshow.destroy
+        list_changed = true
+      end
+    end
+    return list_changed
+  end
+
   def update_seasons
-    tvshows = filter_tvshow_xbmc
+    tvshows = get_tvshows_xbmc
     unless tvshows.blank?
       tvshows.each do | tvshow |
-        Api::V4::VideoLibrary.get_seasons(url_for(:controller => :Tvseason, :action => :season_callback),tvshow.xlib_id)
+        send_command {Api::V4::VideoLibrary.get_seasons(url_for(:controller => :Tvseason, :action => :season_callback, :query => {:tvshowid => tvshow.xlib_id}),tvshow.xlib_id)}
       end
     end
   end
