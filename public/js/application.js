@@ -11,3 +11,14 @@ function mark_errors(form_id, errors_object) {
 
  	}); 
 }
+
+function showToastError(message) {
+	$().toastmessage('showToast', {
+		text:message, 
+		sticky:false,
+		type:'error', 
+		stayTime:2000, 
+		position:'top-center',
+		close:function () { $.mobile.fixedToolbars.show(true); }
+	});
+}
