@@ -14,17 +14,13 @@ class MovieController < Rho::RhoController
   include MethodHelper
   
   @@conditions = {}
-  @@order = :sorttitle
+  @@order = {:title => :sorttitle, :recent => :xlib_id, :year => :year, :rating => :rating}
+  @@active_order = :sorttitle
   @@order_dir = 'ASC'
-  @@watch_list = false
-  
-  def initialize
-    
-  end
-  
+  @@watch_list = false 
+
   # GET /Movie
   def index
-    
   end
 
   # GET /Movie/{1}
@@ -35,25 +31,6 @@ class MovieController < Rho::RhoController
     else
       redirect :action => :index
     end
-  end
-
-  # GET /Movie/new
-  def new
-    @movie = Movie.new
-    render :action => :new, :back => url_for(:action => :index)
-  end
-
-  # POST /Movie/create
-  def create
-    @movie = Movie.create(@params['movie'])
-    redirect :action => :index
-  end
-
-  # POST /Movie/{1}/update
-  def update
-    @movie = Movie.find(@params['id'])
-    @movie.update_attributes(@params['movie']) if @movie
-    redirect :action => :index
   end
 
   # POST /Movie/{1}/delete
@@ -67,8 +44,9 @@ class MovieController < Rho::RhoController
   end
   
   def update_list
-    @movies = filter_movies_xbmc(@@conditions, @@order, @@order_dir)
+    @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @movies.blank?
+      ensure_sorted(@movies)
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
     end
     set_callbacks
@@ -78,9 +56,11 @@ class MovieController < Rho::RhoController
   def movies_callback
     if @params['status'] != 'ok'
       error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
-        @movies = filter_movies_xbmc(@@conditions, @@order, @@order_dir)
+        @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
+        ensure_sorted(@movies)
         unless @movies.blank?
           WebView.execute_js("updateList(#{JSON.generate(@movies)});")
         end
@@ -148,6 +128,14 @@ class MovieController < Rho::RhoController
   def get_order_dir
     @@order_dir
   end
+
+  def get_order
+    @@order
+  end
+
+  def get_active_order
+    @@active_order
+  end
   
   def sort
     if !@params['watch_later'].blank?
@@ -159,7 +147,32 @@ class MovieController < Rho::RhoController
       end
     elsif !@params['order_dir'].blank?
       @@order_dir = "#{@params['order_dir']}"
+    elsif !@params['order'].blank?
+      wanted = @params['order']
+      @@order.each do | key, value |
+        if wanted == key.to_s
+          @@active_order = value 
+        end
+      end
+    end
+  end 
+
+  # Ensure that the list has been sorted properly.
+  # This is used because Rhom only seems to sort by the first 
+  # number. Therefore, iterate over the list to make sure it has
+  # been sorted. This works for both ASC and DESC lists.
+  def ensure_sorted(movies)
+    if @@active_order == @@order[:recent]
+      movies.sort_by! {|movie| movie.xlib_id.to_i}
+      if @@order_dir == 'DESC'
+        movies.reverse!
+      end
+    elsif @@active_order == @@order[:rating]
+      movies.sort_by! {|movie| movie.rating.to_f}
+      if @@order_dir == 'DESC'
+        movies.reverse!
+      end
     end
   end
-  
+
 end

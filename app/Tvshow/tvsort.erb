@@ -1,0 +1,38 @@
+<div data-role="page" data-add-back-btn="false">
+	<div data-role="header" data-position="inline">
+		<h3>Sort</h3>
+	</div>
+	
+	<script>
+		function toggleTVOrderDir() {
+			var order_dir = $("input[name=tv_order_dir]:checked").val();
+			$.get("<%= url_for :action => :tvsort %>", {'order_dir':order_dir});
+		}
+		function setTVOrderBy() {
+			var order = $("input[name=tv_order]:checked").val();
+			$.get("<%= url_for :action => :tvsort %>", {'order':order});
+		}
+	</script>
+  
+	<div data-role="content">
+		<div data-role="fieldcontain">
+		<fieldset data-role="controlgroup">
+			<legend>Sort order:</legend>
+			<input type="radio" name="tv_order_dir" id="asc" value="ASC" onClick="toggleTVOrderDir()" <%= "checked" if get_order_dir == "ASC" %>/>     	
+			<label for="asc">Sort ASC</label>
+			<input type="radio" name="tv_order_dir" id="desc" value="DESC" onClick="toggleTVOrderDir()" <%= "checked" if get_order_dir == "DESC" %>/>
+			<label for="desc">Sort DESC</label>
+		</fieldset>
+		<fieldset data-role="controlgroup">
+			<legend>How to sort:</legend>			
+			<input type="radio" name="tv_order" id="title" value="title" onClick="setTVOrderBy()" <%= "checked" if get_active_order == get_order[:title] %>/>
+			<label for="title">Order by Title</label>
+			<input type="radio" name="tv_order" id="year" value="year" onClick="setTVOrderBy()" <%= "checked" if get_active_order == get_order[:year] %>/>
+			<label for="year">Order by Year</label>
+			<input type="radio" name="tv_order" id="rating" value="rating" onClick="setTVOrderBy()" <%= "checked" if get_active_order == get_order[:rating] %>/>
+			<label for="rating">Order by Rating</label>
+		</fieldset>
+		</div>
+  </div>
+
+</div>
