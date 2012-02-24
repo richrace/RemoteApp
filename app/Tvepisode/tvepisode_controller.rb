@@ -12,7 +12,6 @@ class TvepisodeController < Rho::RhoController
   def index
     @@tvshowid = @params['tvshowid']
     @@tvseasonid = @params['tvseasonid']
-   # @tvepisodes = 
     render
   end
 
@@ -71,10 +70,15 @@ class TvepisodeController < Rho::RhoController
   end
   
   def episodes_callback
-    if handle_new_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes])
-      @tvepisodes = find_episodes(@@tvseasonid, @@tvshowid)
-      unless @tvepisodes.blank?
-        WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
+    if @params['status'] != 'ok'
+      error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
+    else
+      if sync_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes], @@tvshowid, @@tvseasonid)
+        @tvepisodes = find_episodes(@@tvseasonid, @@tvshowid)
+        unless @tvepisodes.blank?
+          WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
+        end
       end
     end
   end
