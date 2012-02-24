@@ -2,9 +2,9 @@ require 'helpers/application_helper'
 require 'helpers/xbmc_config_helper'
 require 'helpers/xbmc/xbmc_connect'
 
-module ErrorHelper
+module ErrorHelper 
   include ApplicationHelper
-    
+
   def error_handle(params="")
     type = "unknown"
     if XbmcConfigHelper.current_config.nil?
@@ -28,19 +28,20 @@ module ErrorHelper
   end
   
   def error_http(params)
+    puts "ERROR HANDLE == #{params}"
     type = "http unknown"
     if params['http_error'] == '401'
-      XbmcConnect.error = {:error => XbmcConnect::ERROR401, :msg => "Couldn't connect. Username and Password incorrect"}
+      XbmcConnect.error = {:error => XbmcConnect::ERROR401, :msg => "Username and Password incorrect"}
       type = "http 401"
     else
-      XbmcConnect.error = {:error => XbmcConnect::ERRORURL, :msg => "Couldn't connect.  URL and/or Port incorrect"}
+      XbmcConnect.error = {:error => XbmcConnect::ERRORURL, :msg => "URL and/or Port incorrect"}
       type = "http 404"
     end
-    Alert.show_popup ({
-      :message => XbmcConnect.error[:msg],
-      :title => XbmcConnect.error[:error],
-      :buttons => ["Close"]
-    })
+    #Alert.show_popup ({
+    #  :message => XbmcConnect.error[:msg],
+    #  :title => XbmcConnect.error[:error],
+    #  :buttons => ["Close"]
+    #})
     return type
   end
   
@@ -51,8 +52,9 @@ module ErrorHelper
       :title => XbmcConnect::ERRORAPI,
       :buttons => ["Close"]
     })
-    
     "no api"
   end
+
+  
 
 end
