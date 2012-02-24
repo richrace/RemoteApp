@@ -95,6 +95,13 @@ class XbmcConfigController < Rho::RhoController
           tvseason.destroy
         end
       end
+      tvepisodes = Tvepisode.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
+      unless tvepisodes.blank?
+        tvepisodes.each do | tvepisode |
+          #tvepisode.destroy_image
+          tvepisode.destroy
+        end
+      end
       @xbmc_config.destroy 
     end
     redirect :action => :index  
