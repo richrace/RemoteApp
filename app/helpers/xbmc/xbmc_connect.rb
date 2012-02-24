@@ -94,36 +94,28 @@ class XbmcConnect
     
     def load_version(params)
       puts "********** LOADING VERSION **********"
-      if params['status'] == 'ok'
-        xbmc = XbmcConfigHelper.current_config
-        xbmc.version = params['body'].with_indifferent_access[:result][:version]
-        xbmc.save
-        puts "****** LOADING API ********"
-        async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
-      else
-        error_handle(params)
-      end
+      xbmc = XbmcConfigHelper.current_config
+      xbmc.version = params['body'].with_indifferent_access[:result][:version]
+      xbmc.save
+      puts "****** LOADING API ********"
+      async_connect("app/Xbmc/commands","JSONRPC.Introspect", :getdescriptions => true)
     end
     
     def load_commands(params)
       puts "*********** LOADING COMMANDS ************"
-      if params['status'] == 'ok'
-        @commands = nil
-        cur_version = XbmcConfigHelper.current_config.version.to_i
-        if cur_version == Api::V2::VERSION
-          parse_commands_v2(params['body'])
-        elsif (cur_version == Api::V4::VERSION) || (cur_version == 3)
-          parse_commands_v4(params['body'])
-        end
-        @commands.each do |command|
-          command.send :define_method!
-        end
-        xbmc = XbmcConfigHelper.current_config
-        XbmcConnect.loaded_apis << xbmc.version unless XbmcConnect.loaded_apis.include?(xbmc.version)
-        XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
-      else
-        error_handle(params)
+      @commands = nil
+      cur_version = XbmcConfigHelper.current_config.version.to_i
+      if cur_version == Api::V2::VERSION
+        parse_commands_v2(params['body'])
+      elsif (cur_version == Api::V4::VERSION) || (cur_version == 3)
+        parse_commands_v4(params['body'])
       end
+      @commands.each do |command|
+        command.send :define_method!
+      end
+      xbmc = XbmcConfigHelper.current_config
+      XbmcConnect.loaded_apis << xbmc.version unless XbmcConnect.loaded_apis.include?(xbmc.version)
+      XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
     end
     
     def parse_commands_v4(body)
