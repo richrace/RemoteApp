@@ -2,7 +2,7 @@
 
 	<div data-id="head" data-role="header" data-position="fixed" data-theme="a" style="height:41px;">
 		<a href="<%= url_for :controller => :Tvshow %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">Back</a>
-    <h1 id="heading"></h1>
+    <h1 id="heading">No Seasons</h1>
 		<a href="<%= url_for :controller => :Tvshow, :action => :info, :query => { :tvshowid => @params['tvshowid']}%>" data-transition="flip" class="ui-btn-right" data-icon="info">
 			Info
 		</a>
@@ -34,7 +34,7 @@
 				}
 				$(slist).listview('refresh');
 				$.fixedToolbars.show(true);
-			}
+			} 
 		}
 		
 		function addSeasonThumb(seasonid, filename) {
@@ -49,9 +49,9 @@
 	
   <div data-role="content">
 		<div>
-    	<ul data-role="listview" id="seasons_list">
+    		<ul data-role="listview" id="seasons_list">
 
-    	</ul>
+    		</ul>
 		</div>
   </div>
 
