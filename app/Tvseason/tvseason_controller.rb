@@ -64,11 +64,20 @@ class TvseasonController < Rho::RhoController
     unless @seasons.blank?
       WebView.execute_js("updateSeasonList(#{JSON.generate(@seasons)})")
     end
+    send_command {Api::V4::VideoLibrary.get_seasons(url_for(:action => :season_callback, :query => {:tvshowid => @@tvshowid}),@@tvshowid)}
   end
   
   def season_callback
     if @params['status'] == 'ok'
-      sync_seasons(@params['body'].with_indifferent_access[:result][:seasons])
+      if sync_seasons(@params['body'].with_indifferent_access[:result][:seasons], @params['tvshowid'])
+        @seasons = find_seasons(@params['tvshowid'])
+        unless @seasons.blank?
+          WebView.execute_js("updateSeasonList(#{JSON.generate(@seasons)})")
+        end
+      end
+    else
+      error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
   
