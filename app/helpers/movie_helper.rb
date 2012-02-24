@@ -19,7 +19,6 @@ module MovieHelper
     unless xbmc.blank?
       con = {:xbmc_id => xbmc.object}
       con.merge!(conditions)
-      puts "FILTER MOVIES CONDITIONS === #{con}"
       Movie.find(:all, :conditions => con, :order => order, :orderdir => order_dir)
     else
       return nil
@@ -105,3 +104,4 @@ module MovieHelper
     return list_changed
   end
 end
+
