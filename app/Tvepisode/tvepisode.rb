@@ -10,4 +10,13 @@ class Tvepisode
   # enable :sync
 
   #add model specifc code here
+
+  def destroy_image
+    unless self.l_thumb.blank?
+      File.delete(self.l_thumb) if File.exists?(self.l_thumb)
+      self.l_thumb = nil
+      self.save
+    end
+  end
+
 end
