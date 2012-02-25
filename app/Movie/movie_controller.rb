@@ -5,6 +5,7 @@ require 'helpers/xbmc/apis/xbmc_apis'
 require 'helpers/error_helper'
 require 'date'
 require 'helpers/method_helper'
+require 'helpers/download_helper'
 
 class MovieController < Rho::RhoController
   include BrowserHelper
@@ -12,6 +13,7 @@ class MovieController < Rho::RhoController
   include XbmcConfigHelper
   include ErrorHelper
   include MethodHelper
+  include DownloadHelper
   
   @@conditions = {}
   @@order = {:title => :sorttitle, :recent => :xlib_id, :year => :year, :rating => :rating}
@@ -44,10 +46,13 @@ class MovieController < Rho::RhoController
   end
   
   def update_list
+    WebView.execute_js("showLoading('Loading Movies');")
     @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @movies.blank?
       ensure_sorted(@movies)
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
+      # Needed here because if there isn't an update the loading message stays.
+      WebView.execute_js("hideLoading();")
     end
     set_callbacks
     send_command {Api::V4::VideoLibrary.get_movies(@movies_cb)}
@@ -56,13 +61,14 @@ class MovieController < Rho::RhoController
   def movies_callback
     if @params['status'] != 'ok'
       error_handle(@params)
-      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
+      WebView.execute_js("hideLoading();")
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")      
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
         @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
         ensure_sorted(@movies)
         unless @movies.blank?
-          WebView.execute_js("updateList(#{JSON.generate(@movies)});")
+          WebView.execute_js("updateList(#{JSON.generate(@movies)});")        
         end
       end
     end
@@ -71,8 +77,12 @@ class MovieController < Rho::RhoController
   def get_thumb
     set_callbacks
     found_movie = find_movie(@params['movieid'])
-    unless found_movie.blank? && found_movie.l_thumb.blank?
-      WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
+    unless found_movie.blank?
+      unless found_movie.l_thumb.blank?
+        WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
+      else
+        Thread.new {download_moviethumb(found_movie)}
+      end
     end
   end
   
@@ -82,7 +92,11 @@ class MovieController < Rho::RhoController
     else
       found_movie = find_movie(@params['movieid'])
       unless found_movie.blank?          
-         WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
+        unless @params['file'].blank?
+          found_movie.l_thumb = @params['file']
+          found_movie.save
+          WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
+        end
       end
     end
   end
@@ -172,6 +186,12 @@ class MovieController < Rho::RhoController
       if @@order_dir == 'DESC'
         movies.reverse!
       end
+    end
+  end
+
+  def found
+    unless @params['movies'].blank?
+      puts "MOVIES === #{@params['movies']}"
     end
   end
 
