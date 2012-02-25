@@ -1,10 +1,12 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
 require 'helpers/tv_season_helper'
+require 'helpers/error_helper'
 
 class TvseasonController < Rho::RhoController
   include BrowserHelper
   include TvSeasonHelper
+  include ErrorHelper
 
   # GET /Tvseason
   def index
@@ -59,15 +61,15 @@ class TvseasonController < Rho::RhoController
     redirect :action => :index  
   end
   
-  def updateSeasonList
+  def update_season_list
     @seasons = find_seasons(@@tvshowid)
     unless @seasons.blank?
       WebView.execute_js("updateSeasonList(#{JSON.generate(@seasons)})")
     end
-    send_command {Api::V4::VideoLibrary.get_seasons(url_for(:action => :season_callback, :query => {:tvshowid => @@tvshowid}),@@tvshowid)}
+    send_command {Api::V4::VideoLibrary.get_seasons(url_for(:action => :update_season_cb, :query => {:tvshowid => @@tvshowid}),@@tvshowid)}
   end
-  
-  def season_callback
+
+  def update_season_cb
     if @params['status'] == 'ok'
       if sync_seasons(@params['body'].with_indifferent_access[:result][:seasons], @params['tvshowid'])
         @seasons = find_seasons(@params['tvshowid'])
@@ -81,20 +83,42 @@ class TvseasonController < Rho::RhoController
     end
   end
   
-  def season_thumb_callback
-    if @params['status'] != 'ok'
+  def season_callback
+    if @params['status'] == 'ok'
+      if sync_seasons(@params['body'].with_indifferent_access[:result][:seasons], @params['tvshowid'])
+        #@seasons = find_seasons(@params['tvshowid'])
+        #unless @seasons.blank?
+        #  WebView.execute_js("updateSeasonList(#{JSON.generate(@seasons)})")
+        #end
+      end
+    else
       error_handle(@params)
+      #WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
   
-  def updateThumbs
-    filter_season_xbmc()
+  def season_thumb_callback
+    if @params['status'] != 'ok'
+      error_handle(@params)
+    else
+      season = find_season(@params['tvseasonid'], @params['tvshowid'])
+      unless season.blank?
+        unless @params['file'].blank?
+          season.l_thumb = @params['file']
+          season.save
+        end
+      end
+    end
   end
   
   def get_season_thumb
     season = find_season(@params['seasonid'],@params['tvshowid'])
-    unless season.blank? && season.l_thumb.blank?
-      WebView.execute_js("addSeasonThumb(#{season.xlib_id}, '#{season.l_thumb}');")
+    unless season.blank? 
+      unless season.l_thumb.blank?
+        WebView.execute_js("addSeasonThumb(#{season.xlib_id}, '#{season.l_thumb}');")
+      else
+        Thread.new {download_seasonthumb(season)}
+      end
     end
   end
 end
