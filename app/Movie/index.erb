@@ -3,7 +3,7 @@
 	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
     <a href="#" onClick="reload();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh"></a>
 		<h1>Movies</h1>
-    <a href="<%= url_for :action => :sort %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-rel="dialog">
+    <a href="<%= url_for :action => :sort %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-rel="dialog" data-transition="flip">
       Sort
     </a>
 	</div>
@@ -29,7 +29,7 @@
 					var newLi = document.createElement('li');
 					newLi.id = "movielist_" + movies[movie].xlib_id;
 					var code = "<a href=\"" + movies[movie].url + "\"><img id=\"movieimg_" + movies[movie].xlib_id + "\"";
-					if (movies[movie].l_thumb !== null) {
+					if (movies[movie].l_thumb) {
 						code += "src=\"" + movies[movie].l_thumb + "\"";
 					} else {
 						code += "src=\"/public/images/missing_thumb.png\"";
@@ -51,13 +51,12 @@
 					list.appendChild(newLi);
 				}
 				$(list).listview('refresh');
-				$.fixedToolbars.show(true);
+				hideLoading();
 			}
 		}
 		
 		function addThumb(movieid, filename) {
 			document.getElementById('movieimg_'+movieid).src = filename;
-			//$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function () { 
