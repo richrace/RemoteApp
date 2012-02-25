@@ -3,7 +3,7 @@
 	<div data-id="head" data-role="header" data-position="fixed" data-theme="a" style="height:41px;">
 		<a href="#" onClick="refresh_shows();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh"></a>
     	<h1>TV Shows</h1>
-    	<a href="<%= url_for :action => :tvsort %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-rel="dialog">
+    	<a href="<%= url_for :action => :tvsort %>" class="ui-btn-right" data-iconpos="right" data-icon="gear" data-rel="dialog" data-transition="flip">
       		Sort
     	</a>
 	</div>
@@ -32,7 +32,7 @@
 				}
 				for (tvshow in tvshows) {
 					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">";
-					if (tvshows[tvshow].l_thumb !== null) {
+					if (tvshows[tvshow].l_thumb) {
 						newItem += "<img src='"+tvshows[tvshow].l_thumb+"' style='width:100%;' />";
 					} else {
 						newItem += tvshows[tvshow].title;
@@ -51,15 +51,14 @@
 					$('#tvshows_list').append(newItem);
 				}
 				$(tvlist).listview('refresh');
-				//$.fixedToolbars.show(true);
+				hideLoading();
 			}
 		}
 		
 		function addTVThumb(tvshowid, filename) {
 			var atag = document.getElementById('tvshowimg_'+tvshowid);
 			atag.innerHTML = "<img src='"+filename+"' style='width:100%;' />";
-			$(tvlist).listview('refresh');
-			//$.fixedToolbars.show(true);
+			//$(tvlist).listview('refresh');
 		}
 	
 		$(document).ready(function(){
