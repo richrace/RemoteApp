@@ -14,29 +14,25 @@
 		function takeBarcode() {
 			$.get("<%= url_for :action => :take %>");
 		}
-		function scan() {
-			$.get("<%= url_for :action => :scan %>");
-		}
 		$(document).ready(function(){
 			$.get("<%= url_for :action => :load_geo %>");
 		});
 	</script>
 
-  <div data-role="content">
+  	<div data-role="content">
 		<div>
-    	<a href="#" onClick="choosePicture();">Choose Picture</a>
-			<br />
+			<h3>Scan a Movie barcode</h3>
+    		<a href="#" onClick="choosePicture();">Choose Picture</a>
+    		<br />
 			<% if System::get_property('has_camera') %>
-					<a href="#" onClick="takePicture();">Take New Picture</a>
-					<br />
-					<% if System::get_property('platform') == 'ANDROID' or System::get_property('platform') == 'APPLE' or (System::get_property('platform') == 'WINDOWS' and System.get_property('is_moto_device')) %>
-						<a href="#" onClick="takeBarcode();">Take Barcode</a>
-						<br />
-					<% end %>      
+				<a href="#" onClick="takePicture();">Take New Picture</a>
+				<br />
+				<% if System::get_property('platform') == 'ANDROID' or System::get_property('platform') == 'APPLE' or (System::get_property('platform') == 'WINDOWS' and System.get_property('is_moto_device')) %>
+					<a href="#" onClick="takeBarcode();">Take Barcode</a>
+				<% end %>      
 		  <% end %>
-			<a href="#" onClick="scan()">Scan</a>
 		</div>
-  </div>
+  	</div>
 	
 	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
 		<div data-role="navbar" class="nav-cust" data-grid="d">
