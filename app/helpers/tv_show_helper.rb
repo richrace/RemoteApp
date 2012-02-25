@@ -76,20 +76,7 @@ module TvShowHelper
         
         list_changed = true
         
-        url = XbmcConnect::Files.prepare_download(XbmcConnect::NOCALLB, {:path => n_tvshow.thumb})
-        if url['status'] == 'ok'
-          unless url['body'].with_indifferent_access[:error]
-            xbmc = XbmcConfigHelper.current_config
-            unless xbmc.bank?
-              file = File.join(Rho::RhoApplication::get_base_app_path(), "#{xbmc.object}.tvshow.#{n_tvshow.xlib_id}.jpg")
-              n_tvshow.l_thumb = file
-              n_tvshow.save
-              
-              params = "tvshowid=#{n_tvshow.xlib_id}"
-              XbmcConnect.download_file(url['body'].with_indifferent_access[:result][:details][:path], file, url_for(:action => :thumb_callback), params)
-            end
-          end
-        end
+        Thread.new {download_tvthumb(n_tvshow)}
       end
     end 
     return list_changed
@@ -133,5 +120,5 @@ module TvShowHelper
       end
     end
   end
-  
+
 end

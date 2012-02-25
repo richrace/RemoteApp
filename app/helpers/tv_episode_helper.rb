@@ -1,7 +1,9 @@
 require 'helpers/method_helper'
+require 'helpers/download_helper'
 
 module TvEpisodeHelper
   include MethodHelper
+  include DownloadHelper
   
   def find_episodes(seasonid, tvshowid)
     Tvepisode.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => tvshowid, :tvseason_id => seasonid}, :order => :episode, :orderdir => 'ASC')
@@ -58,10 +60,10 @@ module TvEpisodeHelper
         n_episode.url = url_for(:action => :show, :id => n_episode.object)
         
         n_episode.save
+                
+        list_changed = true   
         
-        puts "SAVED EPISODE === #{n_episode}"
-        
-        list_changed = true        
+        Thread.new {download_episodethumb(n_episode)}     
       end
     end
     return list_changed
@@ -79,7 +81,7 @@ module TvEpisodeHelper
         end
       end
       unless got
-        #db_episode.destroy_image
+        db_episode.destroy_image
         db_episode.destroy
         list_changed = true
       end
