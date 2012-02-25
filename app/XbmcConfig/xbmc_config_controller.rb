@@ -98,7 +98,7 @@ class XbmcConfigController < Rho::RhoController
       tvepisodes = Tvepisode.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
       unless tvepisodes.blank?
         tvepisodes.each do | tvepisode |
-          #tvepisode.destroy_image
+          tvepisode.destroy_image
           tvepisode.destroy
         end
       end
@@ -129,6 +129,15 @@ class XbmcConfigController < Rho::RhoController
     render :action => :edit
   end
   
+  def remove_movie_cache
+    unless @params['xbmc_id'].blank?
+      movies = Movie.find(:all, :conditions => { :xbmc_id => @params['xbmc_id'] } )
+      movies.each do | movie |
+        movie.destroy_image
+      end
+    end
+  end
+
   private 
   
   def update_xbmc
