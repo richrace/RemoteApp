@@ -12,6 +12,10 @@
 		function refresh_eps() {
 			$.get("<%= url_for :action => :update_tvepisode_list %>");
 		}
+
+		function getEpisodeThumb(episodeid) {
+			$.post("<%= url_for :action => :get_episode_thumb %>", {"episodeid":episodeid});
+		}
 		
 		function updateEpisodeList(episodes) {
 			if (episodes !== null) {
@@ -24,15 +28,25 @@
 				for (episode in episodes) {
 					var newLi = document.createElement('li');
 					newLi.id = 'episodelist_'+ episodes[episode].xlib_id;
-					newLi.innerHTML = "<a href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\" src=\"/public/images/missing_thumb.png\" /><h3>Episode "+episodes[episode].episode+"</h3><p>" + episodes[episode].title + "</p></a>";
+					var newItem = "<a href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\"";
+					if (episodes[episode].l_thumb) {
+						newItem += "src=\"" + episodes[episode].l_thumb + "\"";
+					} else {
+						newItem += "src=\"/public/images/missing_thumb.png\"";
+						getEpisodeThumb(episodes[episode].xlib_id);
+					}
+					newItem += "/><h3>Episode "+episodes[episode].episode+"</h3><p>" + episodes[episode].title + "</p></a>";
+					newLi.innerHTML = newItem;
 					epilist.appendChild(newLi);
-					//getThumb(episodes[episode].xlib_id);
 				}
 				$(epilist).listview('refresh');
-				$.fixedToolbars.show(true);
 			}
 		}
 		
+		function addEpisodeThumb(episodeid, filename) {
+			document.getElementById('episodeimg_'+episodeid).src = filename;
+		}
+
 		$(document).ready(function () {
 			refresh_eps();
 		});
