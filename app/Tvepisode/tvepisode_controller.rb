@@ -2,11 +2,15 @@ require 'rho/rhocontroller'
 require 'helpers/browser_helper'
 require 'helpers/tv_episode_helper'
 require 'helpers/method_helper'
+require 'helpers/download_helper'
+require 'helpers/error_helper'
 
 class TvepisodeController < Rho::RhoController
   include BrowserHelper
   include TvEpisodeHelper
   include MethodHelper
+  include DownloadHelper
+  include ErrorHelper
 
   # GET /Tvepisode
   def index
@@ -66,7 +70,7 @@ class TvepisodeController < Rho::RhoController
     unless @tvepisodes.blank?
       WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
     end
-    send_command {load_tvepisodes(url_for(:action => :episodes_callback), @@tvshowid, @@tvseasonid)}
+    load_tvepisodes(url_for(:action => :episodes_callback), @@tvshowid, @@tvseasonid)
   end
   
   def episodes_callback
@@ -92,6 +96,32 @@ class TvepisodeController < Rho::RhoController
   
   def play_episode_callback
     puts "PLAY/PAUSED"
+  end
+
+  def episode_thumb_callback
+    if @params['status'] != 'ok'
+      error_handle(@params)
+    else
+      found_episode = find_episode(@params['episodeid'])
+      unless found_episode.blank?          
+        unless @params['file'].blank?
+          found_episode.l_thumb = @params['file']
+          found_episode.save
+          WebView.execute_js("addEpisodeThumb(#{found_episode.xlib_id},\'#{found_episode.l_thumb}\');")
+        end
+      end
+    end
+  end
+
+  def get_episode_thumb
+    found_episode = find_episode(@params['episodeid'])
+    unless found_episode.blank?
+      unless found_episode.l_thumb.blank?
+        WebView.execute_js("addEpisodeThumb(#{found_episode.xlib_id},\'#{found_episode.l_thumb}\');")
+      else
+        Thread.new {download_episodethumb(found_episode)}
+      end
+    end
   end
   
 end
