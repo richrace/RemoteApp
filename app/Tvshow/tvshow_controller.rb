@@ -4,6 +4,7 @@ require 'helpers/browser_helper'
 require 'helpers/method_helper'
 require 'helpers/tv_show_helper'
 require 'helpers/error_helper'
+require 'helpers/download_helper'
 
 class TvshowController < Rho::RhoController
   include ApplicationHelper
@@ -11,6 +12,7 @@ class TvshowController < Rho::RhoController
   include MethodHelper
   include TvShowHelper
   include ErrorHelper
+  include DownloadHelper
 
   @@conditions = {}
   @@order = {:title => :sorttitle, :year => :year, :rating => :rating}
@@ -39,6 +41,7 @@ class TvshowController < Rho::RhoController
   end
   
   def get_tv_shows
+    WebView.execute_js("showLoading('Loading TV Shows');")
     @tvshows = filter_tvshows_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @tvshows.blank?
       ensure_sorted(@tvshows)
@@ -58,14 +61,19 @@ class TvshowController < Rho::RhoController
       end
     else
       error_handle(@params)
+      WebView.execute_js("hideLoading();")
       WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
   
   def get_tv_thumb
     found_tvshow = find_tvshow(@params['tvshowid'])
-    unless found_tvshow.blank? && found_tvshow.l_thumb.blank?
-      WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
+    unless found_tvshow.blank? 
+      unless found_tvshow.l_thumb.blank?
+        WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
+      else
+        Thread.new {download_tvthumb(found_tvshow)}
+      end
     end
   end
   
@@ -73,11 +81,15 @@ class TvshowController < Rho::RhoController
     if @params['status'] == 'ok'
       found_tvshow = find_tvshow(@params['tvshowid'])
       unless found_tvshow.blank?
-        WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
+        unless @params['file'].blank?
+          found_tvshow.l_thumb = @params['file']
+          found_tvshow.save      
+          WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
+        end
       end
     else
       error_handle(@params)
-      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
+      #WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
 
