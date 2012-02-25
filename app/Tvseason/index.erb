@@ -10,7 +10,7 @@
 
 	<script>
 		function refresh() {
-			$.get("<%= url_for(:action => :updateSeasonList) %>");
+			$.get("<%= url_for(:action => :update_season_list) %>");
 		}
 		function getSeasonThumb(seasonid, tvshowid) {
 			$.post("<%= url_for(:action => :get_season_thumb) %>", {'seasonid':seasonid, 'tvshowid':tvshowid});
@@ -28,18 +28,26 @@
 				for (season in seasons) {
 					var newLi = document.createElement('li');
 					newLi.id = 'seasonlist_'+ seasons[season].xlib_id;
-					newLi.innerHTML = "<a href=\"" + seasons[season].url + "\"><img id=\"seasonimg_"+seasons[season].xlib_id+"\" src=\"/public/images/missing_thumb.png\" />" + seasons[season].label + "</a>";
+					code = "<a href=\"" + seasons[season].url + "\"><img id=\"seasonimg_"+seasons[season].xlib_id+"\"";
+					if (seasons[season].l_thumb) {
+						code += "src='" + seasons[season].l_thumb + "'";
+					} else {
+						code += "src=\"/public/images/missing_thumb.png\"";
+						getSeasonThumb(seasons[season].xlib_id, seasons[season].tvshow_id);
+					}
+					code += "/>" + seasons[season].label + "</a>";
+					newLi.innerHTML = code;
 					slist.appendChild(newLi);
-					getSeasonThumb(seasons[season].xlib_id, seasons[season].tvshow_id);
+					
 				}
 				$(slist).listview('refresh');
-				$.fixedToolbars.show(true);
+				//$.fixedToolbars.show(true);
 			} 
 		}
 		
 		function addSeasonThumb(seasonid, filename) {
 			document.getElementById('seasonimg_'+seasonid).src = filename;
-			$.fixedToolbars.show(true);
+			//$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function() {
