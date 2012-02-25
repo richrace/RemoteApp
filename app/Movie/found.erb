@@ -1,0 +1,31 @@
+<div data-role="page">
+
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+		<h1>Found Movies</h1>
+	</div>
+	
+	<script>
+
+	</script>
+
+  <div data-role="content">
+		<div>
+    	<ul id="movies_list" data-role="listview" data-filter="true">
+    
+    	</ul>
+		</div>
+  </div>
+	
+	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" class="ui-btn-active ui-state-persist">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
+				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
