@@ -1,0 +1,36 @@
+<div data-role="page">
+
+	<div data-role="header" data-position="inline">
+    <h1>Buy Later List</h1>
+    <a href="<%= url_for :action => :new, :query => {:known => true} %>" class="ui-btn-right" data-icon="plus">
+      New
+    </a>
+	</div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <% @products.each do |product| %>
+      
+          <li>
+            <a href="<%= url_for :action => :show, :id => product.object %>">
+              <%= product.title %>
+            </a>
+          </li>
+      
+      <% end %>
+    </ul>
+  </div>
+
+  <div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+    <div data-role="navbar" class="nav-cust" data-grid="d">
+      <ul>
+        <li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
+        <li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom">Movies</a></li>
+        <li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
+        <li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+        <li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>

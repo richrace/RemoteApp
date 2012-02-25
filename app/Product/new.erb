@@ -1,0 +1,31 @@
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <h1>Add to Buy List</h1>
+    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+      Cancel
+    </a>
+  </div>
+  
+  <div data-role="content">
+    <% if @params['known'] == "false" %>
+      <h3>No Products Found</h3>
+    <% end %>
+    <p>Enter the Movie Title and click Add to list. If it is in the database I'll redirect you there.</p>
+    <form method="POST" action="<%= url_for :action => :create %>">
+      <input type="hidden" name="id" value="<%= @product.object %>"/>
+      
+          <div data-role="fieldcontain">
+            <label for="product[title]" class="fieldLabel">Confirm the Title</label>
+            <input type="text" id="product[title]" name="product[title]"
+              <% if !@params['title'].blank? %> 
+                <%= "value='" + @params['title'] + "'/>" %>
+              <% else %>
+                <%= placeholder("Title") + "/>" %>
+              <% end %> 
+          </div>
+      <input type="submit" value="Add to List"/>
+    </form>
+  </div>
+
+</div>
