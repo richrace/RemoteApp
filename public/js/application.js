@@ -22,3 +22,13 @@ function showToastError(message) {
 		close:function () { $.mobile.fixedToolbars.show(true); }
 	});
 }
+
+function showLoading(message) {
+	$.mobile.loadingMessage = message;
+    $.mobile.showPageLoadingMsg();
+}
+
+function hideLoading() {
+	$.mobile.hidePageLoadingMsg();
+    $.mobile.loadingMessage = false;
+}
