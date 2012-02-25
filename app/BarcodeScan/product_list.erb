@@ -1,0 +1,50 @@
+<div data-role="page">
+	
+	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+		<h1>Found Products</h1>
+	</div>
+	
+	<style>
+		.dvd-img {
+			width:100px;
+		}
+	</style>
+	<script>
+		function searchTitle(title) {
+			$.get("<%= url_for :action => :search_title %>", {'title':title});
+		}
+		function movePage(address){
+			$.mobile.changePage(address, { transition: 'slide'});
+		}
+	</script>
+	
+	<div data-role="content">
+		<h3>Select Correct Product</h3>
+		<ul id="product_list" data-role="listview">
+		<% @google_products.each do | product | %>
+			<li>
+				<a href="<%= url_for :action => :search_title, :query => {:title => product[:product][:title]} %>">
+					<% unless product[:product][:images].blank? %>
+						<img tyle="width:100%;" src="<%= product[:product][:images][0][:link] %>" />
+					<% else %>
+						<img tyle="width:100%;" src="/public/images/missing_thumb.png" />
+					<% end %>
+					<%= product[:product][:title] %>
+				</a>
+			</li>
+		<% end %>
+		</ul>
+  </div>
+	
+	<div data-id="tabbar" data-role="footer" class="nav-cust" data-position="fixed">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" data-direction="reverse">TV Shows</a></li>
+				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
