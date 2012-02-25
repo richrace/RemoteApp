@@ -10,51 +10,56 @@
     </a>
   </div>
 
+  <script type="text/javascript">
+    function removeMovieCache(xbmc_id) {
+      $.get("<%= url_for(:action => :remove_movie_cache) %>", {'xbmc_id':xbmc_id});
+    }
+  </script>
+
   <div data-role="content">
     <ul data-role="listview">
-	
-			
-          <li>
-						<div class="ui-grid-a">
-            	<div class="ui-block-a" style="width:30%;"><strong>Name:</strong></div>
-            	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.name %></div>
+      <li>
+				<div class="ui-grid-a">
+        	<div class="ui-block-a" style="width:30%;"><strong>Name:</strong></div>
+        	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.name %></div>
+				</div>
+      </li>
+  
+      <li>
+        <div class="ui-grid-a">
+					<div class="ui-block-a" style="width:30%;"><strong>Url:</strong></div>
+        	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.url %></div>
+				</div>
+      </li>
+  
+      <li>
+        <div class="ui-grid-a">
+					<div class="ui-block-a" style="width:30%;"><strong>Port:</strong></div>
+        	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.port %></div>
+				</div>
+      </li>
+  
+      <li>
+				<div class="ui-grid-a">
+        	<div class="ui-block-a" style="width:30%"><strong>Username:</strong></div>
+        	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.usrname %></div>
+				</div>
+      </li>
+  
+      <li>
+        <div class="ui-grid-a">
+					<div class="ui-block-a" style="width:30%;"><br/><strong>Active:</strong></div>
+					<div class="ui-block-b" style="width:70%; font-weight:normal;">
+							<select name="slider" id="flip-c" disabled="true" data-role="slider" data-theme="a">	
+								<option <%= "selected" if @xbmc_config.is_active? %> value="false">No</option>
+								<option <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
+							</select> 
 						</div>
-          </li>
-      
-          <li>
-            <div class="ui-grid-a">
-							<div class="ui-block-a" style="width:30%;"><strong>Url:</strong></div>
-            	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.url %></div>
-						</div>
-          </li>
-      
-          <li>
-            <div class="ui-grid-a">
-							<div class="ui-block-a" style="width:30%;"><strong>Port:</strong></div>
-            	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.port %></div>
-						</div>
-          </li>
-      
-          <li>
-						<div class="ui-grid-a">
-            	<div class="ui-block-a" style="width:30%"><strong>Username:</strong></div>
-            	<div class="ui-block-b" style="width:70%; font-weight:normal;"><%= @xbmc_config.usrname %></div>
-						</div>
-          </li>
-      
-          <li>
-            <div class="ui-grid-a">
-							<div class="ui-block-a" style="width:30%;"><br/><strong>Active:</strong></div>
-							<div class="ui-block-b" style="width:70%; font-weight:normal;">
-									<select name="slider" id="flip-c" disabled="true" data-role="slider" data-theme="a">	
-										<option <%= "selected" if @xbmc_config.is_active? %> value="false">No</option>
-										<option <%= "selected" if @xbmc_config.is_active? %> value="true">Yes</option>
-									</select> 
-								</div>
-						</div>
-          </li>
-      
+				</div>
+      </li>
     </ul>
+    <br />
+    <a href="#" onClick="removeMovieCache(<%= @xbmc_config.object %>)">Remove Movie Image Cache</a>
   </div>
 
 </div>
