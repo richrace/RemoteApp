@@ -4,6 +4,7 @@ require 'helpers/browser_helper'
 require 'helpers/geo_helper'
 require 'helpers/product_helper'
 require 'helpers/movie_helper'
+require 'helpers/error_helper'
 
 class BarcodeScanController < Rho::RhoController
   include ApplicationHelper
@@ -11,6 +12,7 @@ class BarcodeScanController < Rho::RhoController
   include GeoHelper
   include ProductHelper
   include MovieHelper
+  include ErrorHelper
   
   def index
     @@country_code = "US"
@@ -26,11 +28,6 @@ class BarcodeScanController < Rho::RhoController
     #######
   end
   
-  def scan
-    file = File.join(Rho::RhoApplication::get_model_path('app','BarcodeScan'),'grown_ups.png')
-    get_product(Barcode.barcode_recognize(file), @@country_code)
-  end
-  
   def new
     Camera::take_picture(url_for :action => :camera_callback)
   end
@@ -40,14 +37,19 @@ class BarcodeScanController < Rho::RhoController
   end
   
   def camera_callback
-    get_product(Barcode.barcode_recognize(Rho::RhoApplication::get_blob_path(@params['image_uri'])), @@country_code)
-    #render_transition :action => :index
+    WebView.execute_js("showLoading('Scanning Barcode');");
+    barcode = Barcode.barcode_recognize(Rho::RhoApplication::get_blob_path(@params['image_uri']))
+    if barcode.blank?
+      # Need the \ characters to make sure the error is displayed properlly by the JavaScript.
+      WebView.execute_js("showToastError('Couldn\\\'t Scan the Barcode');")
+      WebView.execute_js("hideLoading();")
+    else
+      get_product(barcode, @@country_code)
+    end
   end
   
   def take
     Barcode.take_barcode(url_for(:action => :take_callback), {})
-    #Barcode.take_barcode(url_for(:action => :take_callback), {:camera => 'front'})
-    #redirect :action => :index
   end
 
   def take_callback
@@ -65,39 +67,36 @@ class BarcodeScanController < Rho::RhoController
     if status == 'cancel'
       Alert.show_popup  ('Barcode taking was canceled !')  
     end
-    #redirect :action => :index
   end
   
   def handle_product
-    @products = @params['body'].with_indifferent_access[:items]
-    unless @products.blank?
-      render_transition :action => :product
+    WebView.execute_js("hideLoading();");
+    if @params['status'] == 'ok'
+      @google_products = @params['body'].with_indifferent_access[:items]
+      unless @google_products.blank?
+        render_transition :action => :product_list
+      else 
+        url = url_for(:controller => :Product, :action => :new, :query => {:known => false})
+        WebView.execute_js("$.mobile.changePage('#{url}', { transition: 'slide'});")
+      end
+    else
+      error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
   
   def search_title
     wanted_title = @params['title']
     movies = get_movies_xbmc
-    found_movies = []
-    puts "Looking for #{wanted_title}"
-    unless movies.blank? && wanted_title.blank?
-      movies.each do | movie |
-        puts "Looking at #{movie.title}"
-        if wanted_title.downcase.include?(movie.title.downcase)
-          puts "adding similar movie"
-          found_movies << movie
-        end
-      end
-    end
+    found_movies = search_by_title(wanted_title)
     unless found_movies.blank?
       if found_movies.length == 1
-        url = url_for(:controller => :Movie, :action => :show, :id => found_movies[0].object)
-        WebView.execute_js("$.mobile.changePage('#{url}', { transition: 'slide'});")
+        redirect(:controller => :Movie, :action => :show, :id => found_movies[0].object)
       elsif found_movies.length > 1
-        
-      else
-        
+        redirect(:controller => :Movie, :action => :found, :query => {:movies => :found_movies})
       end
+    else
+      redirect(:controller => :Product, :action => :new, :query => {:known => true, :title => wanted_title})
     end
   end
   
