@@ -75,8 +75,6 @@ module TvShowHelper
         n_tvshow.save        
         
         list_changed = true
-        
-        Thread.new {download_tvthumb(n_tvshow)}
       end
     end 
     return list_changed
@@ -101,7 +99,7 @@ module TvShowHelper
         end
         tvepisodes = Tvepisode.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => db_tvshow.xlib_id})
         tvepisodes.each do | episode |
-          #episode.destroy_image
+          episode.destroy_image
           episode.destroy
         end
         db_tvshow.destroy_image
