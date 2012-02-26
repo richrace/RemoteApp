@@ -20,11 +20,7 @@
 		function updateList(movies) {
 			if (movies !== null) {
 				var list = document.getElementById('movies_list');
-				if (list.hasChildNodes()) {
-					while (list.childNodes.length >= 1) {
-						list.removeChild(list.firstChild);       
-					} 
-				}
+				list.innerHTML = "";
 				for (movie in movies) {
 					var newLi = document.createElement('li');
 					newLi.id = "movielist_" + movies[movie].xlib_id;
@@ -52,6 +48,7 @@
 				}
 				$(list).listview('refresh');
 				hideLoading();
+				$.mobile.fixedToolbars.show(true);
 			}
 		}
 		
@@ -78,7 +75,7 @@
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" class="ui-btn-active ui-state-persist">Movies</a></li>
 				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
-				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom">Playlist</a></li>
 				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
 			</ul>
 		</div>

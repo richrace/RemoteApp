@@ -20,11 +20,7 @@
 			if (seasons !== null) {
 				document.getElementById('heading').innerHTML = seasons[0].showtitle;
 				var slist = document.getElementById('seasons_list');
-				if (slist.hasChildNodes()) {
-					while (slist.childNodes.length >= 1) {
-						slist.removeChild(slist.firstChild);       
-					} 
-				}
+				slist.innerHTML = "";
 				for (season in seasons) {
 					var newLi = document.createElement('li');
 					newLi.id = 'seasonlist_'+ seasons[season].xlib_id;
@@ -41,13 +37,12 @@
 					
 				}
 				$(slist).listview('refresh');
-				//$.fixedToolbars.show(true);
+				$.fixedToolbars.show(true);
 			} 
 		}
 		
 		function addSeasonThumb(seasonid, filename) {
 			document.getElementById('seasonimg_'+seasonid).src = filename;
-			//$.fixedToolbars.show(true);
 		}
 		
 		$(document).ready(function() {

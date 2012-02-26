@@ -25,11 +25,7 @@
 		function updateTVList(tvshows) {
 			if (tvshows !== null) {
 				var tvlist = document.getElementById('tvshows_list');
-				if (tvlist.hasChildNodes()) {
-					while (tvlist.childNodes.length >= 1) {
-						tvlist.removeChild(tvlist.firstChild);       
-					} 
-				}
+				tvlist.innerHTML = "";
 				for (tvshow in tvshows) {
 					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">";
 					if (tvshows[tvshow].l_thumb) {
@@ -52,13 +48,13 @@
 				}
 				$(tvlist).listview('refresh');
 				hideLoading();
+				$.fixedToolbars.show(true);
 			}
 		}
 		
 		function addTVThumb(tvshowid, filename) {
 			var atag = document.getElementById('tvshowimg_'+tvshowid);
 			atag.innerHTML = "<img src='"+filename+"' style='width:100%;' />";
-			//$(tvlist).listview('refresh');
 		}
 	
 		$(document).ready(function(){
@@ -80,7 +76,7 @@
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
 				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" class="ui-btn-active ui-state-persist">TV Shows</a></li>
-				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom">Playlist</a></li>
 				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
 			</ul>
 		</div>
