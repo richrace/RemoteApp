@@ -1,9 +1,11 @@
 require 'helpers/method_helper'
 require 'helpers/download_helper'
+require 'helpers/tv_show_helper'
 
 module TvEpisodeHelper
   include MethodHelper
   include DownloadHelper
+  include TvShowHelper
   
   def find_episodes(seasonid, tvshowid)
     Tvepisode.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => tvshowid, :tvseason_id => seasonid}, :order => :episode, :orderdir => 'ASC')
@@ -24,12 +26,11 @@ module TvEpisodeHelper
 
   def sync_tvepisodes(xbmc_eps, tvshowid, seasonid)
     unless xbmc_eps.blank?
-      db_episodes = find_episodes(seasonid, tvshowid)
-      res = handle_new_tvepisodes(xbmc_eps) || handle_removed_tvepisodes(xbmc_eps, db_episodes)
+      res = handle_new_tvepisodes(xbmc_eps) || handle_removed_tvepisodes(xbmc_eps, seasonid, tvshowid)
     else
       episodes = find_episodes(seasonid, tvshowid)
       episodes.each do | episode |
-        #episode.destroy_image
+        episode.destroy_image
         episode.destroy
         res = true
       end
@@ -49,6 +50,7 @@ module TvEpisodeHelper
           :firstaired => xbmc_ep[:firstaired], 
           :title => xbmc_ep[:title], 
           :tvshow_id => xbmc_ep[:tvshowid], 
+          :tvshow_name => find_tvshow(xbmc_ep[:tvshowid]).title,
           :tvseason_id => xbmc_ep[:season], 
           :runtime => xbmc_ep[:runtime], 
           :rating => xbmc_ep[:rating], 
@@ -62,17 +64,15 @@ module TvEpisodeHelper
         n_episode.save
                 
         list_changed = true   
-        
-        Thread.new {download_episodethumb(n_episode)}     
       end
     end
     return list_changed
   end
 
-  def handle_removed_tvepisodes(xbmc_ep, db_episodes)
+  def handle_removed_tvepisodes(xbmc_ep, seasonid, tvshowid)
     list_changed = false 
     
-    db_episodes.each do | db_episode |
+    find_episodes(seasonid, tvshowid).each do | db_episode |
       got = false
       xbmc_ep.each do | xb_episode |
         if db_episode.xlib_id.to_i == xb_episode[:episodeid].to_i
