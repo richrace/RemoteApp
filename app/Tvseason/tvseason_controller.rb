@@ -85,15 +85,9 @@ class TvseasonController < Rho::RhoController
   
   def season_callback
     if @params['status'] == 'ok'
-      if sync_seasons(@params['body'].with_indifferent_access[:result][:seasons], @params['tvshowid'])
-        #@seasons = find_seasons(@params['tvshowid'])
-        #unless @seasons.blank?
-        #  WebView.execute_js("updateSeasonList(#{JSON.generate(@seasons)})")
-        #end
-      end
+      sync_seasons(@params['body'].with_indifferent_access[:result][:seasons], @params['tvshowid'])
     else
       error_handle(@params)
-      #WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
   end
   
@@ -106,6 +100,7 @@ class TvseasonController < Rho::RhoController
         unless @params['file'].blank?
           season.l_thumb = @params['file']
           season.save
+          WebView.execute_js("addSeasonThumb(#{season.xlib_id}, '#{season.l_thumb}');")
         end
       end
     end
