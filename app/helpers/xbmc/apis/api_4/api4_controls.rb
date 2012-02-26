@@ -82,28 +82,5 @@ module Control4
       XbmcConnect::Player.go_previous(callback, {:playerid => cur_player[0][:playerid]})
     end
   end
-  
-  def clear_video_playlist
-    cplay_param = {:playlistid => 1}
-    XbmcConnect::Playlist.clear(XbmcConnect::NOCALLB, cplay_param)
-  end
-  
-  def play_video_playlist
-    open_param = {:item => {:playlistid => 1}}
-    XbmcConnect::Player.open(XbmcConnect::NOCALLB, open_param)
-  end
-  
-  def play_movie(callback, movieid)
-    clear_video_playlist
-    aplay_param = {:playlistid => 1, :item => {:movieid => movieid.to_i}}
-    aplay_res = XbmcConnect::Playlist.add(XbmcConnect::NOCALLB, aplay_param)
-    play_video_playlist
-  end
-  
-  def play_episode(callback, episodeid)
-    clear_video_playlist
-    aplay_param = {:playlistid => 1, :item => {:episodeid => episodeid.to_i}}
-    aplay_res = XbmcConnect::Playlist.add(XbmcConnect::NOCALLB, aplay_param)
-    play_video_playlist
-  end
+
 end
