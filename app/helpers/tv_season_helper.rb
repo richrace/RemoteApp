@@ -20,6 +20,7 @@ module TvSeasonHelper
   def sync_seasons(xbmc_seasons, tvshowid)
     unless xbmc_seasons.blank?
       res = handle_new_seasons(xbmc_seasons) || handle_removed_seasons(xbmc_seasons, tvshowid)
+      update_episodes(tvshowid)
     else
       seasons = find_seasons(tvshowid)
       seasons.each do | season |
@@ -55,8 +56,6 @@ module TvSeasonHelper
         n_season.save
         
         list_changed = true
-        
-        Thread.new {download_seasonthumb(n_season)}
       end
     end
   end
@@ -79,6 +78,22 @@ module TvSeasonHelper
       end
     end
     return list_changed
+  end
+
+  def update_episodes(tvshowid)
+    seasons = find_seasons(tvshowid)
+    unless seasons.blank?
+      seasons.each do | season |
+        url_cb = url_for(
+          :controller => :Tvepisode, 
+          :action => :episodes_callback, 
+          :query => {
+            :tvshowid => season.tvshow_id,
+            :tvseasonid => season.xlib_id
+          })
+        send_command { Api::V4::VideoLibrary.get_episodes(url_cb, season.tvshow_id, season.xlib_id) }
+      end
+    end
   end
   
 end
