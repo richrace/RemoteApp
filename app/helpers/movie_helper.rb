@@ -37,7 +37,7 @@ module MovieHelper
   end
   
   def find_movie(xbmc_lib_id)
-    Movie.find(:first, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => xbmc_lib_id}) 
+    Movie.find(:first, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => xbmc_lib_id})
   end
   
   def sync_movies(movies)
@@ -69,7 +69,6 @@ module MovieHelper
         t_movie.sorttitle = create_sort_title(t_movie.title)
         t_movie.save
         list_changed = true
-        Thread.new {download_moviethumb(t_movie)}
       end
     end
     return list_changed
