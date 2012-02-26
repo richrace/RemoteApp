@@ -34,5 +34,14 @@ module ApiV4
       include Application4
     end
   end
+
+  class Playlist
+    require 'helpers/xbmc/apis/api_4/api4_playlist'
+
+    class << self
+      include Playlist4
+    end
+  end
+  
 end
  
