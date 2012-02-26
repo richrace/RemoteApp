@@ -109,9 +109,9 @@ module Controls
     version = XbmcConfigHelper.current_config.version.to_i
     unless version.nil?
       if version == ApiV2::VERSION
-        Api::V2::Playback.skip_previous(callback)
+        Api::V2::Playback.skip_prev(callback)
       elsif (version == ApiV4::VERSION)  || (version == 3)
-        Api::V4::Playback.skip_previous(callback)
+        Api::V4::Playback.skip_prev(callback)
       end
     end
   end
