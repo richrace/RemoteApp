@@ -13,10 +13,20 @@ function mark_errors(form_id, errors_object) {
 }
 
 function showToastError(message) {
+	$.mobile.fixedToolbars.show(true);
+	loadToast('error', message);
+}
+
+function showToastSuccess(message) {
+	$.mobile.fixedToolbars.show(true);
+	loadToast('success', message);
+}
+
+function loadToast(type, message) {
 	$().toastmessage('showToast', {
 		text:message, 
 		sticky:false,
-		type:'error', 
+		type:type, 
 		stayTime:2000, 
 		position:'top-center',
 		close:function () { $.mobile.fixedToolbars.show(true); }
@@ -25,10 +35,10 @@ function showToastError(message) {
 
 function showLoading(message) {
 	$.mobile.loadingMessage = message;
-    $.mobile.showPageLoadingMsg();
+  $.mobile.showPageLoadingMsg();
 }
 
 function hideLoading() {
 	$.mobile.hidePageLoadingMsg();
-    $.mobile.loadingMessage = false;
+  $.mobile.loadingMessage = false;
 }
