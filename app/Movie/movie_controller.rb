@@ -102,7 +102,7 @@ class MovieController < Rho::RhoController
   end
   
   def play_movie    
-    send_command { Api::V4::Playback.play_movie(url_for(:action => :play_callback),@params['movieid']) }
+    send_command { Api::V4::Playlist.play_movie(@params['movieid'], url_for(:action => :play_callback)) }
   end
   
   def play_callback
