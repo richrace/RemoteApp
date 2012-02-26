@@ -70,15 +70,15 @@ class TvepisodeController < Rho::RhoController
     unless @tvepisodes.blank?
       WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
     end
-    load_tvepisodes(url_for(:action => :episodes_callback), @@tvshowid, @@tvseasonid)
+    load_tvepisodes(url_for(:action => :update_callback, :query => {:tvshowid => @@tvshowid, :tvseasonid => @@tvseasonid}), @@tvshowid, @@tvseasonid)
   end
   
-  def episodes_callback
+  def update_callback
     if @params['status'] != 'ok'
       error_handle(@params)
       WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     else
-      if sync_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes], @@tvshowid, @@tvseasonid)
+      if sync_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes], @params['tvshowid'], @params['tvseasonid'])
         @tvepisodes = find_episodes(@@tvseasonid, @@tvshowid)
         unless @tvepisodes.blank?
           WebView.execute_js("updateEpisodeList(#{JSON.generate(@tvepisodes)});")
@@ -86,11 +86,18 @@ class TvepisodeController < Rho::RhoController
       end
     end
   end
+
+  def episodes_callback
+    if @params['status'] != 'ok'
+      error_handle(@params)
+    else
+      sync_tvepisodes(@params['body'].with_indifferent_access[:result][:episodes], @params['tvshowid'], @params['tvseasonid'])
+    end
+  end
   
   def play_episode
-    puts "EPISODE ID #{@params['episodeid']}"
     unless @params['episodeid'].blank?
-      send_command {Api::V4::Playback.play_episode(url_for(:action => :play_episode_callback),@params['episodeid'])}
+      send_command { Api::V4::Playlist.play_episode(@params['episodeid'], url_for(:action => :play_episode_callback)) }
     end
   end
   
