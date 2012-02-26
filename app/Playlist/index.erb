@@ -1,0 +1,99 @@
+<div data-role="page">
+	<div data-id="head" data-role="header" data-position="fixed">
+		<a href="#" onClick="loadPlaylist();" class="ui-btn-left" data-iconpos="notext" data-icon="refresh"></a>
+    <h1>Playlist</h1>
+	</div>
+
+	<script type="text/javascript">
+		function loadPlaylist() {
+			$.get("<%= url_for(:action => :update_playlist) %>");
+		}
+
+		function getPlaylistThumb(xlib_id, type) {
+
+		}
+
+		function removeVideo(position) {
+			$.post("<%= url_for(:action => :remove_item) %>", {'position':position});
+		}
+
+		function playItem(position) {
+			$.post("<%= url_for(:action => :play_item) %>", {'position':position});
+		}
+
+		function clearList() {
+			document.getElementById('playlist_list').innerHTML = "";
+		}
+
+		function updatePlaylist(playlist) {
+			if (playlist !== null) {
+				var theList = document.getElementById('playlist_list');
+				theList.innerHTML = "";
+				var count = 0;
+				for (video in playlist) {
+					var description; 
+					var newLi = document.createElement('li');
+					var code = "<a href='#' onclick='playItem("+count+")'>";
+					// Open Img tag
+					code += "<img id=";
+					var type;
+					// Set the id of the image tag and find the type of video
+					if (playlist[video].tvshow_id) {
+						code += "\"episodeid_"; 
+						type = "episode";
+						description = "<p>" + playlist[video].tvshow_name + "</p><p>Season " + playlist[video].tvseason_id + " Episode " + playlist[video].episode + "</p>";
+					} else {
+						code += "\"movieimg_";
+						type = "movie";
+						description = "<p>" + playlist[video].plot + "</p>";
+					}
+					code += playlist[video].xlib_id + "\"";
+					// Find out if there is a thumbnail. If not get it.
+					if (playlist[video].l_thumb) {
+						code += "src=\"" + playlist[video].l_thumb + "\"";
+					} else {
+						code += "src=\"/public/images/missing_thumb.png\"";
+						//getPlaylistThumb(playlist[video].xlib_id, type);
+					}
+					// Close the img tag
+					code += " />";
+					code += "<h3>" + playlist[video].title + "</h3>";
+					code += description;
+					code += "</a>";
+					code += "<a href='#' onClick='removeVideo("+count+");' />"
+					count++;
+					newLi.innerHTML = code;
+					theList.appendChild(newLi);
+				}
+				$(theList).listview('refresh');
+				$.mobile.fixedToolbars.show(true);
+				hideLoading();
+			}
+		}
+
+		$(document).ready(function(){
+			loadPlaylist()
+		});
+	</script>
+
+  	<div data-role="content">	
+  		<p> 
+  			Controls will be here.
+  		</p>
+		  <ul data-role="listview" id="playlist_list" name="playlist_list" data-split-theme="d" data-split-icon="delete">
+		
+		  </ul>
+  	</div>
+
+	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom">TV Shows</a></li>
+				<li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom" class="ui-btn-active ui-state-persist">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>	
+</div>
