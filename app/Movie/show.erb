@@ -1,13 +1,15 @@
-<div data-role="page" data-add-back-btn="false">
+<div data-role="page" data-add-back-btn="true">
 
   <div data-role="header" data-position="inline">
     <h1><%= @movie.label %></h1>
+    <!-- 
     <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       Back
     </a>
 		<a href="<%= url_for :action => :options, :id => @movie.object %>" data-rel="dialog" class="ui-btn-right" data-icon="star" data-iconpos="right" data-transition="flip">
 			Options
 		</a>
+    -->
   </div>
 
 	<script>
@@ -22,6 +24,15 @@
 		function loadTrailer(youtubeid) {
 			$.post("<%= url_for(:action => :load_trailer) %>", {"youtubeid":youtubeid});
 		}
+
+    function addToQueue(movieid) {
+      $.post("<%= url_for(:action => :add_to_queue) %>", {"movieid":movieid});
+    }
+
+    function handleWatchLater(movieid) {
+      var checked = document.getElementById("watch_later").checked;
+      $.get("<%= url_for :action => :watch_later %>", {'movieid':movieid,'checked':checked});
+    }
 	</script>
 
   <div data-role="content">
@@ -32,8 +43,19 @@
           </li>
 
 					<li>
-						<div class="itemLabel">Play</div>
-						<div class="itemValue"><a href="#" onClick="playMovie(<%= @movie.xlib_id %>);">Play</a></div>
+						<div class="itemLabel">Playback</div>
+						<div class="itemValue">
+              <a href="#" onClick="playMovie(<%= @movie.xlib_id %>);">Play</a>
+              <br /><br />
+              <a href="#" onClick="addToQueue(<%= @movie.xlib_id %>);">Add to Queue</a>
+            </div>
+          </li>
+          <li>
+            <fieldset data-role="controlgroup">
+              <input type="checkbox" name="watch_later" id="watch_later" onClick="handleWatchLater(<%= @movie.xlib_id %>)" <%= "checked=true" if @movie.watch_later? %>/>
+              <label for="watch_later">In Watch Later List</label>
+            </fieldset>
+          </li>
           <li>
             <div class="itemLabel">Year</div>
             <div class="itemValue"><%= @movie.year %></div>
