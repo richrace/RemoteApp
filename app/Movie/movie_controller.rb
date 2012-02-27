@@ -49,7 +49,7 @@ class MovieController < Rho::RhoController
     WebView.execute_js("showLoading('Loading Movies');")
     @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @movies.blank?
-      ensure_sorted(@movies)
+      ensure_sorted(@movies, @@active_order, @@order, @@order_dir)
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
       # Needed here because if there isn't an update the loading message stays.
       WebView.execute_js("hideLoading();")
@@ -66,7 +66,7 @@ class MovieController < Rho::RhoController
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
         @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
-        ensure_sorted(@movies)
+        ensure_sorted(@movies, @@active_order, @@order, @@order_dir)
         unless @movies.blank?
           WebView.execute_js("updateList(#{JSON.generate(@movies)});")        
         end
@@ -81,7 +81,7 @@ class MovieController < Rho::RhoController
       unless found_movie.l_thumb.blank?
         WebView.execute_js("addThumb(#{found_movie.xlib_id},\'#{found_movie.l_thumb}\');")
       else
-        Thread.new {download_moviethumb(found_movie)}
+        download_moviethumb(found_movie)
       end
     end
   end
@@ -171,27 +171,29 @@ class MovieController < Rho::RhoController
     end
   end 
 
-  # Ensure that the list has been sorted properly.
-  # This is used because Rhom only seems to sort by the first 
-  # number. Therefore, iterate over the list to make sure it has
-  # been sorted. This works for both ASC and DESC lists.
-  def ensure_sorted(movies)
-    if @@active_order == @@order[:recent]
-      movies.sort_by! {|movie| movie.xlib_id.to_i}
-      if @@order_dir == 'DESC'
-        movies.reverse!
-      end
-    elsif @@active_order == @@order[:rating]
-      movies.sort_by! {|movie| movie.rating.to_f}
-      if @@order_dir == 'DESC'
-        movies.reverse!
-      end
-    end
-  end
-
   def found
     unless @params['movies'].blank?
       puts "MOVIES === #{@params['movies']}"
+    end
+  end
+
+  def add_to_queue
+    if @params['movieid']
+      send_command { Api::V4::Playlist.add_movie(@params['movieid'], url_for(:action => :queue_callback)) }
+    end
+  end
+
+  def queue_callback
+    puts "BODY === #{@params['body']}"
+    if @params['status'] != 'ok'
+      error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
+    else
+      if @params['body']['result'] == 'OK'
+        WebView.execute_js("showToastSuccess('Added Playlist');");
+      else
+        WebView.execute_js("showToastError('Can\\\'t add to queue');")
+      end
     end
   end
 
