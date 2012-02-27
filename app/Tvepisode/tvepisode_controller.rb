@@ -126,8 +126,51 @@ class TvepisodeController < Rho::RhoController
       unless found_episode.l_thumb.blank?
         WebView.execute_js("addEpisodeThumb(#{found_episode.xlib_id},\'#{found_episode.l_thumb}\');")
       else
-        Thread.new {download_episodethumb(found_episode)}
+        download_episodethumb(found_episode)
       end
+    end
+  end
+
+  def add_episode_to_queue
+    if @params['episodeid']
+      send_command { Api::V4::Playlist.add_episode(@params['episodeid'], url_for(:action => :episode_queue_callback)) }
+    end
+  end
+
+  def episode_queue_callback
+    puts "BODY === #{@params['body']}"
+    if @params['status'] != 'ok'
+      error_handle(@params)
+      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
+    else
+      if @params['body']['result'] == 'OK'
+        WebView.execute_js("showToastSuccess('Added to the Playlist');");
+      else
+        WebView.execute_js("showToastError('Can\\\'t add to queue');")
+      end
+    end
+  end
+
+  def play_all_episodes
+    Api::V4::Playlist.clear_video
+    queue_all_episodes
+    Api::V4::Playlist.play_video
+  end
+
+  def queue_all_episodes
+    error = false
+    episodes = find_episodes(@@tvseasonid, @@tvshowid)
+    episodes.each do | episode | 
+      res = Api::V4::Playlist.add_episode(episode.xlib_id)
+      puts "QUEUE ALL EPISODES === #{res['body']}"
+      if (res['status'] != 'ok') || (res['body']['result'] != 'OK')
+        WebView.execute_js("showToastError('Can\\\'t add to queue');")
+        error = true
+        break
+      end
+    end
+    unless error
+      WebView.execute_js("showToastSuccess('Successfully Added');")
     end
   end
   
