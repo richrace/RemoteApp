@@ -12,7 +12,7 @@
       <% @products.each do |product| %>
       
           <li>
-            <a href="<%= url_for :action => :show, :id => product.object %>">
+            <a href="<%= url_for :action => :show, :id => product.object %>" data-rel="dialog" data-transition="slidedown">
               <%= product.title %>
             </a>
           </li>
