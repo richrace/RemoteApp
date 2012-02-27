@@ -24,7 +24,7 @@
 				for (movie in movies) {
 					var newLi = document.createElement('li');
 					newLi.id = "movielist_" + movies[movie].xlib_id;
-					var code = "<a href=\"" + movies[movie].url + "\"><img id=\"movieimg_" + movies[movie].xlib_id + "\"";
+					var code = "<a href=\"" + movies[movie].url + "\" data-rel='dialog' data-transition='slidedown'><img id=\"movieimg_" + movies[movie].xlib_id + "\"";
 					if (movies[movie].l_thumb) {
 						code += "src=\"" + movies[movie].l_thumb + "\"";
 					} else {
