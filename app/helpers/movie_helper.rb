@@ -112,5 +112,23 @@ module MovieHelper
     return found_movies
   end
 
+  # Ensure that the list has been sorted properly.
+  # This is used because Rhom only seems to sort by the first 
+  # number. Therefore, iterate over the list to make sure it has
+  # been sorted. This works for both ASC and DESC lists.
+  def ensure_sorted(movies, active_order, order, order_dir)
+    if active_order == order[:recent]
+      movies.sort_by! {|movie| movie.xlib_id.to_i}
+      if order_dir == 'DESC'
+        movies.reverse!
+      end
+    elsif active_order == order[:rating]
+      movies.sort_by! {|movie| movie.rating.to_f}
+      if order_dir == 'DESC'
+        movies.reverse!
+      end
+    end
+  end
+  
 end
 
