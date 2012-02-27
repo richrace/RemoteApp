@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" id="episodes">
 
 	<div data-role="header" data-position="inline">
     	<a href="<%= url_for :controller => :Tvseason, :query => {:tvshowid => @params['tvshowid']} %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
@@ -16,19 +16,23 @@
 		function getEpisodeThumb(episodeid) {
 			$.post("<%= url_for :action => :get_episode_thumb %>", {"episodeid":episodeid});
 		}
+
+		function playAllEpisodes() {
+			$.get("<%= url_for :action => :play_all_episodes %>");
+		}
+
+		function queueAllEpisodes() {
+			$.get("<%= url_for :action => :queue_all_episodes %>");
+		}
 		
 		function updateEpisodeList(episodes) {
 			if (episodes !== null) {
 				var epilist = document.getElementById('episodes_list');
-				if (epilist.hasChildNodes()) {
-					while (epilist.childNodes.length >= 1) {
-						epilist.removeChild(epilist.firstChild);       
-					} 
-				}
+				epilist.innerHTML = "";
 				for (episode in episodes) {
 					var newLi = document.createElement('li');
 					newLi.id = 'episodelist_'+ episodes[episode].xlib_id;
-					var newItem = "<a href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\"";
+					var newItem = "<a data-rel='dialog' data-transition='slidedown' href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\"";
 					if (episodes[episode].l_thumb) {
 						newItem += "src=\"" + episodes[episode].l_thumb + "\"";
 					} else {
@@ -39,7 +43,7 @@
 					newLi.innerHTML = newItem;
 					epilist.appendChild(newLi);
 				}
-				$(epilist).listview('refresh');
+        $(epilist).listview('refresh');
 			}
 		}
 		
@@ -53,11 +57,15 @@
 	</script>
 
   <div data-role="content">
-    <div>
-    	<ul id="episodes_list" data-role="listview">
+  	<div data-role="controlgroup" data-type="horizontal" style="text-align:center;">
+  		<p>
+  			<a href="#" onclick="playAllEpisodes()" data-role="button">Play All</a>
+  			<a href="#" onclick="queueAllEpisodes()" data-role="button">Queue All</a>
+  		</p>
+  	</div>
+    <ul id="episodes_list" name="episodes_list" data-role="listview" data-inset="true">
     
-    	</ul>
-	</div>
+    </ul>
   </div>
 
 </div>
