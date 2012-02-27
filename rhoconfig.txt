@@ -1,8 +1,8 @@
 # startup page for your application
-start_path = '/app'
+start_path = '/app/Controls'
 
 # path to the options page (in this case handled by javascript)
-options_path = '/app/Settings'
+options_path = '/app/XbmcConfig'
 
 # location of bundle url (i.e. from rhohub.com); used by desktop win32 simulator
 rhobundle_zip_url = ''
@@ -56,7 +56,7 @@ syncserver = ''
 # open rhodes app in full screen mode
 # default 1 for Android up to Rhodes 2.2.5.
 # on all other platforms and on Android from Rhodes >2.2.5 default 0
-#full_screen = 1
+full_screen = 1
 
 # disable the Android page loading progress bar
 disable_loading_indication = 1
