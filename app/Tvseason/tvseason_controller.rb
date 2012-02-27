@@ -112,7 +112,7 @@ class TvseasonController < Rho::RhoController
       unless season.l_thumb.blank?
         WebView.execute_js("addSeasonThumb(#{season.xlib_id}, '#{season.l_thumb}');")
       else
-        Thread.new {download_seasonthumb(season)}
+        download_seasonthumb(season)
       end
     end
   end
