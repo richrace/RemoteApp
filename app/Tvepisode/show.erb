@@ -2,15 +2,21 @@
 
   <div data-role="header" data-position="inline">
     <h1>E<%= @tvepisode.episode %> - <%= @tvepisode.title %></h1>
+   <!--
     <a href="<%= url_for :action => :index, :query => {:tvshowid => @tvepisode.tvshow_id, :tvseasonid => @tvepisode.tvseason_id} %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       Back
     </a>
+  -->
   </div>
 
 	<script>
 		function playEpisode(episodeid) {
 			$.post("<%= url_for :action => :play_episode %>", {'episodeid':episodeid});
 		}
+
+    function addEpisodeToQueue(episodeid) {
+      $.post("<%= url_for :action => :add_episode_to_queue %>", {'episodeid':episodeid});
+    }
 	</script>
 
   <div data-role="content">
@@ -27,6 +33,9 @@
 			<li>
 				<div><a href="#" onClick="playEpisode(<%= @tvepisode.xlib_id %>);">Play</a></div>
 			</li>
+      <li>
+        <div><a href="#" onClick="addEpisodeToQueue(<%= @tvepisode.xlib_id %>);">Add To Queue</a></div>
+      </li>
     </ul>
   </div>
 
