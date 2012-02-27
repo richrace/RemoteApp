@@ -72,7 +72,7 @@ class TvshowController < Rho::RhoController
       unless found_tvshow.l_thumb.blank?
         WebView.execute_js("addTVThumb(#{found_tvshow.xlib_id},\'#{found_tvshow.l_thumb}\');")
       else
-        Thread.new {download_tvthumb(found_tvshow)}
+        download_tvthumb(found_tvshow)
       end
     end
   end
