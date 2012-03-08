@@ -49,23 +49,22 @@ class BarcodeScanController < Rho::RhoController
   end
   
   def take
+    WebView.execute_js("showLoading('Scanning Barcode');");
     Barcode.take_barcode(url_for(:action => :take_callback), {})
   end
 
   def take_callback
     status = @params['status']
     barcode = @params['barcode']
-
-    puts 'BarcodeRecognizer::take_callback !'
-    puts 'status = '+status.to_s unless status == nil
-    puts 'barcode = '+barcode.to_s unless barcode == nil
-
-    if status == 'ok'
-      get_product(barcode, @@country_code)
-    end
     
     if status == 'cancel'
       Alert.show_popup  ('Barcode taking was canceled !')  
+    elsif barcode.blank?
+      # Need the \ characters to make sure the error is displayed properlly by the JavaScript.
+      WebView.execute_js("showToastError('Couldn\\\'t Scan the Barcode');")
+      WebView.execute_js("hideLoading();")
+    else
+      get_product(barcode, @@country_code)
     end
   end
   
@@ -74,7 +73,7 @@ class BarcodeScanController < Rho::RhoController
     if @params['status'] == 'ok'
       @google_products = @params['body'].with_indifferent_access[:items]
       unless @google_products.blank?
-        render_transition :action => :product_list
+        render_transition(:action => :product_list)
       else 
         url = url_for(:controller => :Product, :action => :new, :query => {:known => false})
         WebView.execute_js("$.mobile.changePage('#{url}', { transition: 'slide'});")
