@@ -2,6 +2,10 @@
 
   <div data-id="head" data-role="header" data-position="inline">
     <h1>New <%= @xbmc_config.title %></h1>
+    <!-- 
+      In the below a href need to put the location instead of using 
+      Ruby url_for code otherwise the button doesn't work. 
+    -->
     <a href="<%= url_for '/app/XbmcConfig/index' %>" class="cancel" data-direction="reverse" data-icon="delete">
       Cancel
     </a>
