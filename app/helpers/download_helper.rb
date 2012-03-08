@@ -1,6 +1,7 @@
 module DownloadHelper
 
   def download_thumb(remote_path, local_path, cb_params, callback)
+    sleep(0.01)
     url = XbmcConnect::Files.prepare_download(XbmcConnect::NOCALLB, {:path => remote_path})
     if url['status'] == 'ok'
       unless url['body'].with_indifferent_access[:error]
