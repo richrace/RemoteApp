@@ -60,10 +60,10 @@ class TvshowController < Rho::RhoController
         end
       end
     else
-      error_handle(@params)
-      WebView.execute_js("hideLoading();")
+      error_handle(@params)      
       WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     end
+    WebView.execute_js("hideLoading();")
   end
   
   def get_tv_thumb
