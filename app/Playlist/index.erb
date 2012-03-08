@@ -41,7 +41,7 @@
 					if (playlist[video].tvshow_id) {
 						code += "\"episodeid_"; 
 						type = "episode";
-						description = "<p>" + playlist[video].tvshow_name + "</p><p>Season " + playlist[video].tvseason_id + " Episode " + playlist[video].episode + "</p>";
+						description = "<p>" + playlist[video].tvshow_name + "</p><p>S - " + playlist[video].tvseason_id + " E - " + playlist[video].episode + "</p>";
 					} else {
 						code += "\"movieimg_";
 						type = "movie";
@@ -80,7 +80,7 @@
   		<p> 
   			Controls will be here.
   		</p>
-		  <ul data-role="listview" id="playlist_list" name="playlist_list" data-split-theme="d" data-split-icon="delete">
+		  <ul data-role="listview" id="playlist_list" name="playlist_list" data-split-theme="d" data-split-icon="delete" data-inset="true">
 		
 		  </ul>
   	</div>
