@@ -2,9 +2,13 @@
 
 	<div data-role="header" data-position="inline">
     <h1>Buy Later List</h1>
-    <a href="<%= url_for :action => :new, :query => {:known => true} %>" class="ui-btn-right" data-icon="plus">
-      New
-    </a>
+    <% unless XbmcConfigHelper.current_config.blank? %>
+      <a href="<%= url_for :action => :new, :query => {:known => true} %>" class="ui-btn-right" data-icon="plus">
+        New
+      </a>
+    <% else %>
+      <% Alert.show_popup("No active XBMC Config selected.") %>
+    <% end %>
 	</div>
 
   <div data-role="content">
