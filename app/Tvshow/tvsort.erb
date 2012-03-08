@@ -17,14 +17,12 @@
 	<div data-role="content">
 		<div data-role="fieldcontain">
 		<fieldset data-role="controlgroup">
-			<legend>Sort order:</legend>
 			<input type="radio" name="tv_order_dir" id="asc" value="ASC" onClick="toggleTVOrderDir()" <%= "checked" if get_order_dir == "ASC" %>/>     	
 			<label for="asc">Sort ASC</label>
 			<input type="radio" name="tv_order_dir" id="desc" value="DESC" onClick="toggleTVOrderDir()" <%= "checked" if get_order_dir == "DESC" %>/>
 			<label for="desc">Sort DESC</label>
 		</fieldset>
 		<fieldset data-role="controlgroup">
-			<legend>How to sort:</legend>			
 			<input type="radio" name="tv_order" id="title" value="title" onClick="setTVOrderBy()" <%= "checked" if get_active_order == get_order[:title] %>/>
 			<label for="title">Order by Title</label>
 			<input type="radio" name="tv_order" id="year" value="year" onClick="setTVOrderBy()" <%= "checked" if get_active_order == get_order[:year] %>/>
