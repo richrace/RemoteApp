@@ -17,6 +17,7 @@
 	<script>
 		function refresh_shows() {
 			$.get("<%= url_for :action => :get_tv_shows %>");
+			showLoading('Loading TV Shows');
 		}
 		function getTVThumb(tvshowid) {
 			$.post("<%= url_for :action => :get_tv_thumb %>", {"tvshowid":tvshowid});
@@ -46,9 +47,8 @@
 					newItem += "</a><div></li>";
 					$('#tvshows_list').append(newItem);
 				}
-				$(tvlist).listview('refresh');
-				hideLoading();
-				$.fixedToolbars.show(true);
+				$("#tvshows_list").listview('refresh');
+				$.mobile.fixedToolbars.show(true);
 			}
 		}
 		
