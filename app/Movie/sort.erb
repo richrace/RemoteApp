@@ -24,14 +24,12 @@
 		<input type="checkbox" name="watch_later_list" id="watch_later_list" onClick="toggleWatchLater()" <%= "checked=true" if get_watch_list_bool == "true" %>/><label for="watch_later_list">View Watch Later List</label>
 		</fieldset>
 		<fieldset data-role="controlgroup">
-			<legend>Sort order:</legend>
 			<input type="radio" name="order_dir" id="asc" value="ASC" onClick="toggleOrderDir()" <%= "checked" if get_order_dir == "ASC" %>/>     	
 			<label for="asc">Sort ASC</label>
 			<input type="radio" name="order_dir" id="desc" value="DESC" onClick="toggleOrderDir()" <%= "checked" if get_order_dir == "DESC" %>/>
 			<label for="desc">Sort DESC</label>
 		</fieldset>
 		<fieldset data-role="controlgroup">
-			<legend>How to sort:</legend>			
 			<input type="radio" name="order" id="title" value="title" onClick="setOrderBy()" <%= "checked" if get_active_order == get_order[:title] %>/>
 			<label for="title">Order by Title</label>
 			<input type="radio" name="order" id="year" value="year" onClick="setOrderBy()" <%= "checked" if get_active_order == get_order[:year] %>/>
