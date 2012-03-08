@@ -49,25 +49,32 @@ module MovieHelper
     xbmc_movies.each do | new_movie |
       found = find_movie(new_movie[:movieid])
       if found.blank?
-        t_movie = Movie.new :xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => new_movie[:movieid],  :label => new_movie[:label]
+        t_movie = Movie.new(
+          :xbmc_id => XbmcConfigHelper.current_config.object, 
+          :xlib_id => new_movie[:movieid],  
+          :label => new_movie[:label],
+          :thumb => new_movie[:thumbnail],
+          :fanart => new_movie[:fanart],
+          :imdbnumber => new_movie[:imdbnumber],
+          :plot => new_movie[:plot],
+          :rating => new_movie[:rating],
+          :genre => new_movie[:genre],
+          :year => new_movie[:year],
+          :playcount => new_movie[:playcount],
+          :studio => new_movie[:studio],
+          :title => new_movie[:title],
+          :director => new_movie[:director])
+        
+        t_movie.save
         # Makes the url here so can use AJAX call.
         t_movie.url = url_for(:action => :show, :id => t_movie.object)
-        
-        t_movie.thumb = new_movie[:thumbnail]
-        t_movie.fanart = new_movie[:fanart]
-        t_movie.imdbnumber = new_movie[:imdbnumber]
         # Strips the YouTube url from the string.
         t_movie.trailer = new_movie[:trailer].scan(/videoid\=+(.+)$/).flatten[0]
-        t_movie.plot = new_movie[:plot]
-        t_movie.rating = new_movie[:rating]
-        t_movie.genre = new_movie[:genre]
-        t_movie.year = new_movie[:year]
-        t_movie.playcount = new_movie[:playcount]
-        t_movie.studio = new_movie[:studio]
-        t_movie.title = new_movie[:title]
         
-        t_movie.sorttitle = create_sort_title(t_movie.title)
         t_movie.save
+
+        t_movie.create_sort_title
+        
         list_changed = true
       end
     end
