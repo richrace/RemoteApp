@@ -56,23 +56,25 @@ module TvShowHelper
     xbmc_tvshows.each do | new_tvshow |
       found = find_tvshow(new_tvshow[:tvshowid])
       if found.blank?
-        n_tvshow = Tvshow.new :xbmc_id => XbmcConfigHelper.current_config.object, :xlib_id => new_tvshow[:tvshowid],  :label => new_tvshow[:label]
-        
+        n_tvshow = Tvshow.create(
+          :xbmc_id => XbmcConfigHelper.current_config.object, 
+          :xlib_id => new_tvshow[:tvshowid],
+          :label => new_tvshow[:label],
+          :thumb => new_tvshow[:thumbnail],
+          :fanart => new_tvshow[:fanart],
+          :tvdb => new_tvshow[:imdbnumber],
+          :plot => new_tvshow[:plot],
+          :rating => new_tvshow[:rating],
+          :genre => new_tvshow[:genre],
+          :year => new_tvshow[:year],
+          :playcount => new_tvshow[:playcount],
+          :studio => new_tvshow[:studio],
+          :title => new_tvshow[:title])
+
         n_tvshow.url = url_for(:action => :show, :id => n_tvshow.object)
-        
-        n_tvshow.thumb = new_tvshow[:thumbnail]
-        n_tvshow.fanart = new_tvshow[:fanart]
-        n_tvshow.tvdb = new_tvshow[:imdbnumber]
-        n_tvshow.plot = new_tvshow[:plot]
-        n_tvshow.rating = new_tvshow[:rating]
-        n_tvshow.genre = new_tvshow[:genre]
-        n_tvshow.year = new_tvshow[:year]
-        n_tvshow.playcount = new_tvshow[:playcount]
-        n_tvshow.studio = new_tvshow[:studio]
-        n_tvshow.title = new_tvshow[:title]
-        
-        n_tvshow.sorttitle = create_sort_title(n_tvshow.title)
         n_tvshow.save        
+
+        n_tvshow.create_sort_title
         
         list_changed = true
       end
