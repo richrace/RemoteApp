@@ -49,7 +49,7 @@ module MovieHelper
     xbmc_movies.each do | new_movie |
       found = find_movie(new_movie[:movieid])
       if found.blank?
-        t_movie = Movie.new(
+        t_movie = Movie.create(
           :xbmc_id => XbmcConfigHelper.current_config.object, 
           :xlib_id => new_movie[:movieid],  
           :label => new_movie[:label],
@@ -57,6 +57,8 @@ module MovieHelper
           :fanart => new_movie[:fanart],
           :imdbnumber => new_movie[:imdbnumber],
           :plot => new_movie[:plot],
+          # Strips the YouTube url from the string.
+          :trailer => new_movie[:trailer].scan(/videoid\=+(.+)$/).flatten[0],
           :rating => new_movie[:rating],
           :genre => new_movie[:genre],
           :year => new_movie[:year],
@@ -65,12 +67,8 @@ module MovieHelper
           :title => new_movie[:title],
           :director => new_movie[:director])
         
-        t_movie.save
         # Makes the url here so can use AJAX call.
         t_movie.url = url_for(:action => :show, :id => t_movie.object)
-        # Strips the YouTube url from the string.
-        t_movie.trailer = new_movie[:trailer].scan(/videoid\=+(.+)$/).flatten[0]
-        
         t_movie.save
 
         t_movie.create_sort_title
