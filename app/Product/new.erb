@@ -2,7 +2,11 @@
 
   <div data-role="header" data-position="inline">
     <h1>Add to Buy List</h1>
-    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+    <!-- 
+      In the below a href need to put the location instead of using 
+      Ruby url_for code otherwise the button doesn't work. 
+    -->
+    <a href="/app/Product/index" class="ui-btn-left" data-icon="back" data-direction="reverse">
       Cancel
     </a>
   </div>
@@ -12,8 +16,15 @@
       <h3>No Products Found</h3>
     <% end %>
     <p>Enter the Movie Title and click Add to list. If it is in the database I'll redirect you there.</p>
-    <form method="POST" action="<%= url_for :action => :create %>">
+    <form id="new_product" method="POST" action="<%= url_for :action => :create %>">
       <input type="hidden" name="id" value="<%= @product.object %>"/>
+      <% if @errors %>
+        <script type="text/javascript" charset="utf-8">
+          $(document).ready(function (){      
+            mark_errors("#new_product", <%=  @errors %>);        
+          });
+        </script>
+      <% end %>
       
           <div data-role="fieldcontain">
             <label for="product[title]" class="fieldLabel">Confirm the Title</label>
