@@ -17,7 +17,7 @@ class XbmcConfig
   
   # Set the current version of the fixed schema.
   # Your application may use it for data migrations.
-  set :schema_version, '1.2'
+  set :schema_version, '1.3'
 
   # Define fixed schema attributes.
   # :string and :blob types are supported.
