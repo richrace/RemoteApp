@@ -1,4 +1,4 @@
-<div data-role="page">
+<div data-role="page" data-add-back-btn="true">
 	
 	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
 		<h1>Found Products</h1>
@@ -12,9 +12,6 @@
 	<script>
 		function searchTitle(title) {
 			$.get("<%= url_for :action => :search_title %>", {'title':title});
-		}
-		function movePage(address){
-			$.mobile.changePage(address, { transition: 'slide'});
 		}
 	</script>
 	
@@ -42,7 +39,7 @@
 				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
 				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
 				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" data-direction="reverse">TV Shows</a></li>
-				<li><a href="#" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom">Playlist</a></li>
 				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
 			</ul>
 		</div>
