@@ -13,5 +13,14 @@ module ProductHelper
       )
     end
   end
+
+  def filter_products_xbmc
+    xbmc = XbmcConfigHelper.current_config
+    unless xbmc.blank?
+      Product.find(:all, :conditions => {:xbmc_id => xbmc.object})
+    else
+      return []
+    end
+  end
   
 end
