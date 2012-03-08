@@ -46,13 +46,12 @@ class MovieController < Rho::RhoController
   end
   
   def update_list
-    WebView.execute_js("showLoading('Loading Movies');")
     @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @movies.blank?
       ensure_sorted(@movies, @@active_order, @@order, @@order_dir)
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
       # Needed here because if there isn't an update the loading message stays.
-      WebView.execute_js("hideLoading();")
+      # WebView.execute_js("hideLoading();")
     end
     set_callbacks
     send_command {Api::V4::VideoLibrary.get_movies(@movies_cb)}
@@ -61,8 +60,7 @@ class MovieController < Rho::RhoController
   def movies_callback
     if @params['status'] != 'ok'
       error_handle(@params)
-      WebView.execute_js("hideLoading();")
-      WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")      
+        WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
         @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
@@ -72,6 +70,7 @@ class MovieController < Rho::RhoController
         end
       end
     end
+    WebView.execute_js("hideLoading();")
   end
   
   def get_thumb
