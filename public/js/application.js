@@ -40,5 +40,6 @@ function showLoading(message) {
 
 function hideLoading() {
 	$.mobile.hidePageLoadingMsg();
-  $.mobile.loadingMessage = false;
+  //$.mobile.loadingMessage = false;
+  $.mobile.pageLoading(true);
 }
