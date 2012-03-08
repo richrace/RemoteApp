@@ -11,6 +11,7 @@
 	<script>
 		function reload() {
 			$.get("<%= url_for :action => :update_list %>");
+			showLoading('Loading Movies');
 		}
 		
 		function getThumb(movieid) {
@@ -31,23 +32,22 @@
 						code += "src=\"/public/images/missing_thumb.png\"";
 						getThumb(movies[movie].xlib_id);
 					}
-					code += "/><h3>" + movies[movie].title + "</h3>"
+					code += "/><h3>" + movies[movie].title + "</h3>";
 					<% if get_active_order == get_order[:rating] %>
 						// Create new Number instead of string to be able to use 
 						// toFixed() method that allows me to get the rating to
 						// two demical places making it easier for the user.
-						var rating = new Number(movies[movie].rating)
-						code += "<p>Rating = "+rating.toFixed(2)+"</p>"
+						var rating = new Number(movies[movie].rating);
+						code += "<p>Rating = "+rating.toFixed(2)+"</p>";
 					<% elsif get_active_order == get_order[:year] %>
-						code += "<p>Year = "+movies[movie].year+"</p>"
+						code += "<p>Year = "+movies[movie].year+"</p>";
 					<% end %>
 					code += "</a>";
 
 					newLi.innerHTML = code;
 					list.appendChild(newLi);
 				}
-				$(list).listview('refresh');
-				hideLoading();
+				$("#movies_list").listview("refresh");
 				$.mobile.fixedToolbars.show(true);
 			}
 		}
