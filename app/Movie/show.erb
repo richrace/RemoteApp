@@ -1,15 +1,7 @@
 <div data-role="page" data-add-back-btn="true">
 
-  <div data-role="header" data-position="inline">
+  <div data-role="header" data-id="head" data-position="inline">
     <h1><%= @movie.label %></h1>
-    <!-- 
-    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
-      Back
-    </a>
-		<a href="<%= url_for :action => :options, :id => @movie.object %>" data-rel="dialog" class="ui-btn-right" data-icon="star" data-iconpos="right" data-transition="flip">
-			Options
-		</a>
-    -->
   </div>
 
 	<script>
@@ -53,7 +45,7 @@
           <li>
             <fieldset data-role="controlgroup">
               <input type="checkbox" name="watch_later" id="watch_later" onClick="handleWatchLater(<%= @movie.xlib_id %>)" <%= "checked=true" if @movie.watch_later? %>/>
-              <label for="watch_later">In Watch Later List</label>
+              <label for="watch_later">Add To Watch Later List</label>
             </fieldset>
           </li>
           <li>
