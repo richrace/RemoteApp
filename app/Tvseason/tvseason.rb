@@ -1,9 +1,6 @@
-require 'helpers/sort_helper'
-
 class Tvseason
   include Rhom::FixedSchema
   include Validatable
-  include SortHelper  
 
   belongs_to :tvshow_id, 'Tvshow'  
   belongs_to :xbmc_id, 'XbmcConfig'
