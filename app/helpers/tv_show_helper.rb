@@ -1,11 +1,9 @@
 require 'helpers/movie_helper'
 require 'helpers/method_helper'
-require 'helpers/sort_helper'
 
 module TvShowHelper
   include XbmcConfigHelper
   include MethodHelper
-  include SortHelper
   
   def load_tv_shows(callback)
     version = XbmcConfigHelper.current_config.version.to_i

@@ -1,12 +1,10 @@
 require 'helpers/movie_helper'
 require 'helpers/method_helper'
-require 'helpers/sort_helper'
 require 'helpers/download_helper'
 
 module MovieHelper
   include XbmcConfigHelper
   include MethodHelper
-  include SortHelper
   include DownloadHelper
   
   def set_callbacks
