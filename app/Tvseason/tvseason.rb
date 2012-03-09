@@ -32,6 +32,6 @@ class Tvseason
   
   
   def destroy_image
-    destroy_thumb_image(self)
+    destroy_thumb_image
   end
 end

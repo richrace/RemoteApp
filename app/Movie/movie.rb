@@ -70,11 +70,11 @@ class Movie
   property :director, :string
   
   def destroy_image
-    destroy_thumb_image(self)
+    destroy_thumb_image
   end
 
   def create_sort_title
-    make_sort_title_obj(self)
+    make_sort_title_obj
   end
   
   def watch_later?
