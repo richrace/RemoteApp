@@ -153,4 +153,319 @@ describe "Movie" do
     @movie.destroy_image
     @movie.l_thumb.should be_nil
   end
+
+  it "should not be valid with missing xbmc id" do
+    @movie = Movie.new(
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing xlib_id" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing title" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing label" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing thumb" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+  
+  it "should not be valid with missing fanart" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing imdbnumber" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing plot" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing rating" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing trailer" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with missing year" do
+    @movie = Movie.new(
+      :xbmc_id => 223,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test")
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for XBMC Config ID" do
+    @movie = Movie.new(
+      :xbmc_id => "22sd",
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for xlib_id (string)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => "222sdfds",
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for xlib_id (float)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 22.23,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for rating (string)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 222,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => "9.9 r",
+      :trailer => "test",
+      :year => 200)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for year (string)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 22.23,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => "year 200")
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for year (float)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 22.23,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200.23)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for playcount (float)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 22.23,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200,
+      :playcount => 2.5)
+
+    @movie.valid?.should == false
+  end
+
+  it "should not be valid with incorrect type for playcount (string)" do
+    @movie = Movie.new(
+      :xbmc_id => 222,
+      :xlib_id => 22.23,
+      :title => "Test",
+      :label => "test",
+      :thumb => "test",
+      :fanart => "test",
+      :imdbnumber => "test",
+      :plot => "test",
+      :rating => 9.9,
+      :trailer => "test",
+      :year => 200,
+      :playcount => "one")
+
+    @movie.valid?.should == false
+  end
+
 end
