@@ -114,8 +114,10 @@ class XbmcConnect
         command.send :define_method!
       end
       xbmc = XbmcConfigHelper.current_config
-      XbmcConnect.loaded_apis << xbmc.version unless XbmcConnect.loaded_apis.include?(xbmc.version)
-      XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
+      unless XbmcConnect.loaded_apis.include?(xbmc.version)
+        XbmcConnect.loaded_apis << xbmc.version 
+        XbmcConnect.error = {:error => XbmcConnect::ERRORNO, :msg => "Everything went as planned"}
+      end
     end
     
     def parse_commands_v4(body)
