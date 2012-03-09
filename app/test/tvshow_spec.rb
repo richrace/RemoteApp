@@ -340,7 +340,7 @@ describe "Tvshow" do
     # Assign file to TV Show
     @tvshow.l_thumb = file
     @tvshow.save
-    # Delete the TV Show
+    # Delete the TV Show image
     @tvshow.destroy_image
     # Check that the path has been reset
     @tvshow.l_thumb.should be_nil

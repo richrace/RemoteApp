@@ -468,10 +468,10 @@ describe "Movie" do
     File.new(file, "w+")
     # Check file has been created
     File.exists?(file).should == true
-    # Assign file to TV Show
+    # Assign file to Movie
     @movie.l_thumb = file
     @movie.save
-    # Delete the TV Show
+    # Delete the Movie images
     @movie.destroy_image
     # Check that the path has been reset
     @movie.l_thumb.should be_nil
