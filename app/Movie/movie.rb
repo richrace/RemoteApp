@@ -1,9 +1,9 @@
-require 'helpers/sort_helper'
+require 'helpers/obj_helper'
 
 class Movie
   include Rhom::FixedSchema
   include Validatable
-  include SortHelper
+  include ObjHelper
 
   belongs_to :xbmc_id, 'XbmcConfig'
 
@@ -70,11 +70,11 @@ class Movie
   property :director, :string
   
   def destroy_image
-    unless self.l_thumb.blank?
-      File.delete(self.l_thumb) if File.exists?(self.l_thumb)
-      self.l_thumb = nil
-      self.save
-    end
+    destroy_thumb_image(self)
+  end
+
+  def create_sort_title
+    make_sort_title_obj(self)
   end
   
   def watch_later?
@@ -83,11 +83,6 @@ class Movie
     else 
       return false
     end
-  end
-
-  def create_sort_title
-    self.sorttitle = make_sort_title(self.title)
-    self.save
   end
   
 end

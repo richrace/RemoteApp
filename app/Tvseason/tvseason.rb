@@ -1,6 +1,9 @@
+require 'helpers/obj_helper'
+
 class Tvseason
   include Rhom::FixedSchema
   include Validatable
+  include ObjHelper
 
   belongs_to :tvshow_id, 'Tvshow'  
   belongs_to :xbmc_id, 'XbmcConfig'
@@ -29,10 +32,5 @@ class Tvseason
   
   
   def destroy_image
-    unless self.l_thumb.blank?
-      File.delete(self.l_thumb) if File.exists?(self.l_thumb) 
-      self.l_thumb = nil
-      self.save
-    end
-  end
+    destroy_thumb_image(self)
 end
