@@ -51,7 +51,7 @@ module TvSeasonHelper
           :thumb => new_season[:thumbnail], 
           :fanart => new_season[:fanart])
         
-          n_season.url = url_for(:controller => :Tvepisode, :query => {:tvshowid => new_season[:tvshowid], :tvseasonid => new_season[:season]})
+        n_season.url = url_for(:controller => :Tvepisode, :query => {:tvshowid => new_season[:tvshowid], :tvseasonid => new_season[:season]})
         
         n_season.save
         
