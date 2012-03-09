@@ -11,7 +11,7 @@ describe "ErrorHelper" do
   before(:each) do
     @test_class = TempClass.new
     @test_class.extend(ErrorHelper)
-    @xbmc = XbmcConfig.create :name => "Test", :url => "localhost", :port => 8080, :usrname => "xbmc", :password => "xbmc", :active => "true", :version => "3"
+    @xbmc = XbmcConfig.create :name => "Test", :url => "localhost", :port => 8080, :usrname => "xbmc", :password => "xbmc", :active => "true", :version => "4"
   end
   
   after(:each) do
