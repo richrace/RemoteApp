@@ -9,17 +9,17 @@ describe "Tvshow" do
       :label => "test",
       :thumb => "test",
       :fanart => "test",
-      :tvdb => "test",
       :plot => "test",
+      :tvdb => "test",
+      :year => 2009,
       :rating => 9.9,
-      :year => 200,
       :sorttitle => "test",
       :url => "Test",
       :l_thumb => "test",
       :l_fanart => "test",
-      :genre => "test",
       :playcount => 1,
-      :studio => "test")
+      :studio => "test",
+      :genre => "test")
 
     @tvshow.valid?.should == true
   end
