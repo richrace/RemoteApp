@@ -43,7 +43,7 @@ module TvEpisodeHelper
     xbmc_eps.each do | xbmc_ep |
       found = find_episode(xbmc_ep[:episodeid])
       if found.blank?
-        n_episode = Tvepisode.new(
+        n_episode = Tvepisode.create(
           :xbmc_id => XbmcConfigHelper.current_config.object, 
           :xlib_id => xbmc_ep[:episodeid], 
           :episode => xbmc_ep[:episode], 
@@ -57,10 +57,8 @@ module TvEpisodeHelper
           :plot => xbmc_ep[:plot], 
           :thumb => xbmc_ep[:thumbnail], 
           :fanart => xbmc_ep[:fanart])
-        n_episode.save
         
         n_episode.url = url_for(:action => :show, :id => n_episode.object)
-        
         n_episode.save
                 
         list_changed = true   
