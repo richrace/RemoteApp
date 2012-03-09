@@ -9,11 +9,11 @@ class Tvshow
 
   validates_presence_of :xbmc_id, :message => "Needs to have an XBMC Config"
   validates_presence_of :title, :message => "Requires title"
-  validates_presence_of :xlib_id, :message => "Requires XBMC Movie ID"
+  validates_presence_of :xlib_id, :message => "Requires XBMC TV Show ID"
   validates_presence_of :label, :message => "Requires label"
   validates_presence_of :thumb, :message => "Requires remote thumb"
   validates_presence_of :fanart, :message => "Requires requires remote fanart"
-  validates_presence_of :tvdb, :message => "Requires requires imdbnumber"
+  validates_presence_of :tvdb, :message => "Requires requires TVDB"
   validates_presence_of :plot, :message => "Requires plot"
   validates_presence_of :rating, :message => "Requires rating"
   validates_presence_of :year, :message => "Requires year"
