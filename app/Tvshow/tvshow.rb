@@ -1,9 +1,9 @@
-require 'helpers/sort_helper'
+require 'helpers/obj_helper'
 
 class Tvshow
   include Rhom::FixedSchema
   include Validatable
-  include SortHelper
+  include ObjHelper
 
   belongs_to :xbmc_id, 'XbmcConfig'
 
@@ -17,6 +17,20 @@ class Tvshow
   validates_presence_of :plot, :message => "Requires plot"
   validates_presence_of :rating, :message => "Requires rating"
   validates_presence_of :year, :message => "Requires year"
+
+  validates_numericality_of :xbmc_id, :message => "XBMC Config ID must be a number"
+  validates_numericality_of :rating, :message => "rating must be a number"
+  validates_numericality_of :xlib_id, :message => "XBMC TV Show ID must be an integer", :only_integer => true
+  validates_numericality_of :year, :message => "The year must be an integer", :only_integer => true
+  validates_numericality_of :playcount, :message => "playcount must be an integer", :only_integer => true
+
+  # Before Validation is used to assign 0 value to playcount if it 
+  # has not been assigned any value. 
+  before_validation do
+    unless self.playcount
+      self.playcount = 0
+    end
+  end
 
   set :schema_version, '1.0'
 
@@ -48,16 +62,11 @@ class Tvshow
   property :genre, :string
 
   def destroy_image
-    unless self.l_thumb.blank?
-      File.delete(self.l_thumb) if File.exists?(self.l_thumb) 
-      self.l_thumb = nil
-      self.save
-    end
+    destroy_thumb_image(self)
   end
 
   def create_sort_title
-    self.sorttitle = make_sort_title(self.title)
-    self.save
+    make_sort_title_obj(self)
   end
 
 end
