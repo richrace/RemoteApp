@@ -19,6 +19,20 @@ class Movie
   validates_presence_of :rating, :message => "Requires rating"
   validates_presence_of :year, :message => "Requires year"
 
+  validates_numericality_of :xbmc_id, :message => "XBMC Config ID must be a number"
+  validates_numericality_of :rating, :message => "rating must be a number"
+  validates_numericality_of :xlib_id, :message => "XBMC Movie ID must be an integer", :only_integer => true
+  validates_numericality_of :year, :message => "The year must be an integer", :only_integer => true
+  validates_numericality_of :playcount, :message => "playcount must be an integer", :only_integer => true
+
+  # Before Validation is used to assign 0 value to playcount if it 
+  # has not been assigned any value. 
+  before_validation do
+    unless self.playcount
+      self.playcount = 0
+    end
+  end
+
   set :schema_version, '1.0'
 
   # Required, these must be added to the movie so it is valid
