@@ -7,7 +7,7 @@ module ObjHelper
     title.sub(/^(the|a|an)\s+/i,'')
   end
 
-  def make_sort_title_obj(obj)
+  def make_sort_title_obj
     self.sorttitle = make_sort_title(self.title)
     self.save
   end
@@ -16,11 +16,11 @@ module ObjHelper
     File.delete(file) if File.exists?(file) 
   end
 
-  def destroy_thumb_image(obj)
-    unless obj.l_thumb.blank?
-      delete_image(obj.l_thumb)
-      obj.l_thumb = nil
-      obj.save
+  def destroy_thumb_image
+    unless self.l_thumb.blank?
+      delete_image(self.l_thumb)
+      self.l_thumb = nil
+      self.save
     end
   end
   
