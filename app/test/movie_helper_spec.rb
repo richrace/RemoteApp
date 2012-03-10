@@ -56,6 +56,10 @@ describe "MovieHelper" do
 
     man_movies = Movie.find(:all, :conditions => {:xbmc_id => @xbmc.object}, :order => :sorttitle, :orderdir => 'ASC')
 
+    # Makes sure each item is in the correct place in the list. For some
+    # bizarre reason need to convert to string to get the compare method
+    # to work properly. If you take the output and put it into IRB and  
+    # compare, it comes out true.
     (fil_movies[0].to_s == man_movies[0].to_s).should == true
     (fil_movies[1].to_s == man_movies[1].to_s).should == true
     (fil_movies[2].to_s == man_movies[2].to_s).should == true
@@ -63,4 +67,11 @@ describe "MovieHelper" do
     (fil_movies[4].to_s == man_movies[4].to_s).should == true
   end
 
+  it "should get movie with xlib_id 2 via filter_movies_xbmc" do
+    found = @test_class.filter_movies_xbmc({:xlib_id => 2}, :sorttitle, 'ASC', :first)
+
+    expect = Movie.find(:first, :conditions => {:xbmc_id => @xbmc.object, :xlib_id => 2}, :order => :sorttitle, :orderdir => 'ASC')
+
+    (found.to_s == expect.to_s).should == true
+  end
 end
