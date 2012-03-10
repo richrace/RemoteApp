@@ -24,6 +24,13 @@ class Tvepisode
   validates_presence_of :thumb, :message => "Requires remote thumb"
   validates_presence_of :fanart, :message => "Requires requires remote fanart"
 
+  validates_numericality_of :xbmc_id, :message => "XBMC Config ID must be a number"
+  validates_numericality_of :xlib_id, :message => "XBMC Episode ID must be an integer", :only_integer => true
+  validates_numericality_of :episode, :message => "XBMC Episode must be an integer", :only_integer => true
+  validates_numericality_of :tvshow_id, :message => "XBMC TV Show ID must be an integer", :only_integer => true
+  validates_numericality_of :tvseason_id, :message => "XBMC TV Season ID must be an integer", :only_integer => true
+  validates_numericality_of :rating, :message => "Rating must be a number"
+
   set :schema_version, '1.0'
 
   property :xbmc_id, :float
