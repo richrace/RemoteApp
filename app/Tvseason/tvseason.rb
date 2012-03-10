@@ -16,6 +16,10 @@ class Tvseason
   validates_presence_of :thumb, :message => "Requires remote thumb"
   validates_presence_of :fanart, :message => "Requires requires remote fanart"
 
+  validates_numericality_of :xbmc_id, :message => "XBMC Config ID needs to be a number"
+  validates_numericality_of :xlib_id, :message => "XBMC Season ID needs to be an integer", :only_integer => true
+  validates_numericality_of :tvshow_id, :message => "XBMC TV Show ID needs to be an integer", :only_integer => true
+
   set :schema_version, '1.0'
 
   property :xbmc_id, :float
