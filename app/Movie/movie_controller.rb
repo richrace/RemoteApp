@@ -48,7 +48,6 @@ class MovieController < Rho::RhoController
   def update_list
     @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
     unless @movies.blank?
-      ensure_sorted(@movies, @@active_order, @@order, @@order_dir)
       WebView.execute_js("updateList(#{JSON.generate(@movies)});")
       # Needed here because if there isn't an update the loading message stays.
       # WebView.execute_js("hideLoading();")
@@ -64,7 +63,6 @@ class MovieController < Rho::RhoController
     else
       if sync_movies(@params['body'].with_indifferent_access[:result][:movies])
         @movies = filter_movies_xbmc(@@conditions, @@active_order, @@order_dir)
-        ensure_sorted(@movies, @@active_order, @@order, @@order_dir)
         unless @movies.blank?
           WebView.execute_js("updateList(#{JSON.generate(@movies)});")        
         end
