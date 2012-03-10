@@ -71,6 +71,9 @@ class XbmcConnect::Command
     end
   end
   
+  # Taken from Rails Active Record - MIT Licence
+  # http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-constantize
+  # GitHub = http://bit.ly/A9Hy1k (source code) https://github.com/rails/rails
   def constantize(camel_cased_word)
     names = camel_cased_word.split('::')
     names.shift if names.empty? || names.first.empty?
