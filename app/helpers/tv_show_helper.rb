@@ -45,7 +45,6 @@ module TvShowHelper
   
   def sync_tv_shows(tv_shows)
     res = handle_new_tvshows(tv_shows) || handle_removed_tvshows(tv_shows)
-    update_seasons
     return res
   end
   
