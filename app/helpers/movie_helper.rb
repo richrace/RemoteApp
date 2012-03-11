@@ -1,11 +1,9 @@
-require 'helpers/movie_helper'
+require 'helpers/xbmc_config_helper'
 require 'helpers/method_helper'
-require 'helpers/download_helper'
 
 module MovieHelper
   include XbmcConfigHelper
   include MethodHelper
-  include DownloadHelper
   
   def set_callbacks
     @movies_cb = url_for(:action => :movies_callback)
@@ -51,7 +49,7 @@ module MovieHelper
           :imdbnumber => new_movie[:imdbnumber],
           :plot => new_movie[:plot],
           # Strips the YouTube url from the string.
-          :trailer => new_movie[:trailer].scan(/videoid\=+(.+)$/).flatten[0],
+          :trailer => get_youtube_videoid(new_movie[:trailer]),
           :rating => new_movie[:rating],
           :genre => new_movie[:genre],
           :year => new_movie[:year],
@@ -61,7 +59,9 @@ module MovieHelper
           :director => new_movie[:director])
         
         # Makes the url here so can use AJAX call.
-        t_movie.url = url_for(:action => :show, :id => t_movie.object)
+        # Manually make the URL instead of using url_for because cannot work
+        # in the standalone Module - works fine in Mixin.
+        t_movie.url = "/app/Movie/{#{t_movie.object}}/show"
         t_movie.save
 
         t_movie.create_sort_title
@@ -108,6 +108,10 @@ module MovieHelper
       end
     end
     return found_movies
+  end
+
+  def get_youtube_videoid(xbmc_trailer)
+    xbmc_trailer.scan(/videoid\=+(.+)$/).flatten[0]
   end
   
 end
