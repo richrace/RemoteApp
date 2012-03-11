@@ -2,7 +2,7 @@ require 'helpers/movie_helper'
 
 describe "MovieHelper" do
 
-  class TempClass
+  class TempClass 
   end
 
   before(:all) do
@@ -21,7 +21,6 @@ describe "MovieHelper" do
   end
 
   before(:each) do
-    @org_movies = []
     (1..5).each do |num|
       tmp_movie = Movie.create(
         :xbmc_id => @xbmc.object,
@@ -36,7 +35,6 @@ describe "MovieHelper" do
         :trailer => "test",
         :year => 200)
       tmp_movie.create_sort_title
-      @org_movies << tmp_movie
     end
   end
 
@@ -44,7 +42,6 @@ describe "MovieHelper" do
     Movie.find(:all).each do |m|
       m.destroy
     end
-    @org_movies.clear
   end
 
   after(:all) do
@@ -204,8 +201,162 @@ describe "MovieHelper" do
   end
 
   it "should not find any movie with XBMC Movie ID '999'" do
-    found = @test_class.find_movie(99)
+    found = @test_class.find_movie(999)
     found.should be_nil
+  end
+
+  it "should add new movie" do
+    # Make sure it's not in the database.
+    found = Movie.find(:all, :conditions => {:xlib_id => 100})
+    found.length.should == 0
+
+    # Create new movie with Movie ID 100 in XBMC Format (hash)
+    new_movie = {
+      :movieid => 100,
+      :label => "Test",
+      :thumbnail => "Test",
+      :fanart => "Test",
+      :imdbnumber => "Test",
+      :plot => "Test",
+      :trailer => 'videoid=SADsadsaAS',
+      :rating => 5,
+      :genre => "test",
+      :year => 2000,
+      :playcount => 0,
+      :studio => "Test",
+      :title => "test",
+      :director => "test"
+    }
+    # Needs to be in an array
+    n_movies = [new_movie]
+    
+    @test_class.handle_new_movies(n_movies).should == true
+
+    # Usings :all to make sure that only one result is found.
+    found = Movie.find(:all, :conditions => {:xlib_id => 100})
+    found.length.should == 1
+    found[0].xlib_id.should == 100
+  end
+
+  it "should not add new movie with same ID" do
+    # Make sure that the movie is already in the DB.
+    found = Movie.find(:all, :conditions => {:xlib_id => 5})
+    found.length.should == 1
+    found[0].xlib_id.should == 5
+
+    # Create new movie with Movie ID 5 in XBMC Format (hash)
+    new_movie = {
+      :movieid => 5,
+      :label => "Test",
+      :thumbnail => "Test",
+      :fanart => "Test",
+      :imdbnumber => "Test",
+      :plot => "Test",
+      :trailer => 'videoid=SADsadsaAS',
+      :rating => 5,
+      :genre => "test",
+      :year => 2000,
+      :playcount => 0,
+      :studio => "Test",
+      :title => "test",
+      :director => "test"
+    }
+    # Needs to be in an array
+    n_movies = [new_movie]
+    
+    @test_class.handle_new_movies(n_movies).should == false
+
+    # Usings :all to make sure that only one result is found.
+    found = Movie.find(:all, :conditions => {:xlib_id => 5})
+    found.length.should == 1
+    found[0].xlib_id.should == 5
+  end
+
+  it "should extract only youtube video ID for URL" do
+    trailer_field = "plugin://plugin.video.youtube/?action=play_video&videoid=EEYqgyXyk9A"
+    wanted_id = "EEYqgyXyk9A"
+    @test_class.get_youtube_videoid(trailer_field).should == wanted_id
+  end
+
+  it "should return nil if format is incorrect" do
+    trailer_field = "youtubeid=EEYqgyXyk9A"
+    @test_class.get_youtube_videoid(trailer_field).should be_nil
+  end
+
+  it "should extract only youtube video ID only videoid param" do
+    trailer_field = "videoid=EEYqgyXyk9A"
+    wanted_id = "EEYqgyXyk9A"
+    @test_class.get_youtube_videoid(trailer_field).should == wanted_id
+  end
+
+  it "should remove movie from DB which isn't in XBMC" do
+    # Create new movie with Movie ID 150 in XBMC Format (hash)
+    new_movie = {
+      :movieid => 150,
+      :label => "Test",
+      :thumbnail => "Test",
+      :fanart => "Test",
+      :imdbnumber => "Test",
+      :plot => "Test",
+      :trailer => 'videoid=SADsadsaAS',
+      :rating => 5,
+      :genre => "test",
+      :year => 2000,
+      :playcount => 0,
+      :studio => "Test",
+      :title => "test",
+      :director => "test"
+    }
+    # Needs to be in an array
+    n_movies = [new_movie]
+    # Add it to the database
+    @test_class.handle_new_movies(n_movies)
+
+    # Remove ALL other movies apart from the new "list"
+    @test_class.handle_removed_movies(n_movies).should == true
+
+    found = Movie.find(:all)
+    found.length.should == 1
+    found[0].xlib_id.should == 150
+  end
+
+  it "should not remove movies from DB which isn't in XBMC" do
+    # Delete all movies
+    Movie.find(:all).each {|x| x.destroy}
+
+    # Create new movie with Movie ID 151 in XBMC Format (hash)
+    new_movie = {
+      :movieid => 151,
+      :label => "Test",
+      :thumbnail => "Test",
+      :fanart => "Test",
+      :imdbnumber => "Test",
+      :plot => "Test",
+      :trailer => 'videoid=SADsadsaAS',
+      :rating => 5,
+      :genre => "test",
+      :year => 2000,
+      :playcount => 0,
+      :studio => "Test",
+      :title => "test",
+      :director => "test"
+    }
+    # Needs to be in an array
+    n_movies = [new_movie]
+    # Add it to the database
+    @test_class.handle_new_movies(n_movies)
+
+    # Should only be one movie
+    found = Movie.find(:all)
+    found.length.should == 1
+
+    # Should not remove any movies.
+    @test_class.handle_removed_movies(n_movies).should == false
+
+    # There still should only be one movie.
+    found = Movie.find(:all)
+    found.length.should == 1
+    found[0].xlib_id.should == 151
   end
 
 end
