@@ -14,33 +14,23 @@ module TvShowHelper
     end
   end
 
-  def filter_tvshows_xbmc(conditions, order, order_dir)
+  def filter_tvshows_xbmc(conditions, order, order_dir, amount=:all)
     xbmc = XbmcConfigHelper.current_config
     unless xbmc.blank?
       con = {:xbmc_id => xbmc.object}
       con.merge!(conditions)
-      Tvshow.find(:all, :conditions => con, :order => order, :orderdir => order_dir)
+      Tvshow.find(amount, :conditions => con, :order => order, :orderdir => order_dir)
     else
       return nil
     end
   end
   
   def get_tvshows_xbmc
-    xbmc = XbmcConfigHelper.current_config
-    unless xbmc.blank?
-      Tvshow.find(:all, :conditions => { :xbmc_id => xbmc.object }, :order => :sorttitle, :orderdir => 'ASC')
-    else
-      return nil
-    end
+    filter_tvshows_xbmc({}, :sorttitle, 'ASC')
   end
   
   def find_tvshow(xbmc_lib_id)
-    xbmc = XbmcConfigHelper.current_config
-    unless xbmc.blank?
-      Tvshow.find(:first, :conditions => {:xbmc_id => xbmc.object, :xlib_id => xbmc_lib_id})
-    else
-      return nil
-    end
+    filter_tvshows_xbmc({:xlib_id => xbmc_lib_id}, :sorttitle, 'ASC', :first)
   end
   
   def sync_tv_shows(tv_shows)
@@ -68,7 +58,7 @@ module TvShowHelper
           :studio => new_tvshow[:studio],
           :title => new_tvshow[:title])
 
-        n_tvshow.url = url_for(:action => :show, :id => n_tvshow.object)
+        n_tvshow.url = "/app/Tvshow/{#{n_tvshow.object}}/show"
         n_tvshow.save        
 
         n_tvshow.create_sort_title
