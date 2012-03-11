@@ -48,7 +48,7 @@ describe "MovieHelper" do
     @xbmc.destroy
   end
 
-  it "should get all movies filtered by xbmc, order_dir 'ASC', order 'sorttitle' " do
+  it "should get all movies filtered by xbmc, order_dir 'ASC', order 'sorttitle'" do
     fil_movies = @test_class.filter_movies_xbmc({}, :sorttitle, 'ASC')
 
     man_movies = Movie.find(:all, :conditions => {:xbmc_id => @xbmc.object}, :order => :sorttitle, :orderdir => 'ASC')
