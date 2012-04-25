@@ -51,13 +51,14 @@ module TvSeasonHelper
           :thumb => new_season[:thumbnail], 
           :fanart => new_season[:fanart])
         
-        n_season.url = url_for(:controller => :Tvepisode, :query => {:tvshowid => new_season[:tvshowid], :tvseasonid => new_season[:season]})
+        n_season.url = "/app/Tvepisode?tvshowid=#{new_season[:tvshowid]}&tvseasonid=#{new_season[:season]}"
         
         n_season.save
         
         list_changed = true
       end
     end
+    return list_changed
   end
 
   def handle_removed_seasons(xbmc_tvseasons, tvshowid)
@@ -66,7 +67,7 @@ module TvSeasonHelper
     find_seasons(tvshowid).each do | db_season |
       got = false
       xbmc_tvseasons.each do | xb_season |
-        if db_season.xlib_id.to_i == xb_season[:xlib_id].to_i
+        if db_season.xlib_id.to_i == xb_season[:season].to_i
           got = true 
           break
         end
