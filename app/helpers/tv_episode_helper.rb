@@ -58,7 +58,7 @@ module TvEpisodeHelper
           :thumb => xbmc_ep[:thumbnail], 
           :fanart => xbmc_ep[:fanart])
         
-        n_episode.url = url_for(:action => :show, :id => n_episode.object)
+        n_episode.url = "/app/Tvshow/{#{n_episode.object}}/show"
         n_episode.save
                 
         list_changed = true   
