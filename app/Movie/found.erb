@@ -10,9 +10,21 @@
 
   <div data-role="content">
 		<div>
-    	<ul id="movies_list" data-role="listview" data-filter="true">
-    
-    	</ul>
+    	<h3>Select Correct Movie</h3>
+			<ul id="found_movies" data-role="listview">
+			<% @found_movies.each do | movie | %>
+				<li>
+					<a href="<%= movie.url %>">
+						<% if movie.l_thumb %>
+							<img tyle="width:100%;" src="<%= movie.l_thumb %>" />
+						<% else %>
+							<img tyle="width:100%;" src="/public/images/missing_thumb.png" />
+						<% end %>
+						<%= movie.title %>
+					</a>
+				</li>
+			<% end %>
+			</ul>
 		</div>
   </div>
 	
