@@ -9,15 +9,16 @@
 	</div>
 	
 	<script>
+		/** 
+		 * Loads the REST API to refresh the Movies list.
+		 */
 		function reload() {
-			$.get("<%= url_for :action => :update_list %>");
-			showLoading('Loading Movies');
+			$.get("<%= url_for :action => :update_list %>");			
 		}
 		
-		function getThumb(movieid) {
-			$.post("<%= url_for :action => :get_thumb %>", {"movieid":movieid});
-		}
-		
+		/*
+		 * Removes the previous list. Then creates it again.
+		 */
 		function updateList(movies) {
 			if (movies !== null) {
 				var list = document.getElementById('movies_list');
@@ -25,12 +26,14 @@
 				for (movie in movies) {
 					var newLi = document.createElement('li');
 					newLi.id = "movielist_" + movies[movie].xlib_id;
-					var code = "<a href=\"" + movies[movie].url + "\" data-rel='dialog' data-transition='slidedown'><img id=\"movieimg_" + movies[movie].xlib_id + "\"";
+					var code = "<a href=\"" + movies[movie].url + "\" data-rel='dialog' data-transition='slidedown'><img class=\"lazy\" id=\"movieid_" + movies[movie].xlib_id + "\"";
+					// Checks to see if there is a thumb. If there isn't use the 
+					// lazy loading plugin to get the thumbnail after it has come into
+					// the user's view.
 					if (movies[movie].l_thumb) {
 						code += "src=\"" + movies[movie].l_thumb + "\"";
 					} else {
-						code += "src=\"/public/images/missing_thumb.png\"";
-						getThumb(movies[movie].xlib_id);
+						code += "data-original=\"/public/images/missing_thumb.png\" src=\"/public/images/grey.gif\"";
 					}
 					code += "/><h3>" + movies[movie].title + "</h3>";
 					<% if get_active_order == get_order[:rating] %>
@@ -49,13 +52,21 @@
 				}
 				$("#movies_list").listview("refresh");
 				$.mobile.fixedToolbars.show(true);
+				$("img.lazy").lazyload();
 			}
 		}
 		
+		/*
+		 * Adds a thumbnail that has been gotten from the XBMC Server.
+		 */
 		function addThumb(movieid, filename) {
-			document.getElementById('movieimg_'+movieid).src = filename;
+			document.getElementById("movieid_"+movieid).src = filename;
+			$("#tvshows_list").listview('refresh');
 		}
 		
+		/*
+		 * Updates the list on startup.
+		 */
 		$(document).ready(function () { 
 			reload();
 		});
@@ -80,5 +91,5 @@
 			</ul>
 		</div>
 	</div>
-
+	
 </div>
