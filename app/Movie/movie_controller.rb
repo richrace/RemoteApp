@@ -229,7 +229,7 @@ class MovieController < Rho::RhoController
       WebView.execute_js("showToastError('#{XbmcConnect.error[:msg]}');")
     else
       if @params['body']['result'] == 'OK'
-        WebView.execute_js("showToastSuccess('Added Playlist');");
+        WebView.execute_js("showToastSuccess('Added to the Playlist');");
       else
         WebView.execute_js("showToastError('Can\\\'t add to queue');")
       end
