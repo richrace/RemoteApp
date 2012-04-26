@@ -5,6 +5,11 @@ require 'helpers/xbmc_config_helper'
 require 'helpers/xbmc/xbmc_connect'
 require 'helpers/error_helper'
 
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
+# Controller Class for the XBMC Configuration
 class XbmcConfigController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
@@ -71,6 +76,7 @@ class XbmcConfigController < Rho::RhoController
   end
 
   # POST /XbmcConfig/{1}/delete
+  # Removes all associated Movies, TV Shows, TV Seasons, TV Episodes and Products
   def delete
     @xbmc_config = XbmcConfig.find(@params['id'])
     if @xbmc_config
@@ -102,11 +108,21 @@ class XbmcConfigController < Rho::RhoController
           tvepisode.destroy
         end
       end
+      products = Product.find(:all, :conditions => {:xbmc_id => @xbmc_config.object})
+      unless products.blank?
+        products.each do | product |
+          product.destroy
+        end
+      end
       @xbmc_config.destroy 
     end
     redirect :action => :index  
   end
   
+  # Custom callback for the API. Checks the connection errors, if any to let the user know.
+  # If there were any errors, user is directed to the edit page. 
+  # If everything went OK the rest of the loading of the API happens, and user is directed
+  # to the show page.
   def api_callback
     @xbmc_config = XbmcConfigHelper.current_config
     if @params['status'] != 'ok'
@@ -123,23 +139,28 @@ class XbmcConfigController < Rho::RhoController
     end
   end
   
+  # Cancels the current asynchttp call.
   def cancel_httpcall
     Rho::AsyncHttp.cancel
     @xbmc_config = XbmcConfigHelper.current_config
     render :action => :edit
   end
   
+  # Deletes the Movie Image Cache.
   def remove_movie_cache
     unless @params['xbmc_id'].blank?
       movies = Movie.find(:all, :conditions => { :xbmc_id => @params['xbmc_id'] } )
       movies.each do | movie |
         movie.destroy_image
       end
+      WebView.execute_js("showToastSuccess('Movie images deleted');");
     end
   end
 
   private 
   
+  # Checks to make sure the current XBMC Configuration is active and loads the API.
+  # Redirects the user to the wait page.
   def update_xbmc
     configs = XbmcConfig.find(:all)
     configs.each do |c|
