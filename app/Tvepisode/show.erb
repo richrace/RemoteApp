@@ -33,15 +33,15 @@
       <li>
 				<div>Title: <%= @tvepisode.title %></div>
 			</li>
+      <li>
+        <div><a href="#" data-role="button" onClick="playEpisode(<%= @tvepisode.xlib_id %>);">Play</a></div>
+      </li>
+      <li>
+        <div><a href="#" data-role="button" onClick="addEpisodeToQueue(<%= @tvepisode.xlib_id %>);">Add To Queue</a></div>
+      </li>
 			<li>
 				<div>Plot: <%= @tvepisode.plot %></div>
-			</li>
-			<li>
-				<div><a href="#" onClick="playEpisode(<%= @tvepisode.xlib_id %>);">Play</a></div>
-			</li>
-      <li>
-        <div><a href="#" onClick="addEpisodeToQueue(<%= @tvepisode.xlib_id %>);">Add To Queue</a></div>
-      </li>
+			</li>			
     </ul>
   </div>
 
