@@ -25,7 +25,7 @@ android:
   version: 2.1
   android_title: 0
 
-extensions: ["json", "rh-validatable", "fileutils", "mspec", "telnet", "timeout", "barcode"]
+extensions: ["json", "rh-validatable", "fileutils", "mspec", "barcode"]
 
 capabilities: 
 - camera
