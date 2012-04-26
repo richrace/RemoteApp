@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Module: Playlist4</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./app/helpers/xbmc/apis/api_4/api4_playlist_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="app/helpers/xbmc/apis/api_4/api4_playlist.rb">app/helpers/xbmc/apis/api_4/api4_playlist.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-add_episode">#add_episode</a></li>
+          
+          <li><a href="#method-i-add_movie">#add_movie</a></li>
+          
+          <li><a href="#method-i-clear_video">#clear_video</a></li>
+          
+          <li><a href="#method-i-get_video_items">#get_video_items</a></li>
+          
+          <li><a href="#method-i-play_episode">#play_episode</a></li>
+          
+          <li><a href="#method-i-play_movie">#play_movie</a></li>
+          
+          <li><a href="#method-i-play_video">#play_video</a></li>
+          
+          <li><a href="#method-i-play_video_position">#play_video_position</a></li>
+          
+          <li><a href="#method-i-remove_video_position">#remove_video_position</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="./app/helpers/xbmc/xbmc-client-LICENSE.html">xbmc-client-LICENSE</a></li>
+        
+          <li class="file"><a href="./public/images/IUI_LICENSE_txt.html">IUI_LICENSE.txt</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/NOTICE.html">NOTICE</a></li>
+        
+          <li class="file"><a href="./rhoconfig_txt.html">rhoconfig.txt</a></li>
+        
+          <li class="file"><a href="./rholog_txt.html">rholog.txt</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./ApiV4.html">ApiV4</a></li>
+        
+          <li><a href="./ApiV4/Application.html">ApiV4::Application</a></li>
+        
+          <li><a href="./ApiV4/Input.html">ApiV4::Input</a></li>
+        
+          <li><a href="./ApiV4/Playback.html">ApiV4::Playback</a></li>
+        
+          <li><a href="./ApiV4/Playlist.html">ApiV4::Playlist</a></li>
+        
+          <li><a href="./ApiV4/VideoLibrary.html">ApiV4::VideoLibrary</a></li>
+        
+          <li><a href="./Api.html">Api</a></li>
+        
+          <li><a href="./Api/V2.html">Api::V2</a></li>
+        
+          <li><a href="./Api/V4.html">Api::V4</a></li>
+        
+          <li><a href="./ApiV2.html">ApiV2</a></li>
+        
+          <li><a href="./ApiV2/Playback.html">ApiV2::Playback</a></li>
+        
+          <li><a href="./ApiV2/VideoLibrary.html">ApiV2::VideoLibrary</a></li>
+        
+          <li><a href="./XbmcConnect.html">XbmcConnect</a></li>
+        
+          <li><a href="./XbmcConnect/Command.html">XbmcConnect::Command</a></li>
+        
+          <li><a href="./AppApplication.html">AppApplication</a></li>
+        
+          <li><a href="./Application4.html">Application4</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./BarcodeScanController.html">BarcodeScanController</a></li>
+        
+          <li><a href="./BrowserHelper.html">BrowserHelper</a></li>
+        
+          <li><a href="./CommandsController.html">CommandsController</a></li>
+        
+          <li><a href="./CommandsHelper.html">CommandsHelper</a></li>
+        
+          <li><a href="./Control2.html">Control2</a></li>
+        
+          <li><a href="./Control4.html">Control4</a></li>
+        
+          <li><a href="./Controls.html">Controls</a></li>
+        
+          <li><a href="./ControlsController.html">ControlsController</a></li>
+        
+          <li><a href="./DownloadHelper.html">DownloadHelper</a></li>
+        
+          <li><a href="./ErrorHelper.html">ErrorHelper</a></li>
+        
+          <li><a href="./GeoController.html">GeoController</a></li>
+        
+          <li><a href="./GeoHelper.html">GeoHelper</a></li>
+        
+          <li><a href="./Input4.html">Input4</a></li>
+        
+          <li><a href="./MethodHelper.html">MethodHelper</a></li>
+        
+          <li><a href="./MoreController.html">MoreController</a></li>
+        
+          <li><a href="./Movie.html">Movie</a></li>
+        
+          <li><a href="./MovieController.html">MovieController</a></li>
+        
+          <li><a href="./MovieHelper.html">MovieHelper</a></li>
+        
+          <li><a href="./ObjHelper.html">ObjHelper</a></li>
+        
+          <li><a href="./Object.html">Object</a></li>
+        
+          <li><a href="./Playlist4.html">Playlist4</a></li>
+        
+          <li><a href="./PlaylistController.html">PlaylistController</a></li>
+        
+          <li><a href="./PlaylistHelper.html">PlaylistHelper</a></li>
+        
+          <li><a href="./Product.html">Product</a></li>
+        
+          <li><a href="./ProductController.html">ProductController</a></li>
+        
+          <li><a href="./ProductHelper.html">ProductHelper</a></li>
+        
+          <li><a href="./SpecRunner.html">SpecRunner</a></li>
+        
+          <li><a href="./SpecRunnerController.html">SpecRunnerController</a></li>
+        
+          <li><a href="./TempClass.html">TempClass</a></li>
+        
+          <li><a href="./TvEpisodeHelper.html">TvEpisodeHelper</a></li>
+        
+          <li><a href="./TvSeasonHelper.html">TvSeasonHelper</a></li>
+        
+          <li><a href="./TvShowHelper.html">TvShowHelper</a></li>
+        
+          <li><a href="./Tvepisode.html">Tvepisode</a></li>
+        
+          <li><a href="./TvepisodeController.html">TvepisodeController</a></li>
+        
+          <li><a href="./Tvseason.html">Tvseason</a></li>
+        
+          <li><a href="./TvseasonController.html">TvseasonController</a></li>
+        
+          <li><a href="./Tvshow.html">Tvshow</a></li>
+        
+          <li><a href="./TvshowController.html">TvshowController</a></li>
+        
+          <li><a href="./VideoLibrary2.html">VideoLibrary2</a></li>
+        
+          <li><a href="./VideoLibrary4.html">VideoLibrary4</a></li>
+        
+          <li><a href="./XbmcAppHelper.html">XbmcAppHelper</a></li>
+        
+          <li><a href="./XbmcConfig.html">XbmcConfig</a></li>
+        
+          <li><a href="./XbmcConfigController.html">XbmcConfigController</a></li>
+        
+          <li><a href="./XbmcConfigHelper.html">XbmcConfigHelper</a></li>
+        
+          <li><a href="./XbmcController.html">XbmcController</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">Playlist4</h1>
+
+    <div id="description" class="description">
+      
+<p>Module that contains Playlist commands for XBMC JSON RPC API Version 4</p>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="add_episode-method" class="method-detail ">
+          <a name="method-i-add_episode"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_episode</span><span
+              class="method-args">(episodeid, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Adds an episode to the video playlist.</p>
+            
+
+            
+            <div class="method-source-code" id="add_episode-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_episode</span>(<span class="ruby-identifier">episodeid</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:item</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:episodeid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">episodeid</span>.<span class="ruby-identifier">to_i</span>}}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_episode-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_episode-method -->
+
+      
+        <div id="add_movie-method" class="method-detail ">
+          <a name="method-i-add_movie"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_movie</span><span
+              class="method-args">(movieid, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Adds a <a href="Movie.html">Movie</a> to the video playlist</p>
+            
+
+            
+            <div class="method-source-code" id="add_movie-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_movie</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:item</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:movieid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">movieid</span>.<span class="ruby-identifier">to_i</span>}}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_movie-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_movie-method -->
+
+      
+        <div id="clear_video-method" class="method-detail ">
+          <a name="method-i-clear_video"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">clear_video</span><span
+              class="method-args">(callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Clears the Video Playlist</p>
+            
+
+            
+            <div class="method-source-code" id="clear_video-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">clear_video</span>(<span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">clear</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- clear_video-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- clear_video-method -->
+
+      
+        <div id="get_video_items-method" class="method-detail ">
+          <a name="method-i-get_video_items"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_video_items</span><span
+              class="method-args">(callback)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Requests the list of Items that are in the current active video playlist</p>
+            
+
+            
+            <div class="method-source-code" id="get_video_items-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 9</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_video_items</span>(<span class="ruby-identifier">callback</span>)
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">get_items</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_video_items-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_video_items-method -->
+
+      
+        <div id="play_episode-method" class="method-detail ">
+          <a name="method-i-play_episode"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_episode</span><span
+              class="method-args">(episodeid, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Plays a given Episode. Clears the video playlist first, then adds a the
+give Episode. Uses a synchronous connection for clearing and adding the
+Episode.</p>
+            
+
+            
+            <div class="method-source-code" id="play_episode-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 53</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_episode</span>(<span class="ruby-identifier">episodeid</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">clear_res</span> = <span class="ruby-identifier">clear_video</span>
+  <span class="ruby-identifier">add_res</span> = <span class="ruby-identifier">add_episode</span>(<span class="ruby-identifier">episodeid</span>)
+  <span class="ruby-identifier">play_video</span>(<span class="ruby-identifier">callback</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_episode-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_episode-method -->
+
+      
+        <div id="play_movie-method" class="method-detail ">
+          <a name="method-i-play_movie"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_movie</span><span
+              class="method-args">(movieid, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Plays a given movie. Clears the video playlist first, then adds a the give
+<a href="Movie.html">Movie</a>. Uses a synchronous connection for clearing
+and adding the movie.</p>
+            
+
+            
+            <div class="method-source-code" id="play_movie-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_movie</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">clear_res</span> = <span class="ruby-identifier">clear_video</span>
+  <span class="ruby-identifier">add_res</span> = <span class="ruby-identifier">add_movie</span>(<span class="ruby-identifier">movieid</span>)
+  <span class="ruby-identifier">play_video</span>(<span class="ruby-identifier">callback</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_movie-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_movie-method -->
+
+      
+        <div id="play_video-method" class="method-detail ">
+          <a name="method-i-play_video"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_video</span><span
+              class="method-args">(callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Plays the video playlist at the beginning.</p>
+            
+
+            
+            <div class="method-source-code" id="play_video-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_video</span>(<span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>)
+  <span class="ruby-identifier">play_video_position</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">callback</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_video-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_video-method -->
+
+      
+        <div id="play_video_position-method" class="method-detail ">
+          <a name="method-i-play_video_position"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_video_position</span><span
+              class="method-args">(position, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Plays the Video playlist at the given position.</p>
+            
+
+            
+            <div class="method-source-code" id="play_video_position-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_video_position</span>(<span class="ruby-identifier">position</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>) 
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:item</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">position</span>.<span class="ruby-identifier">to_i</span>}}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Player</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_video_position-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_video_position-method -->
+
+      
+        <div id="remove_video_position-method" class="method-detail ">
+          <a name="method-i-remove_video_position"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">remove_video_position</span><span
+              class="method-args">(position, callback=XbmcConnect::NOCALLB)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Removes an episode/movie from the video playlist at the given position.</p>
+            
+
+            
+            <div class="method-source-code" id="remove_video_position-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/xbmc/apis/api_4/api4_playlist.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_video_position</span>(<span class="ruby-identifier">position</span>, <span class="ruby-identifier">callback</span>=<span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">NOCALLB</span>) 
+  <span class="ruby-identifier">params</span> = {<span class="ruby-value">:playlistid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>, <span class="ruby-value">:position</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">position</span>.<span class="ruby-identifier">to_i</span>}
+  <span class="ruby-constant">XbmcConnect</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">params</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- remove_video_position-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- remove_video_position-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

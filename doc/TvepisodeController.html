@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: TvepisodeController</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./app/Tvepisode/tvepisode_controller_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="app/Tvepisode/tvepisode_controller.rb">app/Tvepisode/tvepisode_controller.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link">Rho::RhoController</p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-add_episode_to_queue">#add_episode_to_queue</a></li>
+          
+          <li><a href="#method-i-delete">#delete</a></li>
+          
+          <li><a href="#method-i-episode_queue_callback">#episode_queue_callback</a></li>
+          
+          <li><a href="#method-i-episode_thumb_callback">#episode_thumb_callback</a></li>
+          
+          <li><a href="#method-i-episodes_callback">#episodes_callback</a></li>
+          
+          <li><a href="#method-i-get_episode_thumb">#get_episode_thumb</a></li>
+          
+          <li><a href="#method-i-index">#index</a></li>
+          
+          <li><a href="#method-i-play_all_episodes">#play_all_episodes</a></li>
+          
+          <li><a href="#method-i-play_episode">#play_episode</a></li>
+          
+          <li><a href="#method-i-play_episode_callback">#play_episode_callback</a></li>
+          
+          <li><a href="#method-i-queue_all_episodes">#queue_all_episodes</a></li>
+          
+          <li><a href="#method-i-show">#show</a></li>
+          
+          <li><a href="#method-i-update_callback">#update_callback</a></li>
+          
+          <li><a href="#method-i-update_tvepisode_list">#update_tvepisode_list</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Included Modules -->
+      <div id="includes-section" class="section">
+        <h3 class="section-header">Included Modules</h3>
+        <ul class="link-list">
+        
+        
+          <li><a class="include" href="BrowserHelper.html">BrowserHelper</a></li>
+        
+        
+        
+          <li><a class="include" href="TvEpisodeHelper.html">TvEpisodeHelper</a></li>
+        
+        
+        
+          <li><a class="include" href="MethodHelper.html">MethodHelper</a></li>
+        
+        
+        
+          <li><a class="include" href="DownloadHelper.html">DownloadHelper</a></li>
+        
+        
+        
+          <li><a class="include" href="ErrorHelper.html">ErrorHelper</a></li>
+        
+        
+        </ul>
+      </div>
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="./app/helpers/xbmc/xbmc-client-LICENSE.html">xbmc-client-LICENSE</a></li>
+        
+          <li class="file"><a href="./public/images/IUI_LICENSE_txt.html">IUI_LICENSE.txt</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/NOTICE.html">NOTICE</a></li>
+        
+          <li class="file"><a href="./rhoconfig_txt.html">rhoconfig.txt</a></li>
+        
+          <li class="file"><a href="./rholog_txt.html">rholog.txt</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./ApiV4.html">ApiV4</a></li>
+        
+          <li><a href="./ApiV4/Application.html">ApiV4::Application</a></li>
+        
+          <li><a href="./ApiV4/Input.html">ApiV4::Input</a></li>
+        
+          <li><a href="./ApiV4/Playback.html">ApiV4::Playback</a></li>
+        
+          <li><a href="./ApiV4/Playlist.html">ApiV4::Playlist</a></li>
+        
+          <li><a href="./ApiV4/VideoLibrary.html">ApiV4::VideoLibrary</a></li>
+        
+          <li><a href="./Api.html">Api</a></li>
+        
+          <li><a href="./Api/V2.html">Api::V2</a></li>
+        
+          <li><a href="./Api/V4.html">Api::V4</a></li>
+        
+          <li><a href="./ApiV2.html">ApiV2</a></li>
+        
+          <li><a href="./ApiV2/Playback.html">ApiV2::Playback</a></li>
+        
+          <li><a href="./ApiV2/VideoLibrary.html">ApiV2::VideoLibrary</a></li>
+        
+          <li><a href="./XbmcConnect.html">XbmcConnect</a></li>
+        
+          <li><a href="./XbmcConnect/Command.html">XbmcConnect::Command</a></li>
+        
+          <li><a href="./AppApplication.html">AppApplication</a></li>
+        
+          <li><a href="./Application4.html">Application4</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./BarcodeScanController.html">BarcodeScanController</a></li>
+        
+          <li><a href="./BrowserHelper.html">BrowserHelper</a></li>
+        
+          <li><a href="./CommandsController.html">CommandsController</a></li>
+        
+          <li><a href="./CommandsHelper.html">CommandsHelper</a></li>
+        
+          <li><a href="./Control2.html">Control2</a></li>
+        
+          <li><a href="./Control4.html">Control4</a></li>
+        
+          <li><a href="./Controls.html">Controls</a></li>
+        
+          <li><a href="./ControlsController.html">ControlsController</a></li>
+        
+          <li><a href="./DownloadHelper.html">DownloadHelper</a></li>
+        
+          <li><a href="./ErrorHelper.html">ErrorHelper</a></li>
+        
+          <li><a href="./GeoController.html">GeoController</a></li>
+        
+          <li><a href="./GeoHelper.html">GeoHelper</a></li>
+        
+          <li><a href="./Input4.html">Input4</a></li>
+        
+          <li><a href="./MethodHelper.html">MethodHelper</a></li>
+        
+          <li><a href="./MoreController.html">MoreController</a></li>
+        
+          <li><a href="./Movie.html">Movie</a></li>
+        
+          <li><a href="./MovieController.html">MovieController</a></li>
+        
+          <li><a href="./MovieHelper.html">MovieHelper</a></li>
+        
+          <li><a href="./ObjHelper.html">ObjHelper</a></li>
+        
+          <li><a href="./Object.html">Object</a></li>
+        
+          <li><a href="./Playlist4.html">Playlist4</a></li>
+        
+          <li><a href="./PlaylistController.html">PlaylistController</a></li>
+        
+          <li><a href="./PlaylistHelper.html">PlaylistHelper</a></li>
+        
+          <li><a href="./Product.html">Product</a></li>
+        
+          <li><a href="./ProductController.html">ProductController</a></li>
+        
+          <li><a href="./ProductHelper.html">ProductHelper</a></li>
+        
+          <li><a href="./SpecRunner.html">SpecRunner</a></li>
+        
+          <li><a href="./SpecRunnerController.html">SpecRunnerController</a></li>
+        
+          <li><a href="./TempClass.html">TempClass</a></li>
+        
+          <li><a href="./TvEpisodeHelper.html">TvEpisodeHelper</a></li>
+        
+          <li><a href="./TvSeasonHelper.html">TvSeasonHelper</a></li>
+        
+          <li><a href="./TvShowHelper.html">TvShowHelper</a></li>
+        
+          <li><a href="./Tvepisode.html">Tvepisode</a></li>
+        
+          <li><a href="./TvepisodeController.html">TvepisodeController</a></li>
+        
+          <li><a href="./Tvseason.html">Tvseason</a></li>
+        
+          <li><a href="./TvseasonController.html">TvseasonController</a></li>
+        
+          <li><a href="./Tvshow.html">Tvshow</a></li>
+        
+          <li><a href="./TvshowController.html">TvshowController</a></li>
+        
+          <li><a href="./VideoLibrary2.html">VideoLibrary2</a></li>
+        
+          <li><a href="./VideoLibrary4.html">VideoLibrary4</a></li>
+        
+          <li><a href="./XbmcAppHelper.html">XbmcAppHelper</a></li>
+        
+          <li><a href="./XbmcConfig.html">XbmcConfig</a></li>
+        
+          <li><a href="./XbmcConfigController.html">XbmcConfigController</a></li>
+        
+          <li><a href="./XbmcConfigHelper.html">XbmcConfigHelper</a></li>
+        
+          <li><a href="./XbmcController.html">XbmcController</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">TvepisodeController</h1>
+
+    <div id="description" class="description">
+      
+<p>Controller for the TV Episodes.</p>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="add_episode_to_queue-method" class="method-detail ">
+          <a name="method-i-add_episode_to_queue"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_episode_to_queue</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Requests the XBMC Server to add the given episode to the playlist queue.</p>
+            
+
+            
+            <div class="method-source-code" id="add_episode_to_queue-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_episode_to_queue</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>]
+    <span class="ruby-identifier">send_command</span> { <span class="ruby-identifier">queue_episode_helper</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>], <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:episode_queue_callback</span>)) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_episode_to_queue-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_episode_to_queue-method -->
+
+      
+        <div id="delete-method" class="method-detail ">
+          <a name="method-i-delete"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">delete</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>POST /Tvepisode/{1}/delete</p>
+            
+
+            
+            <div class="method-source-code" id="delete-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span>
+  <span class="ruby-ivar">@tvepisode</span> = <span class="ruby-constant">Tvepisode</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'id'</span>])
+  <span class="ruby-ivar">@tvepisode</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@tvepisode</span>
+  <span class="ruby-identifier">redirect</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>  
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- delete-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- delete-method -->
+
+      
+        <div id="episode_queue_callback-method" class="method-detail ">
+          <a name="method-i-episode_queue_callback"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">episode_queue_callback</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Callback for adding the episode to the playlist. Informations the user of a
+network error or an error  trying to add the episode to the queue. Will
+inform the user if it succeed as well.</p>
+            
+
+            
+            <div class="method-source-code" id="episode_queue_callback-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 137</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">episode_queue_callback</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;BODY === #{@params['body']}&quot;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>
+    <span class="ruby-identifier">error_handle</span>(<span class="ruby-ivar">@params</span>)
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;showToastError('#{XbmcConnect.error[:msg]}');&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'body'</span>][<span class="ruby-string">'result'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'OK'</span>
+      <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastSuccess('Added to the Playlist');&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastError('Can\\\'t add to queue');&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- episode_queue_callback-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- episode_queue_callback-method -->
+
+      
+        <div id="episode_thumb_callback-method" class="method-detail ">
+          <a name="method-i-episode_thumb_callback"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">episode_thumb_callback</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Callback for getting Thumbnail. Updates the given episode by the XBMC
+Library ID, will update the display.</p>
+            
+
+            
+            <div class="method-source-code" id="episode_thumb_callback-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 101</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">episode_thumb_callback</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>
+    <span class="ruby-identifier">error_handle</span>(<span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">found_episode</span> = <span class="ruby-identifier">find_episode</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>])
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_episode</span>.<span class="ruby-identifier">blank?</span>          
+      <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'file'</span>].<span class="ruby-identifier">blank?</span>
+        <span class="ruby-identifier">found_episode</span>.<span class="ruby-identifier">l_thumb</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-string">'file'</span>]
+        <span class="ruby-identifier">found_episode</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;addEpisodeThumb(#{found_episode.xlib_id},\'#{found_episode.l_thumb}\');&quot;</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- episode_thumb_callback-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- episode_thumb_callback-method -->
+
+      
+        <div id="episodes_callback-method" class="method-detail ">
+          <a name="method-i-episodes_callback"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">episodes_callback</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Callback for updating the episodes without updating the display.</p>
+            
+
+            
+            <div class="method-source-code" id="episodes_callback-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">episodes_callback</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>
+    <span class="ruby-identifier">error_handle</span>(<span class="ruby-ivar">@params</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">sync_tvepisodes</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'body'</span>].<span class="ruby-identifier">with_indifferent_access</span>[<span class="ruby-value">:result</span>][<span class="ruby-value">:episodes</span>], <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvshowid'</span>], <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvseasonid'</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- episodes_callback-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- episodes_callback-method -->
+
+      
+        <div id="get_episode_thumb-method" class="method-detail ">
+          <a name="method-i-get_episode_thumb"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_episode_thumb</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Requests the thumbnail to be downloaded.</p>
+            
+
+            
+            <div class="method-source-code" id="get_episode_thumb-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_episode_thumb</span>
+  <span class="ruby-identifier">found_episode</span> = <span class="ruby-identifier">find_episode</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>])
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_episode</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_episode</span>.<span class="ruby-identifier">l_thumb</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;addEpisodeThumb(#{found_episode.xlib_id},\'#{found_episode.l_thumb}\');&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">download_episodethumb</span>(<span class="ruby-identifier">found_episode</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_episode_thumb-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_episode_thumb-method -->
+
+      
+        <div id="index-method" class="method-detail ">
+          <a name="method-i-index"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">index</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>GET /<a href="Tvepisode.html">Tvepisode</a></p>
+            
+
+            
+            <div class="method-source-code" id="index-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
+  <span class="ruby-identifier">@@tvshowid</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvshowid'</span>]
+  <span class="ruby-identifier">@@tvseasonid</span> = <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvseasonid'</span>]
+  <span class="ruby-identifier">render</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- index-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- index-method -->
+
+      
+        <div id="play_all_episodes-method" class="method-detail ">
+          <a name="method-i-play_all_episodes"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_all_episodes</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Queues all the episodes.</p>
+            
+
+            
+            <div class="method-source-code" id="play_all_episodes-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 152</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_all_episodes</span>
+  <span class="ruby-identifier">add_all_to_playlist</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_all_episodes-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_all_episodes-method -->
+
+      
+        <div id="play_episode-method" class="method-detail ">
+          <a name="method-i-play_episode"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_episode</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sends a request to the server to play an episode.</p>
+            
+
+            
+            <div class="method-source-code" id="play_episode-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_episode</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>].<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">send_command</span> { <span class="ruby-identifier">play_episode_helper</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'episodeid'</span>], <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:play_episode_callback</span>)) }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_episode-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_episode-method -->
+
+      
+        <div id="play_episode_callback-method" class="method-detail ">
+          <a name="method-i-play_episode_callback"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_episode_callback</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Callback for playing an episode, will inform the user of a connection
+error.</p>
+            
+
+            
+            <div class="method-source-code" id="play_episode_callback-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 88</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_episode_callback</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>
+    <span class="ruby-identifier">error_handle</span>(<span class="ruby-ivar">@params</span>)
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;showToastError('#{XbmcConnect.error[:msg]}');&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'body'</span>][<span class="ruby-string">'result'</span>]
+      <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastSuccess('Playing Episode');&quot;</span>)
+      <span class="ruby-identifier">update_playlist</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_episode_callback-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_episode_callback-method -->
+
+      
+        <div id="queue_all_episodes-method" class="method-detail ">
+          <a name="method-i-queue_all_episodes"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">queue_all_episodes</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Adds all the episodes to the playlist. Will add the episodes to the current
+playlist Uses synchronous connection to add the episodes. Will inform the
+user of any error or will let the user know it succeed.</p>
+            
+
+            
+            <div class="method-source-code" id="queue_all_episodes-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 159</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">queue_all_episodes</span>
+  <span class="ruby-identifier">error</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+      <span class="ruby-identifier">episodes</span> = <span class="ruby-identifier">find_episodes</span>(<span class="ruby-identifier">@@tvseasonid</span>, <span class="ruby-identifier">@@tvshowid</span>)
+      <span class="ruby-identifier">episodes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">episode</span> <span class="ruby-operator">|</span> 
+        <span class="ruby-identifier">res</span> = <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">add_episode</span>(<span class="ruby-identifier">episode</span>.<span class="ruby-identifier">xlib_id</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;QUEUE ALL EPISODES === #{res['body']}&quot;</span>
+        <span class="ruby-keyword">if</span> (<span class="ruby-identifier">res</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>) <span class="ruby-operator">||</span> (<span class="ruby-identifier">res</span>[<span class="ruby-string">'body'</span>][<span class="ruby-string">'result'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'OK'</span>)
+          <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastError('Can\\\'t add to queue');&quot;</span>)
+          <span class="ruby-identifier">error</span> = <span class="ruby-keyword">true</span>
+          <span class="ruby-keyword">break</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">error</span>
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastSuccess('Successfully Added');&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- queue_all_episodes-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- queue_all_episodes-method -->
+
+      
+        <div id="show-method" class="method-detail ">
+          <a name="method-i-show"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">show</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>GET /Tvepisode/{1}</p>
+            
+
+            
+            <div class="method-source-code" id="show-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
+  <span class="ruby-ivar">@tvepisode</span> = <span class="ruby-constant">Tvepisode</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'id'</span>])
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@tvepisode</span>
+    <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:show</span>, <span class="ruby-value">:back</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">redirect</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:index</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- show-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- show-method -->
+
+      
+        <div id="update_callback-method" class="method-detail ">
+          <a name="method-i-update_callback"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">update_callback</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Update tv episode list callback, will sync the episodes and update the
+display if the list has changed.  If there is a connection error will
+inform the user.</p>
+            
+
+            
+            <div class="method-source-code" id="update_callback-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_callback</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@params</span>[<span class="ruby-string">'status'</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">'ok'</span>
+    <span class="ruby-identifier">error_handle</span>(<span class="ruby-ivar">@params</span>)
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;showToastError('#{XbmcConnect.error[:msg]}');&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">sync_tvepisodes</span>(<span class="ruby-ivar">@params</span>[<span class="ruby-string">'body'</span>].<span class="ruby-identifier">with_indifferent_access</span>[<span class="ruby-value">:result</span>][<span class="ruby-value">:episodes</span>], <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvshowid'</span>], <span class="ruby-ivar">@params</span>[<span class="ruby-string">'tvseasonid'</span>])
+      <span class="ruby-ivar">@tvepisodes</span> = <span class="ruby-identifier">find_episodes</span>(<span class="ruby-identifier">@@tvseasonid</span>, <span class="ruby-identifier">@@tvshowid</span>)
+      <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@tvepisodes</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;updateEpisodeList(#{JSON.generate(@tvepisodes)});&quot;</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;hideLoadingToast();&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- update_callback-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- update_callback-method -->
+
+      
+        <div id="update_tvepisode_list-method" class="method-detail ">
+          <a name="method-i-update_tvepisode_list"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">update_tvepisode_list</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Updates the episode. Updates the display with the database entries first,
+then requests the list from the XBMC server</p>
+            
+
+            
+            <div class="method-source-code" id="update_tvepisode_list-source">
+<pre>
+<span class="ruby-comment"># File app/Tvepisode/tvepisode_controller.rb, line 45</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_tvepisode_list</span>
+  <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-string">&quot;showToastLoading('Loading Episodes');&quot;</span>)
+  <span class="ruby-ivar">@tvepisodes</span> = <span class="ruby-identifier">find_episodes</span>(<span class="ruby-identifier">@@tvseasonid</span>, <span class="ruby-identifier">@@tvshowid</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@tvepisodes</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-constant">WebView</span>.<span class="ruby-identifier">execute_js</span>(<span class="ruby-node">&quot;updateEpisodeList(#{JSON.generate(@tvepisodes)});&quot;</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">load_tvepisodes</span>(<span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:update_callback</span>, <span class="ruby-value">:query</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:tvshowid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">@@tvshowid</span>, <span class="ruby-value">:tvseasonid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">@@tvseasonid</span>}), <span class="ruby-identifier">@@tvshowid</span>, <span class="ruby-identifier">@@tvseasonid</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- update_tvepisode_list-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- update_tvepisode_list-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Module: MovieHelper</title>
+
+  <link rel="stylesheet" href="./rdoc.css" type="text/css" media="screen" />
+
+  <script src="./js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="./index.html">Home</a>
+          <a href="./index.html#classes">Classes</a>
+          <a href="./index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="./app/helpers/movie_helper_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="app/helpers/movie_helper.rb">app/helpers/movie_helper.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-add_movie_to_queue">#add_movie_to_queue</a></li>
+          
+          <li><a href="#method-i-filter_movies_xbmc">#filter_movies_xbmc</a></li>
+          
+          <li><a href="#method-i-find_movie">#find_movie</a></li>
+          
+          <li><a href="#method-i-get_movies_xbmc">#get_movies_xbmc</a></li>
+          
+          <li><a href="#method-i-get_youtube_videoid">#get_youtube_videoid</a></li>
+          
+          <li><a href="#method-i-handle_new_movies">#handle_new_movies</a></li>
+          
+          <li><a href="#method-i-handle_removed_movies">#handle_removed_movies</a></li>
+          
+          <li><a href="#method-i-play_movie_helper">#play_movie_helper</a></li>
+          
+          <li><a href="#method-i-search_by_title">#search_by_title</a></li>
+          
+          <li><a href="#method-i-set_callbacks">#set_callbacks</a></li>
+          
+          <li><a href="#method-i-sync_movies">#sync_movies</a></li>
+          
+          <li><a href="#method-i-update_movie_list">#update_movie_list</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Included Modules -->
+      <div id="includes-section" class="section">
+        <h3 class="section-header">Included Modules</h3>
+        <ul class="link-list">
+        
+        
+          <li><a class="include" href="XbmcConfigHelper.html">XbmcConfigHelper</a></li>
+        
+        
+        
+          <li><a class="include" href="MethodHelper.html">MethodHelper</a></li>
+        
+        
+        </ul>
+      </div>
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="./LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./Rakefile.html">Rakefile</a></li>
+        
+          <li class="file"><a href="./app/helpers/xbmc/xbmc-client-LICENSE.html">xbmc-client-LICENSE</a></li>
+        
+          <li class="file"><a href="./public/images/IUI_LICENSE_txt.html">IUI_LICENSE.txt</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="./public/jquery-toastmessage-plugin/NOTICE.html">NOTICE</a></li>
+        
+          <li class="file"><a href="./rhoconfig_txt.html">rhoconfig.txt</a></li>
+        
+          <li class="file"><a href="./rholog_txt.html">rholog.txt</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="./images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="./ApiV4.html">ApiV4</a></li>
+        
+          <li><a href="./ApiV4/Application.html">ApiV4::Application</a></li>
+        
+          <li><a href="./ApiV4/Input.html">ApiV4::Input</a></li>
+        
+          <li><a href="./ApiV4/Playback.html">ApiV4::Playback</a></li>
+        
+          <li><a href="./ApiV4/Playlist.html">ApiV4::Playlist</a></li>
+        
+          <li><a href="./ApiV4/VideoLibrary.html">ApiV4::VideoLibrary</a></li>
+        
+          <li><a href="./Api.html">Api</a></li>
+        
+          <li><a href="./Api/V2.html">Api::V2</a></li>
+        
+          <li><a href="./Api/V4.html">Api::V4</a></li>
+        
+          <li><a href="./ApiV2.html">ApiV2</a></li>
+        
+          <li><a href="./ApiV2/Playback.html">ApiV2::Playback</a></li>
+        
+          <li><a href="./ApiV2/VideoLibrary.html">ApiV2::VideoLibrary</a></li>
+        
+          <li><a href="./XbmcConnect.html">XbmcConnect</a></li>
+        
+          <li><a href="./XbmcConnect/Command.html">XbmcConnect::Command</a></li>
+        
+          <li><a href="./AppApplication.html">AppApplication</a></li>
+        
+          <li><a href="./Application4.html">Application4</a></li>
+        
+          <li><a href="./ApplicationHelper.html">ApplicationHelper</a></li>
+        
+          <li><a href="./BarcodeScanController.html">BarcodeScanController</a></li>
+        
+          <li><a href="./BrowserHelper.html">BrowserHelper</a></li>
+        
+          <li><a href="./CommandsController.html">CommandsController</a></li>
+        
+          <li><a href="./CommandsHelper.html">CommandsHelper</a></li>
+        
+          <li><a href="./Control2.html">Control2</a></li>
+        
+          <li><a href="./Control4.html">Control4</a></li>
+        
+          <li><a href="./Controls.html">Controls</a></li>
+        
+          <li><a href="./ControlsController.html">ControlsController</a></li>
+        
+          <li><a href="./DownloadHelper.html">DownloadHelper</a></li>
+        
+          <li><a href="./ErrorHelper.html">ErrorHelper</a></li>
+        
+          <li><a href="./GeoController.html">GeoController</a></li>
+        
+          <li><a href="./GeoHelper.html">GeoHelper</a></li>
+        
+          <li><a href="./Input4.html">Input4</a></li>
+        
+          <li><a href="./MethodHelper.html">MethodHelper</a></li>
+        
+          <li><a href="./MoreController.html">MoreController</a></li>
+        
+          <li><a href="./Movie.html">Movie</a></li>
+        
+          <li><a href="./MovieController.html">MovieController</a></li>
+        
+          <li><a href="./MovieHelper.html">MovieHelper</a></li>
+        
+          <li><a href="./ObjHelper.html">ObjHelper</a></li>
+        
+          <li><a href="./Object.html">Object</a></li>
+        
+          <li><a href="./Playlist4.html">Playlist4</a></li>
+        
+          <li><a href="./PlaylistController.html">PlaylistController</a></li>
+        
+          <li><a href="./PlaylistHelper.html">PlaylistHelper</a></li>
+        
+          <li><a href="./Product.html">Product</a></li>
+        
+          <li><a href="./ProductController.html">ProductController</a></li>
+        
+          <li><a href="./ProductHelper.html">ProductHelper</a></li>
+        
+          <li><a href="./SpecRunner.html">SpecRunner</a></li>
+        
+          <li><a href="./SpecRunnerController.html">SpecRunnerController</a></li>
+        
+          <li><a href="./TempClass.html">TempClass</a></li>
+        
+          <li><a href="./TvEpisodeHelper.html">TvEpisodeHelper</a></li>
+        
+          <li><a href="./TvSeasonHelper.html">TvSeasonHelper</a></li>
+        
+          <li><a href="./TvShowHelper.html">TvShowHelper</a></li>
+        
+          <li><a href="./Tvepisode.html">Tvepisode</a></li>
+        
+          <li><a href="./TvepisodeController.html">TvepisodeController</a></li>
+        
+          <li><a href="./Tvseason.html">Tvseason</a></li>
+        
+          <li><a href="./TvseasonController.html">TvseasonController</a></li>
+        
+          <li><a href="./Tvshow.html">Tvshow</a></li>
+        
+          <li><a href="./TvshowController.html">TvshowController</a></li>
+        
+          <li><a href="./VideoLibrary2.html">VideoLibrary2</a></li>
+        
+          <li><a href="./VideoLibrary4.html">VideoLibrary4</a></li>
+        
+          <li><a href="./XbmcAppHelper.html">XbmcAppHelper</a></li>
+        
+          <li><a href="./XbmcConfig.html">XbmcConfig</a></li>
+        
+          <li><a href="./XbmcConfigController.html">XbmcConfigController</a></li>
+        
+          <li><a href="./XbmcConfigHelper.html">XbmcConfigHelper</a></li>
+        
+          <li><a href="./XbmcController.html">XbmcController</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">MovieHelper</h1>
+
+    <div id="description" class="description">
+      
+<p>Module to helper with everything the <a href="Movie.html">Movie</a>
+Controller does.</p>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="add_movie_to_queue-method" class="method-detail ">
+          <a name="method-i-add_movie_to_queue"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">add_movie_to_queue</span><span
+              class="method-args">(movieid, callback)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Selects the correct XBMC version API. Only JSON RPC version 3/4 is
+supported. Requests to add the <a href="Movie.html">Movie</a> to the XBMC
+playlist.</p>
+            
+
+            
+            <div class="method-source-code" id="add_movie_to_queue-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_movie_to_queue</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
+  <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>)  <span class="ruby-operator">||</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+      <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">add_movie</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- add_movie_to_queue-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- add_movie_to_queue-method -->
+
+      
+        <div id="filter_movies_xbmc-method" class="method-detail ">
+          <a name="method-i-filter_movies_xbmc"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">filter_movies_xbmc</span><span
+              class="method-args">(conditions, order, order_dir, amount=:all)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Filters the Movies database by the current active XBMC Configuration.
+Default amount is set to :all, this means it will return an Array of
+movies. using :first will only return one object. Conditions could mean any
+record within the <a href="Movie.html">Movie</a> Model. Order can be viewed
+in the <a href="MovieController.html">MovieController</a> Order_dir is
+either ‘ASC’ or ‘DSC’</p>
+            
+
+            
+            <div class="method-source-code" id="filter_movies_xbmc-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">filter_movies_xbmc</span>(<span class="ruby-identifier">conditions</span>, <span class="ruby-identifier">order</span>, <span class="ruby-identifier">order_dir</span>, <span class="ruby-identifier">amount</span>=<span class="ruby-value">:all</span>)
+  <span class="ruby-identifier">xbmc</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">xbmc</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">con</span> = {<span class="ruby-value">:xbmc_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">xbmc</span>.<span class="ruby-identifier">object</span>}
+    <span class="ruby-comment"># Combine the custom conditions with the needed one. If in the conditions parameter</span>
+    <span class="ruby-comment"># :xbmc_id =&gt; xbmc.object already exists it doesn't duplicated it.</span>
+    <span class="ruby-identifier">con</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">conditions</span>)
+    <span class="ruby-constant">Movie</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">amount</span>, <span class="ruby-value">:conditions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">con</span>, <span class="ruby-value">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order</span>, <span class="ruby-value">:orderdir</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">order_dir</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- filter_movies_xbmc-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- filter_movies_xbmc-method -->
+
+      
+        <div id="find_movie-method" class="method-detail ">
+          <a name="method-i-find_movie"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">find_movie</span><span
+              class="method-args">(xbmc_lib_id)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Uses <a
+href="MovieHelper.html#method-i-filter_movies_xbmc">filter_movies_xbmc</a>,
+adds an extra condition that the xbmc library ID must be  the one in the
+parameter. Again, uses sorttitle to order ascending. However, it only
+returns one entry.</p>
+            
+
+            
+            <div class="method-source-code" id="find_movie-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_movie</span>(<span class="ruby-identifier">xbmc_lib_id</span>)
+  <span class="ruby-identifier">filter_movies_xbmc</span>({<span class="ruby-value">:xlib_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">xbmc_lib_id</span>}, <span class="ruby-value">:sorttitle</span>, <span class="ruby-string">'ASC'</span>, <span class="ruby-value">:first</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- find_movie-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- find_movie-method -->
+
+      
+        <div id="get_movies_xbmc-method" class="method-detail ">
+          <a name="method-i-get_movies_xbmc"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_movies_xbmc</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Uses <a
+href="MovieHelper.html#method-i-filter_movies_xbmc">filter_movies_xbmc</a>
+to get the default <a href="Movie.html">Movie</a> list. Uses order by
+sorttitle and  puts the list in ascending order.</p>
+            
+
+            
+            <div class="method-source-code" id="get_movies_xbmc-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_movies_xbmc</span>
+  <span class="ruby-identifier">filter_movies_xbmc</span>({}, <span class="ruby-value">:sorttitle</span>, <span class="ruby-string">'ASC'</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_movies_xbmc-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_movies_xbmc-method -->
+
+      
+        <div id="get_youtube_videoid-method" class="method-detail ">
+          <a name="method-i-get_youtube_videoid"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_youtube_videoid</span><span
+              class="method-args">(xbmc_trailer)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Strips everything but the YouTube Video ID. For example,
+‘plugin://plugin.video.youtube/?action=play_video&amp;videoid=EEYqgyXyk9A’
+is the format XBMC gives the YouTube Trailer in. All that is wanted is
+‘EEYqgyXyk9A’. This uses Regex to remove everything else.</p>
+            
+
+            
+            <div class="method-source-code" id="get_youtube_videoid-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_youtube_videoid</span>(<span class="ruby-identifier">xbmc_trailer</span>)
+  <span class="ruby-identifier">xbmc_trailer</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/videoid\=+(.+)$/</span>).<span class="ruby-identifier">flatten</span>[<span class="ruby-value">0</span>]
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_youtube_videoid-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_youtube_videoid-method -->
+
+      
+        <div id="handle_new_movies-method" class="method-detail ">
+          <a name="method-i-handle_new_movies"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">handle_new_movies</span><span
+              class="method-args">(xbmc_movies)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Adds new movies found in the XBMC library that aren’t in the Remote’s
+library.</p>
+            
+
+            
+            <div class="method-source-code" id="handle_new_movies-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_new_movies</span>(<span class="ruby-identifier">xbmc_movies</span>)
+  <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">xbmc_movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">new_movie</span> <span class="ruby-operator">|</span>
+    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.01</span>)
+    <span class="ruby-identifier">found</span> = <span class="ruby-identifier">find_movie</span>(<span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:movieid</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">found</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">t_movie</span> = <span class="ruby-constant">Movie</span>.<span class="ruby-identifier">create</span>(
+        <span class="ruby-value">:xbmc_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">object</span>, 
+        <span class="ruby-value">:xlib_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:movieid</span>],  
+        <span class="ruby-value">:label</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:label</span>],
+        <span class="ruby-value">:thumb</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:thumbnail</span>],
+        <span class="ruby-value">:fanart</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:fanart</span>],
+        <span class="ruby-value">:imdbnumber</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:imdbnumber</span>],
+        <span class="ruby-value">:plot</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:plot</span>],
+        <span class="ruby-comment"># Strips the YouTube url from the string.</span>
+        <span class="ruby-value">:trailer</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_youtube_videoid</span>(<span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:trailer</span>]),
+        <span class="ruby-value">:rating</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:rating</span>],
+        <span class="ruby-value">:genre</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:genre</span>],
+        <span class="ruby-value">:year</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:year</span>],
+        <span class="ruby-value">:playcount</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:playcount</span>],
+        <span class="ruby-value">:studio</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:studio</span>],
+        <span class="ruby-value">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:title</span>],
+        <span class="ruby-value">:director</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:director</span>])
+      
+      <span class="ruby-comment"># Makes the url here so can use AJAX call.</span>
+      <span class="ruby-comment"># Manually make the URL instead of using url_for because cannot work</span>
+      <span class="ruby-comment"># in the standalone Module - works fine in Mixin.</span>
+      <span class="ruby-identifier">t_movie</span>.<span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;/app/Movie/{#{t_movie.object}}/show&quot;</span>
+      <span class="ruby-identifier">t_movie</span>.<span class="ruby-identifier">save</span>
+
+      <span class="ruby-comment"># Create the sort title.</span>
+      <span class="ruby-identifier">t_movie</span>.<span class="ruby-identifier">create_sort_title</span>
+      
+      <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">list_changed</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- handle_new_movies-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- handle_new_movies-method -->
+
+      
+        <div id="handle_removed_movies-method" class="method-detail ">
+          <a name="method-i-handle_removed_movies"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">handle_removed_movies</span><span
+              class="method-args">(xbmc_movies)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Removes any movies that are in the Remote’s library but not in the XBMC’s
+Library</p>
+            
+
+            
+            <div class="method-source-code" id="handle_removed_movies-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_removed_movies</span>(<span class="ruby-identifier">xbmc_movies</span>)
+  <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span> 
+  
+  <span class="ruby-identifier">get_movies_xbmc</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">db_movie</span> <span class="ruby-operator">|</span>
+    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.01</span>)
+    <span class="ruby-identifier">got</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">xbmc_movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">xb_movie</span> <span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">db_movie</span>.<span class="ruby-identifier">xlib_id</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">xb_movie</span>[<span class="ruby-value">:movieid</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-identifier">got</span> = <span class="ruby-keyword">true</span> 
+        <span class="ruby-keyword">break</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">got</span>
+      <span class="ruby-comment"># Makes sure that the images are removed before destroying the Movie.</span>
+      <span class="ruby-identifier">db_movie</span>.<span class="ruby-identifier">destroy_image</span>
+      <span class="ruby-identifier">db_movie</span>.<span class="ruby-identifier">destroy</span>
+      <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">list_changed</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- handle_removed_movies-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- handle_removed_movies-method -->
+
+      
+        <div id="play_movie_helper-method" class="method-detail ">
+          <a name="method-i-play_movie_helper"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">play_movie_helper</span><span
+              class="method-args">(movieid, callback)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Selects the correct XBMC version API. Only JSON RPC version 3/4 is
+supported. Requests to play selected list.</p>
+            
+
+            
+            <div class="method-source-code" id="play_movie_helper-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 162</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">play_movie_helper</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
+  <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>)  <span class="ruby-operator">||</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+      <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">Playlist</span>.<span class="ruby-identifier">play_movie</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- play_movie_helper-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- play_movie_helper-method -->
+
+      
+        <div id="search_by_title-method" class="method-detail ">
+          <a name="method-i-search_by_title"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">search_by_title</span><span
+              class="method-args">(wanted_title)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This method doesn’t search for title by using the database (SQL).  Instead
+this gets all the movies in the current XBMC Config and  sees if the given
+<a href="Movie.html">Movie</a> title is in the wanted_title. This is 
+becuase the wanted_title can include other text such as “DVD” or 
+“(Comedy)” Returns an Array of found Movies.</p>
+            
+
+            
+            <div class="method-source-code" id="search_by_title-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">search_by_title</span>(<span class="ruby-identifier">wanted_title</span>)
+  <span class="ruby-identifier">movies</span> = <span class="ruby-identifier">get_movies_xbmc</span>
+  <span class="ruby-identifier">found_movies</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">movies</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">wanted_title</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">movie</span> <span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">wanted_title</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">'-'</span>, <span class="ruby-string">' '</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">movie</span>.<span class="ruby-identifier">title</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">'-'</span>, <span class="ruby-string">' '</span>))
+        <span class="ruby-identifier">found_movies</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">movie</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">found_movies</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- search_by_title-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- search_by_title-method -->
+
+      
+        <div id="set_callbacks-method" class="method-detail ">
+          <a name="method-i-set_callbacks"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">set_callbacks</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sets up the callbacks.</p>
+            
+
+            
+            <div class="method-source-code" id="set_callbacks-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_callbacks</span>
+  <span class="ruby-ivar">@movies_cb</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:movies_callback</span>)
+  <span class="ruby-ivar">@thumbnail_cb</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:thumb_cb</span>)
+  <span class="ruby-ivar">@load_thumb_cb</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:load_thumb_cb</span>) 
+  <span class="ruby-ivar">@movie_details_cb</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:movie_details_callback</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- set_callbacks-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- set_callbacks-method -->
+
+      
+        <div id="sync_movies-method" class="method-detail ">
+          <a name="method-i-sync_movies"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">sync_movies</span><span
+              class="method-args">(movies)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>General method to sync movies. The parameter is the list in the XBMC JSON
+RPC format. Return either True or False if the list has been updated.</p>
+            
+
+            
+            <div class="method-source-code" id="sync_movies-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sync_movies</span>(<span class="ruby-identifier">movies</span>)
+  <span class="ruby-identifier">handle_new_movies</span>(<span class="ruby-identifier">movies</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">handle_removed_movies</span>(<span class="ruby-identifier">movies</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- sync_movies-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- sync_movies-method -->
+
+      
+        <div id="update_movie_list-method" class="method-detail ">
+          <a name="method-i-update_movie_list"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">update_movie_list</span><span
+              class="method-args">(callback)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Selects the correct XBMC version API. Only JSON RPC version 3/4 is
+supported. Requests to get the XBMC Movies list.</p>
+            
+
+            
+            <div class="method-source-code" id="update_movie_list-source">
+<pre>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_movie_list</span>(<span class="ruby-identifier">callback</span>)
+  <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>)  <span class="ruby-operator">||</span> (<span class="ruby-identifier">version</span> <span class="ruby-operator">==</span> <span class="ruby-value">3</span>)
+      <span class="ruby-constant">Api</span><span class="ruby-operator">::</span><span class="ruby-constant">V4</span><span class="ruby-operator">::</span><span class="ruby-constant">VideoLibrary</span>.<span class="ruby-identifier">get_movies</span>(<span class="ruby-identifier">callback</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- update_movie_list-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- update_movie_list-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+
