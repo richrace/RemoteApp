@@ -12,5 +12,6 @@
   </div>
 </div>
 
-<!--<% WebView.navigate(url_for(:controller => :Controls, :action => :index)) %>--> 
+<!-- Uses the redirect because when changing the start path in rhoconfig.txt the layout doesn't load properly. -->
+<% WebView.navigate(url_for(:controller => :Controls, :action => :index)) %>
 

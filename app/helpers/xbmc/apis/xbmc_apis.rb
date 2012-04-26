@@ -1,3 +1,7 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'helpers/xbmc/apis/api_2/api2'
 require 'helpers/xbmc/apis/api_4/api4'
 

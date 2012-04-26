@@ -1,3 +1,4 @@
+# Code by Rhodes  that is imported into a new Application.
 module BrowserHelper
 
   def placeholder(label=nil)

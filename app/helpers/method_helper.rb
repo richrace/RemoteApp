@@ -1,5 +1,10 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'helpers/xbmc/xbmc_connect'
 
+# Module to help make sure the API is loaded.
 module MethodHelper
   
   # Makes sure there is a Current Config and the correct API is loaded 

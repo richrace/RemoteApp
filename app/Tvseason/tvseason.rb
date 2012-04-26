@@ -1,13 +1,20 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'helpers/obj_helper'
 
+# Model for the TV Seasons
 class Tvseason
   include Rhom::FixedSchema
   include Validatable
   include ObjHelper
 
+  # Defines the relationships
   belongs_to :tvshow_id, 'Tvshow'  
   belongs_to :xbmc_id, 'XbmcConfig'
 
+  # Validation rules for the model
   validates_presence_of :xbmc_id, :message => "Needs to have an XBMC Config"
   validates_presence_of :xlib_id, :message => "Requires XBMC Season ID"
   validates_presence_of :tvshow_id, :message => "Requires XBMC TV Show ID"
@@ -22,6 +29,7 @@ class Tvseason
 
   set :schema_version, '1.0'
 
+  # Entries in the table.
   property :xbmc_id, :float
   property :xlib_id, :integer
   property :tvshow_id, :integer
@@ -34,7 +42,7 @@ class Tvseason
   property :l_fanart, :string
   property :url, :string
   
-  
+  # Deletes the Thumbnail images
   def destroy_image
     destroy_thumb_image
   end

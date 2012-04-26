@@ -1,3 +1,7 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'rho/rhocontroller'
 require 'helpers/application_helper'
 require 'helpers/ruby_ext'
@@ -6,7 +10,7 @@ require 'helpers/xbmc/xbmc_connect'
 require 'json'
 require 'helpers/error_helper'
 
-# A simple XBMC JSON RPC API Client. See README for details.
+# The Controller class for the XbmcConnect class. 
 class XbmcController < Rho::RhoController
   include ApplicationHelper
   include BrowserHelper
@@ -23,6 +27,7 @@ class XbmcController < Rho::RhoController
     end
   end
   
+  # Callback method that contains the version
   def version
     puts "**** VERSION CALLBACK ****"
     if @params['status'] == 'ok'

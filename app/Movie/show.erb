@@ -5,22 +5,37 @@
   </div>
 
 	<script>
+    /*
+     * Plays the given movie.
+     */
 		function playMovie(movieid) {
-			$.post("<%= url_for(:action => :play_movie) %>", {"movieid":movieid});
+			$.get("<%= url_for(:action => :play_movie) %>", {"movieid":movieid});
 		}
 	
+    /*
+     * Loads the IMDb page
+     */
 		function loadImdb(imdbnumber) {
-			$.post("<%= url_for(:action => :open_imdb) %>", {"imdb":imdbnumber});
+			$.get("<%= url_for(:action => :open_imdb) %>", {"imdb":imdbnumber});
 		}
 		
+    /*
+     * Loads the YouTube trailer
+     */
 		function loadTrailer(youtubeid) {
-			$.post("<%= url_for(:action => :load_trailer) %>", {"youtubeid":youtubeid});
+			$.get("<%= url_for(:action => :load_trailer) %>", {"youtubeid":youtubeid});
 		}
 
+    /*
+     * Adds the Movie to the Playlist queue
+     */
     function addToQueue(movieid) {
-      $.post("<%= url_for(:action => :add_to_queue) %>", {"movieid":movieid});
+      $.get("<%= url_for(:action => :add_to_queue) %>", {"movieid":movieid});
     }
 
+    /*
+     * Toggles if the Movie is the watch later list or not
+     */
     function handleWatchLater(movieid) {
       var checked = document.getElementById("watch_later").checked;
       $.get("<%= url_for :action => :watch_later %>", {'movieid':movieid,'checked':checked});

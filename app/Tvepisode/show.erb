@@ -10,10 +10,16 @@
   </div>
 
 	<script>
+    /*
+     * Plays a given episode
+     */
 		function playEpisode(episodeid) {
 			$.post("<%= url_for :action => :play_episode %>", {'episodeid':episodeid});
 		}
 
+    /*
+     * Queues a given episode
+     */
     function addEpisodeToQueue(episodeid) {
       $.post("<%= url_for :action => :add_episode_to_queue %>", {'episodeid':episodeid});
     }

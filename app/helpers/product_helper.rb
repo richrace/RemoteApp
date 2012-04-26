@@ -1,5 +1,13 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
+# Gets the Products associated with a Barcode using the Google Shopping API.
 module ProductHelper
   
+  # Requires the Barcode number and the Country Code.
+  # Gets only 5 results from the Google Shopping API to improve times to download.
+  # When making project Open Source, require to update the Google API Key.
   def get_product(code, country)
     unless code.blank?
       @barcode = code
@@ -14,6 +22,8 @@ module ProductHelper
     end
   end
 
+  # Filters the Products (AKA Buy Later List) to those associated with the 
+  # current XBMC Configuration.
   def filter_products_xbmc
     xbmc = XbmcConfigHelper.current_config
     unless xbmc.blank?

@@ -7,28 +7,31 @@
       		Sort
     	</a>
 	</div>
-	<style>
-		.li-banner {
-			height:50%;
-			width:100%;
-			text-align:center;
-		}
-	</style>
 	<script>
+		/*
+     * Reloads the tv shows
+     */
 		function refresh_shows() {
 			$.get("<%= url_for :action => :get_tv_shows %>");
-			showLoading('Loading TV Shows');
 		}
+
+		/*
+     * Gets the thumbnail for the give TV Show
+     */
 		function getTVThumb(tvshowid) {
 			$.post("<%= url_for :action => :get_tv_thumb %>", {"tvshowid":tvshowid});
 		}
 		
+		/*
+     * Updates the list; removes the whole list then adds everything again.
+     */
 		function updateTVList(tvshows) {
 			if (tvshows !== null) {
 				var tvlist = document.getElementById('tvshows_list');
 				tvlist.innerHTML = "";
 				for (tvshow in tvshows) {
 					var newItem = "<li data-filtertext='"+tvshows[tvshow].title+"'><div class='li-banner'><a id=\"tvshowimg_"+tvshows[tvshow].xlib_id+ "\" href=\"" + tvshows[tvshow].url + "\">";
+					// Loads the thumbnail; if there isn't want go get it.
 					if (tvshows[tvshow].l_thumb) {
 						newItem += "<img src='"+tvshows[tvshow].l_thumb+"' style='width:100%;' />";
 					} else {
@@ -52,11 +55,18 @@
 			}
 		}
 		
+		/*
+     * Adds the got thumbnail to the correct entry.
+     */
 		function addTVThumb(tvshowid, filename) {
 			var atag = document.getElementById('tvshowimg_'+tvshowid);
 			atag.innerHTML = "<img src='"+filename+"' style='width:100%;' />";
+			$("#tvshows_list").listview('refresh');
 		}
 	
+		/*
+     * Loads all the TV Shows at the start
+     */
 		$(document).ready(function(){
 			refresh_shows();
 		});

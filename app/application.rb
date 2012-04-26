@@ -2,8 +2,10 @@ require 'rho/rhoapplication'
 require "validatable"   
 require "json"
 
+# Class that was created by Rhodes.
 class AppApplication < Rho::RhoApplication
     
+  # Method that sets up the application.
   def initialize
     # Tab items are loaded left->right, @tabs[0] is leftmost tab in the tab-bar
     # Super must be called *after* settings @tabs!

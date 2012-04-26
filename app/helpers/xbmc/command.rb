@@ -1,7 +1,12 @@
+# Author::    Christoph Olszowka, Modifications by Richard Race (rcr8)
+# License::   MIT Licence
+
 require 'helpers/application_helper'
 # Representation of a XBMC JSON RPC method
+# Changes were made to: invoke method, and below line 75.
 class XbmcConnect::Command
   include ApplicationHelper
+  # Needed for creating the methods/namespaces.
   attr_reader :command, :namespace, :method_name, :original_method, :description
 
   # Initializes a new command from the meta data hash given in JSONRPC.Introspect
@@ -12,7 +17,10 @@ class XbmcConnect::Command
     parse_command!
   end
 
-  # Invokes this command and processes the result
+  # This is the method the Commands call, hence the need for the Callback and 
+  # params. Even though the Synchronous method doesn't need a callback, it 
+  # needs the constant from XbmcConnect (NOCALLB) to ensure it is what the
+  # developer wants.
   def invoke(callback, params={})
     if XbmcConnect::NOCALLB == callback
       res = XbmcConnect.sync_connect(command, params)
@@ -63,7 +71,11 @@ class XbmcConnect::Command
     end
   end
   
+
+  # Richard Race ------- Added code below this line.
   
+  # Needed to convert CamelCase to_underscore for this to work.
+  # Code modified from - http://stackoverflow.com/questions/1509915/converting-camel-case-to-underscore-case-in-ruby
   def to_underscore(text)
     unless text.nil? || text.empty?
       n = text.gsub(/(.)([A-Z])/,'\1_\2')
@@ -71,6 +83,7 @@ class XbmcConnect::Command
     end
   end
   
+  # Required by this class; does not work without it.
   # Taken from Rails Active Record - MIT Licence
   # http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-constantize
   # GitHub = http://bit.ly/A9Hy1k (source code) https://github.com/rails/rails

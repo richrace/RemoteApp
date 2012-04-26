@@ -9,13 +9,23 @@
 	</div>
 
 	<script>
+		/*
+     * Reloads the season list
+     */
 		function refresh() {
 			$.get("<%= url_for(:action => :update_season_list) %>");
 		}
+
+		/*
+     * Loads the thumbnail for a given season.
+     */
 		function getSeasonThumb(seasonid, tvshowid) {
 			$.post("<%= url_for(:action => :get_season_thumb) %>", {'seasonid':seasonid, 'tvshowid':tvshowid});
 		}
 		
+		/*
+     * Removes all the entries in the list before adding them all again.
+     */
 		function updateSeasonList(seasons) {
 			if (seasons !== null) {
 				document.getElementById('heading').innerHTML = seasons[0].showtitle;
@@ -25,6 +35,7 @@
 					var newLi = document.createElement('li');
 					newLi.id = 'seasonlist_'+ seasons[season].xlib_id;
 					code = "<a href=\"" + seasons[season].url + "\"><img id=\"seasonimg_"+seasons[season].xlib_id+"\"";
+					// If there is no thumbnail go and get it.
 					if (seasons[season].l_thumb) {
 						code += "src='" + seasons[season].l_thumb + "'";
 					} else {
@@ -34,17 +45,22 @@
 					code += "/>" + seasons[season].label + "</a>";
 					newLi.innerHTML = code;
 					slist.appendChild(newLi);
-					
 				}
 				$(slist).listview('refresh');
 				$.fixedToolbars.show(true);
 			} 
 		}
 		
+		/*
+     * Adds the season thumb to the correct entry in the list
+     */
 		function addSeasonThumb(seasonid, filename) {
 			document.getElementById('seasonimg_'+seasonid).src = filename;
 		}
 		
+		/*
+     * Loads the list when the page loads
+     */
 		$(document).ready(function() {
 			refresh();
 		});
@@ -57,5 +73,17 @@
     		</ul>
 		</div>
   </div>
+
+  <div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+		<div data-role="navbar" class="nav-cust" data-grid="d">
+			<ul>
+				<li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+				<li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
+				<li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" class="ui-btn-active ui-state-persist">TV Shows</a></li>
+				<li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom">Playlist</a></li>
+				<li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+			</ul>
+		</div>
+	</div>
 
 </div>

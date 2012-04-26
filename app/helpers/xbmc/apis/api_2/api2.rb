@@ -1,3 +1,6 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
 
 # Adds namespaces in the following format "Api::V2::"
 module ApiV2
@@ -16,6 +19,8 @@ module ApiV2
     end
   end
   
+  # Holds the commands for the VideoLibrary. Is accessed by:
+  # "Api::V2::VideoLibrary.<command>" 
   class VideoLibrary
     require 'helpers/xbmc/apis/api_2/api2_video'
     

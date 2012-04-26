@@ -1,10 +1,16 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'helpers/obj_helper'
 
+# Model for the Movie objects.
 class Movie
   include Rhom::FixedSchema
   include Validatable
   include ObjHelper
 
+  # Relationship
   belongs_to :xbmc_id, 'XbmcConfig'
 
   validates_presence_of :xbmc_id, :message => "Needs to have an XBMC Config"
@@ -69,14 +75,17 @@ class Movie
   property :studio, :string
   property :director, :string
   
+  # Deletes the images.
   def destroy_image
     destroy_thumb_image
   end
 
+  # Creates the sortable title
   def create_sort_title
     make_sort_title_obj
   end
   
+  # Finds out if the Movie is the watch later list or not.
   def watch_later?
     if self.watch_later == "true"
       return true

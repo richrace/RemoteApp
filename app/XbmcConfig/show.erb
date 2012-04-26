@@ -11,6 +11,9 @@
   </div>
 
   <script type="text/javascript">
+    /*
+     * Removes the stored images from the database.
+     */
     function removeMovieCache(xbmc_id) {
       $.get("<%= url_for(:action => :remove_movie_cache) %>", {'xbmc_id':xbmc_id});
     }
@@ -59,7 +62,7 @@
       </li>
     </ul>
     <br />
-    <a href="#" onClick="removeMovieCache(<%= @xbmc_config.object %>)">Remove Movie Image Cache</a>
+    <a href="#" data-role="button" onClick="removeMovieCache(<%= @xbmc_config.object %>)">Remove Movie Image Cache</a>
   </div>
 
 </div>

@@ -1,3 +1,4 @@
+# Used with XbmcConnect
 class Object
   def metaclass
     class << self

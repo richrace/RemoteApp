@@ -5,26 +5,37 @@
 	</div>
 
 	<script type="text/javascript">
+		/*
+     * Updates the playlist
+     */
 		function loadPlaylist() {
 			$.get("<%= url_for(:action => :update_playlist) %>");
 		}
 
-		function getPlaylistThumb(xlib_id, type) {
-
-		}
-
+		/*
+     * Removes a given video from the playlist at a given position
+     */
 		function removeVideo(position) {
-			$.post("<%= url_for(:action => :remove_item) %>", {'position':position});
+			$.get("<%= url_for(:action => :remove_item) %>", {'position':position});
 		}
 
+		/*
+     * Plays a given video from the playlist at a given position
+     */
 		function playItem(position) {
-			$.post("<%= url_for(:action => :play_item) %>", {'position':position});
+			$.get("<%= url_for(:action => :play_item) %>", {'position':position});
 		}
 
+		/*
+     * clears the playlist.
+     */
 		function clearList() {
 			document.getElementById('playlist_list').innerHTML = "";
 		}
 
+		/*
+     * Removes everything from the list first. Then adds everything again.
+     */
 		function updatePlaylist(playlist) {
 			if (playlist !== null) {
 				var theList = document.getElementById('playlist_list');
@@ -48,12 +59,11 @@
 						description = "<p>" + playlist[video].plot + "</p>";
 					}
 					code += playlist[video].xlib_id + "\"";
-					// Find out if there is a thumbnail. If not get it.
+					// Find out if there is a thumbnail. If not put place holder
 					if (playlist[video].l_thumb) {
 						code += "src=\"" + playlist[video].l_thumb + "\"";
 					} else {
 						code += "src=\"/public/images/missing_thumb.png\"";
-						//getPlaylistThumb(playlist[video].xlib_id, type);
 					}
 					// Close the img tag
 					code += " />";
@@ -71,15 +81,15 @@
 			}
 		}
 
+		/*
+     * Loads  the playlist on refresh.
+     */
 		$(document).ready(function(){
 			loadPlaylist()
 		});
 	</script>
 
   	<div data-role="content">	
-  		<p> 
-  			Controls will be here.
-  		</p>
 		  <ul data-role="listview" id="playlist_list" name="playlist_list" data-split-theme="d" data-split-icon="delete" data-inset="true">
 		
 		  </ul>

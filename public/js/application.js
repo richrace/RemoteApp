@@ -1,3 +1,6 @@
+/*
+ * Function that marks errors on Forms.
+ */
 function mark_errors(form_id, errors_object) { 
 	$.each(errors_object, function(key, value) { 
 		var input_temp = $(form_id).find('input[name$="[' + key +']"]');
@@ -10,19 +13,32 @@ function mark_errors(form_id, errors_object) {
  	}); 
 }
 
+/*
+ * Shows a toast error message
+ * uses the jquery-toastmessage-plugin
+ */
 function showToastError(message) {
 	$.mobile.fixedToolbars.show(true);
 	loadToast('error', message);
 	hideLoadingToast();
 }
 
+/*
+ * Shows a toast success message
+ * uses the jquery-toastmessage-plugin
+ */
 function showToastSuccess(message) {
 	$.mobile.fixedToolbars.show(true);
 	loadToast('success', message);
 }
 
+// Used to remove the sticky loading toast.
 var loadingToast;
 
+/*
+ * Shows a sticky toast loading message
+ * uses the jquery-toastmessage-plugin
+ */
 function showToastLoading(message) {
 	$.mobile.fixedToolbars.show(true);
 	loadingToast = $().toastmessage('showToast', {
@@ -35,12 +51,20 @@ function showToastLoading(message) {
 	});
 }
 
+/*
+ * Hides the sticky toast loading message
+ * uses the jquery-toastmessage-plugin
+ */
 function hideLoadingToast() {
 	$().toastmessage('removeToast', loadingToast, { close:function () { $.mobile.fixedToolbars.show(true); } });
 	loadingToast = null;
 	$.mobile.fixedToolbars.show(true);
 }
 
+/*
+ * Loads a custom toast message
+ * uses the jquery-toastmessage-plugin
+ */
 function loadToast(type, message) {
 	$().toastmessage('showToast', {
 		text:message, 
@@ -52,6 +76,12 @@ function loadToast(type, message) {
 	});
 }
 
+/*
+ * Loads thumbnails based from the ID that is sent
+ * to it. It only supports Movies at the moment.
+ * Uses the jquery.lazyload plugin. To load this function
+ * line 97 in the plugin as been added.
+ */
 function loadAllThumbs(id) {
 	var result = id.split("_");
 	if (result[0] == "movieid") {

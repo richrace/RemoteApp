@@ -3,13 +3,11 @@
 	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
 		<h1>Found Products</h1>
 	</div>
-	
-	<style>
-		.dvd-img {
-			width:100px;
-		}
-	</style>
+
 	<script>
+		/*
+     * Calls the search title method in the controller class passing the title.
+     */
 		function searchTitle(title) {
 			$.get("<%= url_for :action => :search_title %>", {'title':title});
 		}

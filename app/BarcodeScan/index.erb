@@ -5,15 +5,31 @@
 	</div>
 	
 	<script>
+		/*
+     * Allows the user to select a picture from the library
+     */
 		function choosePicture() {
 			$.get("<%= url_for :action => :choose %>");
 		}
+
+		/*
+     * Allows the user to take a picture if there is a camera
+     */
 		function takePicture() {
 			$.get("<%= url_for :action => :new %>");
 		}
+
+		/*
+     * Allows the user to scan a live barcode if there is a camera and
+     * if the Rhodes API supports it
+     */
 		function takeBarcode() {
 			$.get("<%= url_for :action => :take %>");
 		}
+
+		/*
+     * Loads the GeoLocation when page is loaded.
+     */
 		$(document).ready(function(){
 			$.get("<%= url_for :action => :load_geo %>");
 		});

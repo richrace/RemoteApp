@@ -1,12 +1,19 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
 require 'helpers/obj_helper'
 
+# Model for the TV Show.
 class Tvshow
   include Rhom::FixedSchema
   include Validatable
   include ObjHelper
 
+  # Relationship with XBMC Configuration
   belongs_to :xbmc_id, 'XbmcConfig'
 
+  # Validation rules for the model
   validates_presence_of :xbmc_id, :message => "Needs to have an XBMC Config"
   validates_presence_of :title, :message => "Requires title"
   validates_presence_of :xlib_id, :message => "Requires XBMC TV Show ID"
@@ -61,10 +68,12 @@ class Tvshow
   property :studio, :string
   property :genre, :string
 
+  # Deletes the Thumbnail Image associated with this TV Show
   def destroy_image
     destroy_thumb_image
   end
 
+  # Creates the sortable Title
   def create_sort_title
     make_sort_title_obj
   end

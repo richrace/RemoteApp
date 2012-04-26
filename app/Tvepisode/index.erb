@@ -9,22 +9,37 @@
 	</div>
 	
 	<script>
+    /*
+     * Updates the Episode list
+     */
 		function refresh_eps() {
 			$.get("<%= url_for :action => :update_tvepisode_list %>");
 		}
 
+    /*
+     * Requests the Thumbnail for the given episode
+     */
 		function getEpisodeThumb(episodeid) {
 			$.post("<%= url_for :action => :get_episode_thumb %>", {"episodeid":episodeid});
 		}
 
+    /*
+     * Plays all the episodes
+     */
 		function playAllEpisodes() {
 			$.get("<%= url_for :action => :play_all_episodes %>");
 		}
 
+    /*
+     * Queues all the episodes
+     */
 		function queueAllEpisodes() {
 			$.get("<%= url_for :action => :queue_all_episodes %>");
 		}
 		
+    /*
+     * Updates the list. Removes everything before adding it.
+     */
 		function updateEpisodeList(episodes) {
 			if (episodes !== null) {
 				var epilist = document.getElementById('episodes_list');
@@ -33,6 +48,7 @@
 					var newLi = document.createElement('li');
 					newLi.id = 'episodelist_'+ episodes[episode].xlib_id;
 					var newItem = "<a data-rel='dialog' data-transition='slidedown' href=\"" + episodes[episode].url + "\"><img id=\"episodeimg_"+episodes[episode].xlib_id+"\"";
+          // If there isn't a thumbnail go and get it.
 					if (episodes[episode].l_thumb) {
 						newItem += "src=\"" + episodes[episode].l_thumb + "\"";
 					} else {
@@ -47,10 +63,16 @@
 			}
 		}
 		
+    /*
+     * Adds the thumbnail to the correct entry in the list
+     */
 		function addEpisodeThumb(episodeid, filename) {
 			document.getElementById('episodeimg_'+episodeid).src = filename;
 		}
 
+    /*
+     * Loads the list on start up
+     */
 		$(document).ready(function () {
 			refresh_eps();
 		});
@@ -66,6 +88,17 @@
     <ul id="episodes_list" name="episodes_list" data-role="listview" data-inset="true">
     
     </ul>
+  </div>
+  <div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
+    <div data-role="navbar" class="nav-cust" data-grid="d">
+      <ul>
+        <li><a href="<%= url_for :controller => :Controls %>" id="controls" data-icon="custom" data-direction="reverse">Controls</a></li>
+        <li><a href="<%= url_for :controller => :Movie %>" id="movies" data-icon="custom" data-direction="reverse">Movies</a></li>
+        <li><a href="<%= url_for :controller => :Tvshow %>" id="shows" data-icon="custom" class="ui-btn-active ui-state-persist">TV Shows</a></li>
+        <li><a href="<%= url_for :controller => :Playlist %>" id="playlist" data-icon="custom">Playlist</a></li>
+        <li><a href="<%= url_for :controller => :More %>" id="more" data-icon="custom">More</a></li>
+      </ul>
+    </div>
   </div>
 
 </div>

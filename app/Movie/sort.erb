@@ -4,14 +4,25 @@
 	</div>
 	
 	<script>
+		/*
+		 * Toggles the watch later list filter.
+		 */
 		function toggleWatchLater() {
 			var checked = document.getElementById("watch_later_list").checked;
 			$.get("<%= url_for :action => :sort %>", {'watch_later':checked})
 		}
+
+		/*
+		 * Sets the desired order direction.
+		 */
 		function toggleOrderDir() {
 			var order_dir = $("input[name=order_dir]:checked").val();
 			$.get("<%= url_for :action => :sort %>", {'order_dir':order_dir});
 		}
+
+		/*
+		 * Sets what the user wants to order.
+		 */
 		function setOrderBy() {
 			var order = $("input[name=order]:checked").val();
 			$.get("<%= url_for :action => :sort %>", {'order':order});

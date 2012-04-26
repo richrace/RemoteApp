@@ -1,7 +1,13 @@
+# Author::    Richard Race (rcr8)
+# Copyright:: Copyright (c) 2012
+# License::   MIT Licence
+
+# XBMC Configuration Model.
 class XbmcConfig
   include Rhom::FixedSchema
   include Validatable
   
+  # Validation Rules
   validates_presence_of :name, :message => "You need to add a Name"
   validates_presence_of :url, :message => "You must include a URL (can be IP or hostname)"
   validates_presence_of :port, :message => "You need to include a port number"
@@ -20,6 +26,7 @@ class XbmcConfig
 
   set :schema_version, '1.3'
 
+  # Entries in the Table.
   property :name, :string
   property :url, :string
   property :port, :integer
@@ -29,6 +36,7 @@ class XbmcConfig
   property :active, :boolean  
   property :version, :integer  
   
+  # Returns whether or not the XBMC Configuration is active.
   def is_active?
     if self.active == "true"
       return true
