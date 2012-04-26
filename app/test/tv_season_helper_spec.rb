@@ -54,14 +54,6 @@ describe "TvSeasonHelper" do
     @tvshow
   end
 
-  def find_season(seasonid, tvshowid)
-    Tvseason.find(:first, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => tvshowid, :xlib_id => seasonid})
-  end
-  
-  def find_seasons(tvshowid)
-    Tvseason.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => tvshowid})
-  end
-
   it "should filter all tv seasons by current xbmc config, tv show id " do
     man_seasons = Tvseason.find(:all, :conditions => {:xbmc_id => XbmcConfigHelper.current_config.object, :tvshow_id => 1})
 
