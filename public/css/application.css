@@ -42,3 +42,9 @@
 	background:  url(/public/images/icons/more.png) 50% 50% no-repeat;  
 	background-size: 40px 40px; 
 }
+
+.li-banner {
+	height:50%;
+	width:100%;
+	text-align:center;
+}
