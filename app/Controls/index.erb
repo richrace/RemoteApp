@@ -1,6 +1,6 @@
 <div data-role="page">
 
-	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+	<div data-id="head" data-mini="true" data-role="header" data-position="fixed" style="height:41px;">
 		<div data-role="controlgroup" data-type="horizontal" style="left:10px; top:.4em; bottom:4px;">
 			&nbsp;&nbsp;
 			<a href="<%= url_for :controller => :Controls %>" data-role="button" data-theme="c" style="font-size:11px;">Remote</a>
@@ -60,8 +60,7 @@
    	&nbsp;&nbsp;&nbsp;
 		<a href="#" onclick="stop()"><img class="control_play" src="/public/images/controls/button_black_stop.png" /></a>
 		&nbsp;&nbsp;&nbsp;
-		<br />
-		<br />
+		<br/>
 		<a href="#" onclick="skip_prev()"><img class="control_play" src="/public/images/controls/button_black_first.png" /></a>
 		&nbsp;&nbsp;
 		<a href="#" onclick="rewind()"><img class="control_play" src="/public/images/controls/button_black_rew.png" /></a>
@@ -70,15 +69,14 @@
 		&nbsp;&nbsp;&nbsp;
 		<a href="#" onclick="skip_next()"><img class="control_play" src="/public/images/controls/button_black_last.png" /></a>
 		<br />
-		<br />
-		<a href="#" onclick="sm_skip_back()">Small Skip Back</a>
-		&nbsp;&nbsp;
-		<a href="#" onclick="sm_skip_forward()">Small Skip Forward</a> 
-		<br />
-		<br />
-		<a href="#" onclick="big_skip_back()">Big Skip Back</a>
-		&nbsp;&nbsp;
-		<a href="#" onclick="big_skip_forward()">Big Skip Forward</a>
+		<div data-role="controlgroup">
+			<a href="#" data-role="button" onclick="sm_skip_back()">Small Skip Back</a>
+			<a href="#" data-role="button" onclick="sm_skip_forward()">Small Skip Forward</a> 
+		</div>
+		<div data-role="controlgroup">
+			<a href="#" data-role="button" onclick="big_skip_back()">Big Skip Back</a> 
+			<a href="#" data-role="button" onclick="big_skip_forward()">Big Skip Forward</a>
+		</div>
   </div>
 
 	<div data-id="tabbar" data-role="footer" data-position="fixed" class="nav-cust">
@@ -92,4 +90,5 @@
 			</ul>
 		</div>
 	</div>
+	
 </div>
