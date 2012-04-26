@@ -582,7 +582,7 @@ successful or not.</p>
 <pre>
 <span class="ruby-comment"># File app/Playlist/playlist_controller.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_playlist</span>
-      <span class="ruby-identifier">send_command</span> {<span class="ruby-identifier">update_playlist_helper</span>}
+      <span class="ruby-identifier">send_command</span> {<span class="ruby-identifier">update_playlist_helper</span>(<span class="ruby-identifier">url_for</span>(<span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:playlist_callback</span>))}
 <span class="ruby-keyword">end</span></pre>
             </div><!-- update_playlist-source -->
             

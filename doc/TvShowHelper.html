@@ -319,7 +319,7 @@ of JSON API is supported. Downloads the seasons for the given tv show</p>
             
             <div class="method-source-code" id="download_seasons-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 146</span>
+<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 144</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">download_seasons</span>(<span class="ruby-identifier">callback</span>, <span class="ruby-identifier">tvshowid</span>)
   <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
@@ -480,7 +480,6 @@ library.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_new_tvshows</span>(<span class="ruby-identifier">xbmc_tvshows</span>)
   <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-identifier">xbmc_tvshows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">new_tvshow</span> <span class="ruby-operator">|</span>
-    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.01</span>)
     <span class="ruby-identifier">found</span> = <span class="ruby-identifier">find_tvshow</span>(<span class="ruby-identifier">new_tvshow</span>[<span class="ruby-value">:tvshowid</span>])
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">found</span>.<span class="ruby-identifier">blank?</span>
       <span class="ruby-identifier">n_tvshow</span> = <span class="ruby-constant">Tvshow</span>.<span class="ruby-identifier">create</span>(
@@ -539,7 +538,7 @@ Library</p>
             
             <div class="method-source-code" id="handle_removed_tvshows-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 97</span>
+<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_removed_tvshows</span>(<span class="ruby-identifier">xbmc_shows</span>)
   <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span> 
   
@@ -677,12 +676,11 @@ RPC format. Return either True or False if the list has been updated.</p>
             
             <div class="method-source-code" id="update_seasons-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 133</span>
+<span class="ruby-comment"># File app/helpers/tv_show_helper.rb, line 132</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_seasons</span>
   <span class="ruby-identifier">tvshows</span> = <span class="ruby-identifier">get_tvshows_xbmc</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">tvshows</span>.<span class="ruby-identifier">blank?</span>
     <span class="ruby-identifier">tvshows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">tvshow</span> <span class="ruby-operator">|</span>
-      <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.02</span>)
       <span class="ruby-identifier">send_command</span> {<span class="ruby-identifier">download_seasons</span>(<span class="ruby-identifier">url_for</span>(<span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:Tvseason</span>, <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:season_callback</span>, <span class="ruby-value">:query</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:tvshowid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tvshow</span>.<span class="ruby-identifier">xlib_id</span>}),<span class="ruby-identifier">tvshow</span>.<span class="ruby-identifier">xlib_id</span>)}
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>

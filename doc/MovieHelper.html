@@ -327,7 +327,7 @@ playlist.</p>
             
             <div class="method-source-code" id="add_movie_to_queue-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 173</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">add_movie_to_queue</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
   <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
@@ -488,7 +488,7 @@ is the format XBMC gives the YouTube Trailer in. All that is wanted is
             
             <div class="method-source-code" id="get_youtube_videoid-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 145</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_youtube_videoid</span>(<span class="ruby-identifier">xbmc_trailer</span>)
   <span class="ruby-identifier">xbmc_trailer</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/videoid\=+(.+)$/</span>).<span class="ruby-identifier">flatten</span>[<span class="ruby-value">0</span>]
 <span class="ruby-keyword">end</span></pre>
@@ -526,7 +526,6 @@ library.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_new_movies</span>(<span class="ruby-identifier">xbmc_movies</span>)
   <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-identifier">xbmc_movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">new_movie</span> <span class="ruby-operator">|</span>
-    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.01</span>)
     <span class="ruby-identifier">found</span> = <span class="ruby-identifier">find_movie</span>(<span class="ruby-identifier">new_movie</span>[<span class="ruby-value">:movieid</span>])
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">found</span>.<span class="ruby-identifier">blank?</span>
       <span class="ruby-identifier">t_movie</span> = <span class="ruby-constant">Movie</span>.<span class="ruby-identifier">create</span>(
@@ -591,12 +590,11 @@ Library</p>
             
             <div class="method-source-code" id="handle_removed_movies-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 100</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 99</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">handle_removed_movies</span>(<span class="ruby-identifier">xbmc_movies</span>)
   <span class="ruby-identifier">list_changed</span> = <span class="ruby-keyword">false</span> 
   
   <span class="ruby-identifier">get_movies_xbmc</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">db_movie</span> <span class="ruby-operator">|</span>
-    <span class="ruby-identifier">sleep</span>(<span class="ruby-value">0.01</span>)
     <span class="ruby-identifier">got</span> = <span class="ruby-keyword">false</span>
     <span class="ruby-identifier">xbmc_movies</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">xb_movie</span> <span class="ruby-operator">|</span>
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">db_movie</span>.<span class="ruby-identifier">xlib_id</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">xb_movie</span>[<span class="ruby-value">:movieid</span>].<span class="ruby-identifier">to_i</span>
@@ -643,7 +641,7 @@ supported. Requests to play selected list.</p>
             
             <div class="method-source-code" id="play_movie_helper-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 162</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 160</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">play_movie_helper</span>(<span class="ruby-identifier">movieid</span>, <span class="ruby-identifier">callback</span>)
   <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
@@ -685,7 +683,7 @@ becuase the wanted_title can include other text such as “DVD” or
             
             <div class="method-source-code" id="search_by_title-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 128</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">search_by_title</span>(<span class="ruby-identifier">wanted_title</span>)
   <span class="ruby-identifier">movies</span> = <span class="ruby-identifier">get_movies_xbmc</span>
   <span class="ruby-identifier">found_movies</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
@@ -798,7 +796,7 @@ supported. Requests to get the XBMC Movies list.</p>
             
             <div class="method-source-code" id="update_movie_list-source">
 <pre>
-<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 151</span>
+<span class="ruby-comment"># File app/helpers/movie_helper.rb, line 149</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_movie_list</span>(<span class="ruby-identifier">callback</span>)
   <span class="ruby-identifier">version</span> = <span class="ruby-constant">XbmcConfigHelper</span>.<span class="ruby-identifier">current_config</span>.<span class="ruby-identifier">version</span>.<span class="ruby-identifier">to_i</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">nil?</span>
