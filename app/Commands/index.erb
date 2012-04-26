@@ -1,6 +1,6 @@
 <div data-role="page">
 
-	<div data-id="head" data-role="header" data-position="fixed" style="height:41px;">
+	<div data-id="head" data-mini="true" data-role="header" data-position="fixed" style="height:41px;">
 		<div data-role="controlgroup" data-type="horizontal" style="left:10px; top:.4em; bottom:4px;">
 			&nbsp;&nbsp;
 			<a href="<%= url_for :controller => :Controls %>" data-role="button" style="font-size:11px;" data-direction="reverse">Remote</a>
@@ -71,14 +71,16 @@
 
   <div data-role="content">
 		<div style="text-align:center;">
-			<a href="#" onclick="scan()">Scan</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onclick="clean()">Clean</a>
-			<br />
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="#" onclick="scan()" data-role="button">Scan</a>
+				<a href="#" onclick="clean()" data-role="button">Clean</a>
+				<a href="#" onClick="mute()" data-role="button">Mute</a>
+			</div>
 			Volume: <span id="volume">??</span>
-			<br />
-			<a href="#" onClick="mute()">Mute</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="decreaseVolume()">- Volume</a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a href="#" onClick="increaseVolume()">+ Volume</a>
+			<div data-role="controlgroup" data-type="horizontal">				
+				<a href="#" onClick="decreaseVolume()" data-role="button">- Volume</a>
+				<a href="#" onClick="increaseVolume()" data-role="button">+ Volume</a>
+			</div>
 		</div>
 		<div>
 			<table class="table-center">
@@ -89,7 +91,7 @@
 				</tr>
 				<tr>
 					<td class="table-commands"><a href="#" onClick="left()"><img src="/public/images/commands/arrow_left.png" /></a></td>
-					<td class="table-commands"><a href="#" onClick="select()">Select</a></td>
+					<td class="table-commands"><a href="#" onClick="select()" data-inline="true" data-role="button">Select</a></td>
 					<td class="table-commands"><a href="#" onClick="right()"><img src="/public/images/commands/arrow_right.png" /></a></td>
 				</tr>
 				<tr>
