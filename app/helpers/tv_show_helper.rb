@@ -63,7 +63,6 @@ module TvShowHelper
   def handle_new_tvshows(xbmc_tvshows)
     list_changed = false
     xbmc_tvshows.each do | new_tvshow |
-      sleep(0.01)
       found = find_tvshow(new_tvshow[:tvshowid])
       if found.blank?
         n_tvshow = Tvshow.create(
@@ -134,7 +133,6 @@ module TvShowHelper
     tvshows = get_tvshows_xbmc
     unless tvshows.blank?
       tvshows.each do | tvshow |
-        sleep(0.02)
         send_command {download_seasons(url_for(:controller => :Tvseason, :action => :season_callback, :query => {:tvshowid => tvshow.xlib_id}),tvshow.xlib_id)}
       end
     end

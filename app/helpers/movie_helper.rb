@@ -60,7 +60,6 @@ module MovieHelper
   def handle_new_movies(xbmc_movies)
     list_changed = false
     xbmc_movies.each do | new_movie |
-      sleep(0.01)
       found = find_movie(new_movie[:movieid])
       if found.blank?
         t_movie = Movie.create(
@@ -101,7 +100,6 @@ module MovieHelper
     list_changed = false 
     
     get_movies_xbmc.each do | db_movie |
-      sleep(0.01)
       got = false
       xbmc_movies.each do | xb_movie |
         if db_movie.xlib_id.to_i == xb_movie[:movieid].to_i
