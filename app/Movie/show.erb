@@ -45,16 +45,16 @@
   <div data-role="content">
     <ul data-role="listview">
       		<li>
-            <div class="itemLabel">Title</div>
-            <div class="itemValue"><%= @movie.title %></div>
+            <h3>Title</h3>
+            <br />
+            <p><%= @movie.title %></p>
           </li>
 
 					<li>
-						<div class="itemLabel">Playback</div>
-						<div class="itemValue">
-              <a href="#" onClick="playMovie(<%= @movie.xlib_id %>);">Play</a>
-              <br /><br />
-              <a href="#" onClick="addToQueue(<%= @movie.xlib_id %>);">Add to Queue</a>
+						<h3>Playback</h3>
+            <div data-role="controlgroup" data-type="horizontal">
+              <a href="#" data-role="button" onClick="playMovie(<%= @movie.xlib_id %>);">Play</a>
+              <a href="#" data-role="button" onClick="addToQueue(<%= @movie.xlib_id %>);">Enqueue</a>
             </div>
           </li>
           <li>
@@ -64,43 +64,45 @@
             </fieldset>
           </li>
           <li>
-            <div class="itemLabel">Year</div>
-            <div class="itemValue"><%= @movie.year %></div>
+            <h3>Year</h3>
+            <br />
+            <p><%= @movie.year %></p>
           </li>
       
           <li>
-            <div class="itemLabel">Genre</div>
-            <div class="itemValue"><%= @movie.genre %></div>
+            <h3>Genre</h3>
+            <br />
+            <p><%= @movie.genre %></p>
           </li>
       
           <li>
-            <div class="itemLabel">Studio</div>
-            <div class="itemValue"><%= @movie.studio %></div>
+            <h3>Rating</h3>
+            <br />
+            <p><%= @movie.rating %></p>
+          </li>
+      
+          <li>
+            <h3>Trailer</h3>
+            <br />
+            <p><a href="#" data-role="button" onClick="loadTrailer('<%= @movie.trailer %>');">YouTube Trailer</a></p>
+          </li>
+      
+          <li>
+            <h3>View in IMDb</h3>
+            <br />
+            <p><a href="#" data-role="button" onClick="loadImdb('<%= @movie.imdbnumber %>');">Go to IMDb</a></p>
           </li>   
       
           <li>
-            <div class="itemLabel">Rating</div>
-            <div class="itemValue"><%= @movie.rating %></div>
+            <h3>Director</h3>
+            <br />
+            <p><%= @movie.director %></p>
           </li>
       
           <li>
-            <div class="itemLabel">Trailer</div>
-            <div class="itemValue"><a href="#" onClick="loadTrailer('<%= @movie.trailer %>');">YouTube Trailer</a></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Imdbnumber</div>
-            <div class="itemValue"><a href="#" onClick="loadImdb('<%= @movie.imdbnumber %>');">Go to IMDB</a></div>
-          </li>   
-      
-          <li>
-            <div class="itemLabel">Director</div>
-            <div class="itemValue"><%= @movie.director %></div>
-          </li>
-      
-          <li>
-            <div class="itemLabel">Plot</div>
-            <div class="itemValue"><%= @movie.plot %></div>
+            <h3>Plot</h3>
+            <br />
+            <p><%= @movie.plot %></p>
           </li>
       
     </ul>
