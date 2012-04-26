@@ -18,9 +18,11 @@ distribute, sublicense, and/or sell"). Full License can be found in "/app/helper
 
 Artem Kramarenko's work on making a Rhodes validator. Accessed Dec 10 2011 [GitHub](https://github.com/artemk/rh-validatable)
 
-akquinet A.G.'s jquery-toastmessage-plugin. This is released under the Apache 2.0 License. Accessed Fed 24 2012 [GitHub](http://akquinet.github.com/jquery-toastmessage-plugin/). The Apache 2.0 License can be found in the folder with the code (/public/jquery-toastmessage-plugin).
+akquinet A.G.'s jquery-toastmessage-plugin. This is released under the Apache 2.0 License. Accessed Feb 24 2012 [GitHub](http://akquinet.github.com/jquery-toastmessage-plugin/). The Apache 2.0 License can be found in the folder with the code (/public/jquery-toastmessage-plugin).
 
 Using Rail's Active Record to constantize XBMC Commands - Released under MIT Licence. Accessed Dec 15 2011 [GitHub Source](https://github.com/rails/rails/blob/6c367a0d787705746f262d0bd5ad8c4f13a8c809/activesupport/lib/active_support/inflector/methods.rb#L212) | [GitHub Root](https://github.com/rails/rails) | [API Document](http://api.rubyonrails.org/classes/ActiveSupport/Inflector.html#method-i-constantize)
+
+LazyLoad Plugin for JQuery. Using this plugin helped with getting/loading of images within the Movie List. It is released under the MIT Licence, I have added one line of code to get it to request to download a missing image, on line 97. Accessed 24 April 2012 [Project Home](http://www.appelsiini.net/projects/lazyload).
 
 Icons used from within this project are from:
 
