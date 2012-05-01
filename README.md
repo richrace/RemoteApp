@@ -15,6 +15,7 @@ Richard Race
 
 - Add Google API key to XBMC Config
 - Add Music support
+- Optimise Syncing of data
 
 ## Credits
 
