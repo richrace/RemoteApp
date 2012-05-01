@@ -17,7 +17,7 @@ It uses the JSON RPC API to communicate with the XBMC server.
 
 You need to add your own Google Shopping API key to project in the following file "app/helpers/product_helper.rb"
 
-Some videos showing the features:
+## Some videos showing the features:
 
 XBMC Configuration - http://youtu.be/Yyq8-zb970k
 
