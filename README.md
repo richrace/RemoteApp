@@ -5,9 +5,16 @@ XBMC Remote App
 
 This app is created for my Major Project at Aberystwyth University. It uses the [Rhodes](http://www.rhomobile.com) framework.
 
+You need to add your own Google Shopping API key to project in the following file "app/helpers/product_helper.rb"
+
 ## Author
 
 Richard Race
+
+## To Do
+
+- Add Google API key to XBMC Config
+- Add Music support
 
 ## Credits
 
