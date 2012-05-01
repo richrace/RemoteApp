@@ -38,13 +38,13 @@
   	<div data-role="content">
 		<div>
 			<h3>Scan a Movie barcode</h3>
-    		<a href="#" onClick="choosePicture();">Choose Picture</a>
+    		<a href="#" data-role="button" onClick="choosePicture();">Choose Picture</a>
     		<br />
 			<% if System::get_property('has_camera') %>
-				<a href="#" onClick="takePicture();">Take New Picture</a>
+				<a href="#" data-role="button" onClick="takePicture();">Take New Picture</a>
 				<br />
 				<% if System::get_property('platform') == 'ANDROID' or System::get_property('platform') == 'APPLE' or (System::get_property('platform') == 'WINDOWS' and System.get_property('is_moto_device')) %>
-					<a href="#" onClick="takeBarcode();">Take Barcode</a>
+					<a href="#" data-role="button" onClick="takeBarcode();">Take Barcode</a>
 				<% end %>      
 		  <% end %>
 		</div>
