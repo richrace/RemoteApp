@@ -5,6 +5,16 @@ XBMC Remote App
 
 This app is created for my Major Project at Aberystwyth University. It uses the [Rhodes](http://www.rhomobile.com) framework.
 
+I've been using XBMC for more a couple of years now and I've made an XBMC remote application for my Major Project for my degree.
+
+It's a novel approach that uses Rhodes (http://www.rhomobile.com/products/rhodes/) to create the application natively on either iOS, Android, etc. 
+
+My application is written in Ruby, HTML and JS. But has some cool features such as:
+- Can put movies into a watch later list
+- Can scan movie barcodes and either finds it added in the database or adds it to a buy later list
+
+It uses the JSON RPC API to communicate with the XBMC server.
+
 You need to add your own Google Shopping API key to project in the following file "app/helpers/product_helper.rb"
 
 ## Author
