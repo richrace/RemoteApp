@@ -7,7 +7,7 @@ This app is created for my Major Project at Aberystwyth University. It uses the 
 
 I've been using XBMC for more a couple of years now and I've made an XBMC remote application for my Major Project for my degree.
 
-It's a novel approach that uses Rhodes (http://www.rhomobile.com/products/rhodes/) to create the application natively on either iOS, Android, etc. 
+It's a novel approach that uses Rhodes to create the application natively on either iOS, Android, etc. 
 
 My application is written in Ruby, HTML and JS. But has some cool features such as:
 - Can put movies into a watch later list
