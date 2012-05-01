@@ -38,6 +38,8 @@ Richard Race
 - Add Google API key to XBMC Config
 - Add Music support
 - Optimise Syncing of data
+- Add support for adding "Buy Later List" entries to be posted to CouchPotato (and SickBeard for TV Shows?)
+- Add support for barcode scanning to TV Seasons and Albums (when Music support implemented)
 
 ## Credits
 
