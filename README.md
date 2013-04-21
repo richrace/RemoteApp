@@ -35,11 +35,18 @@ Richard Race
 
 ## To Do
 
+No order of priority
+
 - Add Google API key to XBMC Config
 - Add Music support
 - Optimise Syncing of data
 - Add support for adding "Buy Later List" entries to be posted to CouchPotato (and SickBeard for TV Shows?)
 - Add support for barcode scanning to TV Seasons and Albums (when Music support implemented)
+- Refactor helpers into models + specs
+- Add specs for controllers
+- Add Frodo support + drop XBMC 10 (maybe 11)
+- Update to support latest version of Ruby + Rhodes
+- Update JQuery + JQM
 
 ## Credits
 
